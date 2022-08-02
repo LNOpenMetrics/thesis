@@ -1,4 +1,41 @@
 \setcounter{page}{1}
 \chapter{Lightning Network}
 
+\newcommand{\noteOnBitcoinNaming}[0]{
+    \footnote{
+        From now till the end of the document we will use the word Bitcoin Protocol and
+        Bitcoin with capitalized for identify the protocol, and the word bitcoin not capitalized to identify the currency
+    }
+}
+
+\newcommand{\noteOnCLNImpl}[0]{
+    \footnote{
+    core lightning is one of the main implementation today, and it is available at
+    {\href{https://github.com/ElementsProject/lightning}{https://github.com/ElementsProject/lightning}}
+    }
+}
+
+
+
 \section{Introduction}
+
+The \emph{Lightning Network} is a peer-to-peer protocol that propose a scalable solution for Bitcoin\noteOnBitcoinNaming with
+one of the goal to enable micro transaction with it. In fact, Bitcoin does not scale for a sequence of reason such as: the number of
+maximum rate transaction that the network can process.\\
+Therefore, with this limitation that are considered feature in Bitcoin protocol, the lightning network try to solve
+the problem by offer an \emph{off-chain} solution that enable peers to exchange partial
+singned transaction without violate the Bitcoin rules.\\
+Lightning Network is proposed for the first in the 2015 in a draft paper \cite{lightning-network-paper},
+and the first time implemented in the 2018 with the \emph{c-lightning}\noteOnCLNImpl (aka \emph{core lightning}) implementation.
+However, the protocol evolved over the years by a process of standardization\cite{lightning-bolts} and the paper is considered
+only a written idea on how to build an off-chain solution, without any definition of the current protocol state machine.
+
+\section{Off-Chain Protocol}
+What is an offchain protocol, and why we need it.
+
+\section{Lightning Network Communication Protocol}
+
+How the nodes talks, and how the transactions are propagated.
+
+\section{Lightning Network future evolution}
+eltoo

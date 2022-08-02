@@ -1,3 +1,12 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{lightning-network-paper}
+Joseph Poon and Thaddeus Dryja.
+\newblock {The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments}.
+\newblock In {\em {}}, January 2016.
+
+\bibitem{lightning-bolts}
+... Rusty~Russell, Christian~Decker.
+\newblock {Lightning Network Specification}.
 
 \end{thebibliography}
