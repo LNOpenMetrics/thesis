@@ -11,7 +11,7 @@
 \newcommand{\noteOnCLNImpl}[0]{
     \footnote{
     core lightning is one of the main implementation today, and it is available at
-    {\href{https://github.com/ElementsProject/lightning}{https://github.com/ElementsProject/lightning}}
+    \href{https://github.com/ElementsProject/lightning}{https://github.com/ElementsProject/lightning}
     }
 }
 
@@ -19,19 +19,28 @@
 
 \section{Introduction}
 
-The \emph{Lightning Network} is a peer-to-peer protocol that propose a scalable solution for Bitcoin\noteOnBitcoinNaming with
-one of the goal to enable micro transaction with it. In fact, Bitcoin does not scale for a sequence of reason such as: the number of
+The \emph{Lightning Network} is a peer-to-peer protocol that propose a scalable solution for Bitcoin\noteOnBitcoinNaming where one
+of the goal of the proposal is to be able to execute micro transaction with it.
+In fact, Bitcoin does not scale for a sequence of reason, and one of them is the number of
 maximum rate transaction that the network can process.\\
-Therefore, with this limitation that are considered feature in Bitcoin protocol, the lightning network try to solve
-the problem by offer an \emph{off-chain} solution that enable peers to exchange partial
-singned transaction without violate the Bitcoin rules.\\
+Therefore, with the awareness that some of these limitation that are feature in Bitcoin, the lightning network try to solve
+the scalability problem by offer an \emph{off-chain} solution that enable peers to exchange partial
+signed transaction without violate the Bitcoin rules.\\
 Lightning Network is proposed for the first in the 2015 in a draft paper \cite{lightning-network-paper},
 and the first time implemented in the 2018 with the \emph{c-lightning}\noteOnCLNImpl (aka \emph{core lightning}) implementation.
-However, the protocol evolved over the years by a process of standardization\cite{lightning-bolts} and the paper is considered
+However, the protocol is evolving over the years by a process of standardization\cite{lightning-bolts} and the paper is considered
 only a written idea on how to build an off-chain solution, without any definition of the current protocol state machine.
 
 \section{Off-Chain Protocol}
-What is an offchain protocol, and why we need it.
+
+The Bitcoin network has scalability problem in confront of the modern payment system that the people use daily.
+In particular, these problems are related to the space required by the blockchain to store each transaction,
+and the relative long time that is required to consider a transaction confirmed in the blockchain.
+
+In fact, the payment network Visa achieved around 65,000\cite{visa-sheet} transactions per second, and currently,
+Bitcoin supports around 7 transactions per second with a required space estimated of 1 megabyte per block. Considering,
+an average of 300 bytes per bitcoin transaction and assumed unlimited block sizes, the space for store the same number
+of transactions is estimated in the order of terabytes\cite{lightning-network-paper}.
 
 \section{Lightning Network Communication Protocol}
 
