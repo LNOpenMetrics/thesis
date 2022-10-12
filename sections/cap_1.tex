@@ -55,8 +55,81 @@ However, in the Bitcoin ecosystem (based on the Bitcoin Core implementation) the
 end of choice alternative, and some of the idea to solve the scalability of the protocol are proposed through Bitcoin Script trick
 that sometimes required a soft fork in the base protocol itsef.
 
-\section{Lightning Network Communication Protocol}
-How the nodes talks, and how the transactions are propagated.
+\section{Lightning Network Basics}
 
-\section{Lightning Network Possible Evolution}
-eltoo
+The actual Lightning Network is more complicated from what was described in \cite{lightning-network-paper}, and it is
+evolved a lot from the first time that the paper came out. However, the idea described in the paper was an evolution
+of some previous ideas regarding the possibility to have payment channels with Bitcoin.
+
+\subsection{Payment Channel}
+
+A Payment Channel also know as Micropayment Channel is class of techniques designed to allow users to make multiple
+Bitcoin transactions without commiting all of the transactions to the Bitcoin blockchain. In a typical payment channel,
+only two transactions are added to the blockchain but an unlimited or nearly unlimted number of payments
+can be made between the participants.
+
+In fact, the concept of replace an old transaction with the new one is proposed from \emph{Satoshi Nakamoto}\footnote{TODO: described who this guys is} in the mainlist\cite{payment-channels-satoshi}, and
+the basic concept to implement this feature was present from the version 0.0.1 of Bitcoin core. However, this solution
+was not completely safe because with this method there is the possibility to steal funds from the other party or parties.\\
+
+Later, there is a new proposal to implement this kind of concept is proposed called \emph{Spillman-style payment channels} and it is
+implemented inside a \emph{bitcoinj}\cite{bitcoinj-impl}. In this proposal, Spillman payment channels are unidirectional where
+there is a payer and a payee, and it is not possible to transfer money back in the reverse direction, and the payment
+channels expire after a specific time, and the receiver needs to close the channel before the expiration. However, this
+proposal has malleability problem solved later by the \emph{BIP65}\cite{bip65} proposal that include a new Bitcoin Script OP code
+called \emph{OP\_CHECKLOCKTIMEVERIFY} that unlock a new version of the \emph{Spillman-style payment channels}.
+
+While the idea of the payment channels start to be interesting around the Bitcoin community, two new proposal came out that are
+\emph{Poon-Dryja payment channels}\cite{lightning-network-paper} that it is currently used in the Lightning Network,
+and \emph{Decker-Wattenhofer duplex payment channels}\cite{Decker2015fast} where these two proposal try to improve the know state
+of the art by allowing more operation between the channels between two parties.
+
+In particular the Poon-Dryja payment channel allow .....
+
+
+In the other hand, the Decker-Wattenhofer duplex payment channel allow to have a .....
+
+\section{Lightning Network implementation}
+
+The basic idea of the Lightning Network is simple using the underline Bitcoin Script to allow the possibility to exchange
+not final transaction between participants. However, the actual Lightning Network implement a tech stack that looks more complicated
+as the Figure \ref{fig:lightning-stack} shows:
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=0.6\columnwidth]{imgs/mtln_0601.png}
+  \end{center}
+  \caption{Diagram provides an overview of these layers and their component protocols.}
+  \label{fig:lightning-stack}
+\end{figure}
+
+In fact, the Lightning Network implement a new \emph{Peer to Peer} protocol that exchange information between
+peer, regarding the actual status of the network. For this reason, the state machine of the Lightning Network
+can be very tricky in some specific case.
+
+In the following Section there is describe a general overview of how the Lightning Network is implemented through the
+\emph{BOLT} specification\footnote{BOLT: Basis of Lightning Technology (Lightning Network Specifications)}.
+
+\subsection{Lightning Network Specifications}
+
+Since 2017 the lightning network start to be expanded by implementing the idea in some different implementation,
+but due the hight overview of the Lightning Network state machine definition in \cite{lightning-network-paper}
+the implementation start to cooperate in a Specification where all the lightning implementation agree on.
+
+Therefore, the specification describe the following concept to allow full interoperability between implementation:
+
+\begin{itemize}
+  \item BOL 1: TODO
+  \item BOLT 2: TODO
+  \item BOLT 3: TODO
+  \item BOLT 4: TODO
+  \item BOLT 5: TODO
+  \item BOLT 6: TODO
+  \item BOLT 7: TODO
+  \item BOLT 8: TODO
+  \item BOLT 9: TODO
+  \item BOLT 10: TODO
+  \item BOLT 11: TODO
+\end{itemize}
+
+\section{Lightning Network Extension}

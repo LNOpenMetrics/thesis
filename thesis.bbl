@@ -1,5 +1,24 @@
 \begin{thebibliography}{1}
 
+\bibitem{bip65}
+BIP 65.
+\newblock {Bitcoin Improvement Proposals 65}.
+
+\bibitem{bitcoinj-impl}
+bitcoinj.
+\newblock {bitcoinj is a library for working with the Bitcoin protocol}.
+
+\bibitem{Decker2015fast}
+Christian Decker and Roger Wattenhofer.
+\newblock {A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment
+  Channels}.
+\newblock In {\em {17th International Symposium on Stabilization, Safety, and
+  Security of Distributed Systems (SSS), Edmonton, Canada}}, August 2015.
+
+\bibitem{payment-channels-satoshi}
+Mike Hearn.
+\newblock {[Bitcoin-development] Anti DoS for tx replacement}.
+
 \bibitem{lightning-network-paper}
 Joseph Poon and Thaddeus Dryja.
 \newblock {The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments}.

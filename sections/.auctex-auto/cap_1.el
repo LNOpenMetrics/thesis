@@ -3,6 +3,8 @@
  (lambda ()
    (TeX-add-symbols
     '("noteOnCLNImpl" 0)
-    '("noteOnBitcoinNaming" 0)))
+    '("noteOnBitcoinNaming" 0))
+   (LaTeX-add-labels
+    "fig:lightning-stack"))
  :latex)
 
