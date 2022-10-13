@@ -8,6 +8,10 @@ BIP 65.
 bitcoinj.
 \newblock {bitcoinj is a library for working with the Bitcoin protocol}.
 
+\bibitem{sphinx}
+George Danezis and Ian Goldberg.
+\newblock {Sphinx: A Compact and Provably Secure Mix Format}.
+
 \bibitem{Decker2015fast}
 Christian Decker and Roger Wattenhofer.
 \newblock {A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment

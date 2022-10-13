@@ -5,6 +5,7 @@
     '("noteOnCLNImpl" 0)
     '("noteOnBitcoinNaming" 0))
    (LaTeX-add-labels
-    "fig:lightning-stack"))
+    "fig:lightning-stack"
+    "sec:channel_state"))
  :latex)
 

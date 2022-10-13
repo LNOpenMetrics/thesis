@@ -72,7 +72,7 @@ In fact, the concept of replace an old transaction with the new one is proposed 
 the basic concept to implement this feature was present from the version 0.0.1 of Bitcoin core. However, this solution
 was not completely safe because with this method there is the possibility to steal funds from the other party or parties.\\
 
-Later, there is a new proposal to implement this kind of concept is proposed called \emph{Spillman-style payment channels} and it is
+Later, there is a new proposal to implement this kind of concept called \emph{Spillman-style payment channels} is proposed, and it is
 implemented inside a \emph{bitcoinj}\cite{bitcoinj-impl}. In this proposal, Spillman payment channels are unidirectional where
 there is a payer and a payee, and it is not possible to transfer money back in the reverse direction, and the payment
 channels expire after a specific time, and the receiver needs to close the channel before the expiration. However, this
@@ -112,24 +112,44 @@ In the following Section there is describe a general overview of how the Lightni
 
 \subsection{Lightning Network Specifications}
 
-Since 2017 the lightning network start to be expanded by implementing the idea in some different implementation,
-but due the hight overview of the Lightning Network state machine definition in \cite{lightning-network-paper}
+Since 2017 the lightning network start to be implemented by some company,
+and due the hight overview of the Lightning Network state machine definition in \cite{lightning-network-paper}
 the implementation start to cooperate in a Specification where all the lightning implementation agree on.
 
 Therefore, the specification describe the following concept to allow full interoperability between implementation:
 
 \begin{itemize}
-  \item BOL 1: TODO
-  \item BOLT 2: TODO
-  \item BOLT 3: TODO
-  \item BOLT 4: TODO
-  \item BOLT 5: TODO
-  \item BOLT 6: TODO
-  \item BOLT 7: TODO
-  \item BOLT 8: TODO
-  \item BOLT 9: TODO
-  \item BOLT 10: TODO
-  \item BOLT 11: TODO
+  \item BOLT 1: describe the basic of the protocol, like how a message is encode and what type of messages are required in order to support the communication;
+  \item BOLT 2: describe the peer to peer protocol for channels managements. This is one of the core concept of lightning, in fact after a payment channel
+        is settled up, the channels can have different cases that are described in the Section \ref{sec:channel_state}
+  \item BOLT 3: describe how the Bitcoin script language is used to compose the
+        payment channel, and what kind of Bitcoin transaction are involved.
+  \item BOLT 4: describe the onion routing protocol that it is used to exchange message between peers where in this case are called \emph{hop}.
+        The routing schema is based on the \emph{Sphinx}\cite{sphinx} construction and is extended with a per-hop payload.
+  \item BOLT 5: describe how the on-chain transaction should be handled.
+  \item BOLT 7: describe how the peer to peer node and channels are discovery through the network;
+  \item BOLT 8: describe all the authenticated and encrypted transport protocol;
+  \item BOLT 9: describe how the the feature flags\footnote{Feature flags that are used to establish what kind of feature are supported by a node} need to be managed;
+  \item BOLT 10: describe the DNS Bootstrap and Assisted Node Location;
+  \item BOLT 11: describe the invoice protocol for the lightnig network protocol;
 \end{itemize}
+
+To add a new feature inside the protocol it need to be discussed between implementations and when at least two implementation support the feature, it is considered standard.
+
+The actual implementations that are compliant and contribute to the lightning network specification are:
+
+\begin{itemize}
+  \item \emph{core lightning}:
+  \item \emph{lnd}:
+  \item \emph{ldk}:
+  \item \emph{eclair}:
+\end{itemize}
+
+\subsection{Lightning Network Channel State}
+\label{sec:channel_state}
+
+The channel state management define the state machine of the channels, and they are described in the BOLT 2 specification. Currently, it is a very complex
+state machine where there are involved several steps in order to avoid bad
+situation where a node can steal funds or lock the funds involve in the blockchain for a long period.
 
 \section{Lightning Network Extension}

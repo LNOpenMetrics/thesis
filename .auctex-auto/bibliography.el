@@ -8,6 +8,7 @@
     "visa-sheet"
     "payment-channels-satoshi"
     "bitcoinj-impl"
-    "bip65"))
+    "bip65"
+    "sphinx"))
  :bibtex)
 
