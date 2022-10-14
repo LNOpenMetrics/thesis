@@ -9,6 +9,8 @@
     "payment-channels-satoshi"
     "bitcoinj-impl"
     "bip65"
-    "sphinx"))
+    "bip68"
+    "sphinx"
+    "eltoo"))
  :bibtex)
 

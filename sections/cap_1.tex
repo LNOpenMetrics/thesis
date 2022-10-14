@@ -72,27 +72,48 @@ In fact, the concept of replace an old transaction with the new one is proposed 
 the basic concept to implement this feature was present from the version 0.0.1 of Bitcoin core. However, this solution
 was not completely safe because with this method there is the possibility to steal funds from the other party or parties.\\
 
-Later, there is a new proposal to implement this kind of concept called \emph{Spillman-style payment channels} is proposed, and it is
-implemented inside a \emph{bitcoinj}\cite{bitcoinj-impl}. In this proposal, Spillman payment channels are unidirectional where
+Later, there is a new proposal to implement this kind of concept called \emph{Spillman-style payment channels}, and it is
+implemented inside a \emph{bitcoinj}\cite{bitcoinj-impl}. Spillman payment channels are unidirectional where
 there is a payer and a payee, and it is not possible to transfer money back in the reverse direction, and the payment
 channels expire after a specific time, and the receiver needs to close the channel before the expiration. However, this
-proposal has malleability problem solved later by the \emph{BIP65}\cite{bip65} proposal that include a new Bitcoin Script OP code
+proposal has malleability problem solved later by the \emph{BIP  65}\cite{bip65} proposal that include a new Bitcoin Script OP code
 called \emph{OP\_CHECKLOCKTIMEVERIFY} that unlock a new version of the \emph{Spillman-style payment channels}.
 
-While the idea of the payment channels start to be interesting around the Bitcoin community, two new proposal came out that are
+While the idea of the payment channels start to be explored around the Bitcoin community, two new proposal came out that are
 \emph{Poon-Dryja payment channels}\cite{lightning-network-paper} that it is currently used in the Lightning Network,
 and \emph{Decker-Wattenhofer duplex payment channels}\cite{Decker2015fast} where these two proposal try to improve the know state
-of the art by allowing more operation between the channels between two parties.
+of the art by allowing more complex operations between two parties.\\
 
-In particular the Poon-Dryja payment channel allow .....
+In particular the Poon-Dryja payment channel is proposed in \cite{lightning-network-paper}, whe in these payment channels
+the funds are locked into a 2-of-2 multisig\footnote{TODO: cite a definition maybe in my betchelor},
+but before the funding transaction is even signed, commitment transactions for each party are first written and signed.
+
+This operation requires referring to transactions that have not been signed yet, it requires using a transaction
+format that separates signatures from the part of the transaction that is hashed to generate the txid, such as Segregated Witness.
+The proprieties of the Poon-Dryja payment channel is how the channels can be close:
+
+\begin{itemize}
+  \item Unilateral close: to close a channel required only that one side is involved. This is useful when one
+        of the party start to be unresponsive, and when this happens, the funds of
+        the party that closed the channel is temporarily timelocked, and this leave the opportunity to
+        track the special on chain transaction on the blockchain;
+  \item Bilateral close: to close a channel the two party cooperate, and when this happens the result
+        on chain transaction looks like a normal 2-2 multisig transaction.
+\end{itemize}
 
 
-In the other hand, the Decker-Wattenhofer duplex payment channel allow to have a .....
+In the other hand, the Decker-Wattenhofer duplex payment channel proposal came out at the same time with the previous proposal.
+It requires a new \emph{BIP 68}\cite{bip68} proposal that enforce a more strictly semantics on \emph{nSequence}, and the propose is to
+establish two unidirectional Spillman payment channels in both
+direction, but instead to be based on the lockTime these channels are based on nSequence.
+
+However, instead of funding unidirectional payment channels directly from an on-chain funding transaction, there is an \quotes{invalidation tree} of off-chain transactions between the funding transaction and the payment channel finalization transactions.
 
 \section{Lightning Network implementation}
 
-The basic idea of the Lightning Network is simple using the underline Bitcoin Script to allow the possibility to exchange
-not final transaction between participants. However, the actual Lightning Network implement a tech stack that looks more complicated
+The basic idea of the Lightning Network proposed in \cite{lightning-network-paper} is based on using Bitcoin Script
+to allow the possibility to exchange not final transaction between participants.
+However, the actual Lightning Network implement a tech stack that looks more complicated
 as the Figure \ref{fig:lightning-stack} shows:
 
 \begin{figure}[h]
@@ -103,18 +124,18 @@ as the Figure \ref{fig:lightning-stack} shows:
   \label{fig:lightning-stack}
 \end{figure}
 
-In fact, the Lightning Network implement a new \emph{Peer to Peer} protocol that exchange information between
-peer, regarding the actual status of the network. For this reason, the state machine of the Lightning Network
-can be very tricky in some specific case.
+In fact, the Lightning Network implement a new \emph{Peer to Peer} protocol that exchange information through
+a gossip protocol. For this reason, the state machine of the Lightning Network
+can be very complicated in some specific case.
 
 In the following Section there is describe a general overview of how the Lightning Network is implemented through the
 \emph{BOLT} specification\footnote{BOLT: Basis of Lightning Technology (Lightning Network Specifications)}.
 
 \subsection{Lightning Network Specifications}
 
-Since 2017 the lightning network start to be implemented by some company,
+Since 2017 the lightning network start to be implemented from different entities,
 and due the hight overview of the Lightning Network state machine definition in \cite{lightning-network-paper}
-the implementation start to cooperate in a Specification where all the lightning implementation agree on.
+the implementations start to cooperate in a Specification where all the lightning implementation agree on.
 
 Therefore, the specification describe the following concept to allow full interoperability between implementation:
 
@@ -139,17 +160,27 @@ To add a new feature inside the protocol it need to be discussed between impleme
 The actual implementations that are compliant and contribute to the lightning network specification are:
 
 \begin{itemize}
-  \item \emph{core lightning}:
-  \item \emph{lnd}:
-  \item \emph{ldk}:
-  \item \emph{eclair}:
+  \item \emph{core lightning}: it is the first implementation written in C, and it is written
+        to be a efficient solution for servers. In addition, it is focused on improve the lightning network specification. In fact, core lightning has several new proposal like the \emph{BOLT 12}\footnote{BOLT 12 is a new proposal to perform
+        lightning payment and improve several problem that exist in the BOLT 11.} implemented and in discusion to be
+        added inside the standard protocol;
+  \item \emph{lnd}: a lightning network implementation written in Go lang. It is one of the most used lightning network implementation in according with \footnote{add the topology paper there};
+  \item \emph{ldk}: a lightning network implementation written in rust, that provide the lightnig building blocks exposed as Library;
+  \item \emph{eclair}: a lightning network implementation written in Scala, widely used on mobile wallet, but it is written to
+        support server side too.
 \end{itemize}
 
-\subsection{Lightning Network Channel State}
+\subsection{Lightning Network Channel Operation}
 \label{sec:channel_state}
 
 The channel state management define the state machine of the channels, and they are described in the BOLT 2 specification. Currently, it is a very complex
 state machine where there are involved several steps in order to avoid bad
 situation where a node can steal funds or lock the funds involve in the blockchain for a long period.
 
+\subsection{Lightning Network Payments Forwards}
+
+Describe how the payment are forwarded
+
 \section{Lightning Network Extension}
+
+Describe Eltoo\cite{eltoo} payment channels.
