@@ -5,7 +5,11 @@
     '("noteOnCLNImpl" 0)
     '("noteOnBitcoinNaming" 0))
    (LaTeX-add-labels
+    "fig:ln-onchain"
     "fig:lightning-stack"
-    "sec:channel_state"))
+    "sec:channel_state"
+    "sec:open_a_channels"
+    "fig:channel-establishment"
+    "sec:payment_forwarding"))
  :latex)
 
