@@ -5,13 +5,13 @@
 \newcommand{\noteOnBitcoinNaming}[0]{
     \footnote{
         From now till the end of the document we will use the word Bitcoin Protocol and
-        Bitcoin with capitalized for identify the protocol, and the word bitcoin not capitalized to identify the currency
+        Bitcoin with capitalized to identify the protocol, and the word bitcoin not capitalized to identify the currency
     }
 }
 
 \newcommand{\noteOnCLNImpl}[0]{
     \footnote{
-    core lightning is one of the main implementation today, and it is available at
+    core lightning is one of the main implementations today, and it is available at
     \href{https://github.com/ElementsProject/lightning}{https://github.com/ElementsProject/lightning}
     }
 }
@@ -20,13 +20,13 @@
 
 \section{Introduction}
 
-The \emph{Lightning Network} is a peer-to-peer protocol that propose a scalable solution for Bitcoin\noteOnBitcoinNaming where one
-of the goal of the proposal is to be able to execute micro transaction with it.
-In fact, Bitcoin does not scale for a sequence of reason, and one of them is the number of
-maximum rate transaction that the network can process.\\
-Therefore, with the awareness that some of these limitation that are feature in Bitcoin, the lightning network try to solve
-the scalability problem by offer an \emph{off-chain} solution that enable peers to exchange partial
-signed transaction without violate the Bitcoin rules.\\
+The \emph{Lightning Network} is a peer-to-peer protocol that proposes a scalable solution for Bitcoin\noteOnBitcoinNaming where one
+of the goal of the proposal is to be able to execute micro-transaction with it.
+In fact, Bitcoin does not scale for a sequence of reasons, and one of them is the number of
+maximum rate transactions that the network can process.\\
+Therefore, with the awareness that some of these limitations that are feature in Bitcoin, the lightning network try to solve
+the scalability problem by offering an \emph{off-chain} solution that enables peers to exchange partially
+signed transaction without violating the Bitcoin rules.\\
 Lightning Network is proposed for the first time in the 2015 in a draft paper \cite{lightning-network-paper},
 and then implemented in the 2018 with the \emph{c-lightning}\noteOnCLNImpl (aka \emph{core lightning}) implementation.
 However, the protocol is evolving over the years by a process of standardization\cite{lightning-bolts}, and the paper is considered
@@ -34,72 +34,72 @@ only a written idea on how to build an off-chain solution without any definition
 
 \section{Off-Chain Protocol}
 
-The Bitcoin network has scalability problem in confront of the modern payment system that the people use daily.
+The Bitcoin network has scalability problems in confront of the modern payment system that people use daily.
 In particular, these problems are related to the space required by the blockchain to store each transaction,
-and the relative long time that is required to consider a transaction confirmed in the blockchain.
+and the relatively long time that is required to consider a transaction confirmed in the blockchain.
 
 In fact, the payment network Visa achieved around 65,000\cite{visa-sheet} transactions per second, and currently,
 Bitcoin supports around 7 transactions per second with a required space estimated of 1 megabyte per block. Considering,
-an average of 300 bytes per bitcoin transaction and assumed unlimited block sizes, the space for store the same number
+an average of 300 bytes per bitcoin transaction and assumed unlimited block sizes, the space for storing the same number
 of transactions is estimated in the order of terabytes\cite{lightning-network-paper}.
 
 Therefore, in order to use the Bitcoin protocol as an alternative of the current system for a subset of
-problem, such as the accessibility to the modern world to people that live in not developed places (e.g Africa),
-there is the need to scale the protocol.
+the problem, such as the accessibility to the modern world to people that live in not developed places (e.g Africa),
+there is a need to scale the protocol.
 
-This kind of problem is almost considered a well studied problem, and different solution are given in different
+This kind of problem is almost considered a well studied problem, and different solutions are given in different
 way, that most of the time required a hard fork (See Section \ref{sec:hard_vs_soft} for the definition of hard fork) of the protocol itself.
-One of the most popular hard fork example is given by the Bitcoin Cash that increase the block size to be able to insert
-inside a block more transaction.
+One of the most popular hard fork examples is given by Bitcoin Cash which increases the block size to be able to insert
+inside a block more transactions.
 However, in the Bitcoin ecosystem (based on the Bitcoin Core implementation) the idea of a hard fork is considered an
-end of choice alternative, and some of the idea to solve the scalability of the protocol are proposed through Bitcoin Script trick
-that sometimes required a soft fork in the base protocol itsef.
+end of choice alternative and some of the ideas to solve the scalability of the protocol are proposed through Bitcoin Script trick
+that sometimes required a soft fork in the base protocol itself.
 
 \section{Lightning Network Basics}
 
-The actual Lightning Network is more complicated from what was described in \cite{lightning-network-paper}, and it is
+The actual Lightning Network is more complicated than what was described in \cite{lightning-network-paper}, and it is
 evolved a lot from the first time that the paper came out. However, the idea described in the paper was an evolution
 of some previous ideas regarding the possibility to have payment channels with Bitcoin.
 
 \subsection{Payment Channel}
 
-A Payment Channel also know as Micropayment Channel is class of techniques designed to allow users to make multiple
-Bitcoin transactions without commiting all of the transactions to the Bitcoin blockchain. In a typical payment channel,
-only two transactions are added to the blockchain but an unlimited or nearly unlimted number of payments
+A Payment Channel also known as Micropayment Channel is class of techniques designed to allow users to make multiple
+Bitcoin transactions without committing all of the transactions to the Bitcoin blockchain. In a typical payment channel,
+only two transactions are added to the blockchain but an unlimited or nearly unlimited number of payments
 can be made between the participants.\\
-In fact, the concept of replace an old transaction with the new one is proposed from \emph{Satoshi Nakamoto}\footnote{TODO: described who this guys is} in the mainlist\cite{payment-channels-satoshi}, and
+In fact, the concept of replacing an old transaction with the new one is proposed from \emph{Satoshi Nakamoto}\footnote{TODO: described who this guy is} in the mainlist\cite{payment-channels-satoshi}, and
 the basic concept to implement this feature was present from the version 0.0.1 of Bitcoin core. However, this solution
 was not completely safe because with this method there is the possibility to steal funds from the other party or parties.\\
 
 Later, there is a new proposal to implement this kind of concept called \emph{Spillman-style payment channels}, and it is
 implemented inside a \emph{bitcoinj}\cite{bitcoinj-impl}. Spillman payment channels are unidirectional where
-there is a payer and a payee, in this kind of channels it is not possible to transfer money back in the reverse direction, and the payment
+there is a payer and a payee, in this kind of channel it is not possible to transfer money back in the reverse direction, and the payment
 channels expire after a specific time.
 In addition, the receiver needs to close the channel before the expiration time.
-However, this proposal has malleability problem solved later by the \emph{BIP  65}\cite{bip65} Bitcoin proposal that include a new Bitcoin Script OP code
+However, this proposal has malleability problems solved later by the \emph{BIP  65}\cite{bip65} Bitcoin proposal that includes a new Bitcoin Script OP code
 called \emph{OP\_CHECKLOCKTIMEVERIFY} that unlock a new version of the \emph{Spillman-style payment channels}.\\
-While the idea of the payment channels start to be explored around the Bitcoin community, two new proposal came out that are
+While the idea of payment channels start to be explored around the Bitcoin community, two new proposals came out that are
 \emph{Poon-Dryja payment channels}\cite{lightning-network-paper} (currently used in the Lightning Network),
-and \emph{Decker-Wattenhofer duplex payment channels}\cite{Decker2015fast} where these proposals try to improve the know state
-of the art by allowing more complex payment channels operations.
+and \emph{Decker-Wattenhofer duplex payment channels}\cite{Decker2015fast} where these proposals try to improve the known state
+of the art by allowing more complex payment channel operations.
 
-In particular the Poon-Dryja payment channel is proposed in \cite{lightning-network-paper}, where
+In particular, the Poon-Dryja payment channel is proposed in \cite{lightning-network-paper}, where
 the funds are locked into a 2-of-2 multisig\footnote{TODO: cite a definition maybe in my betchelor},
 but before the funding transaction is even signed, commitment transactions for each party are first written and signed.\\
 Therefore, these operation requires referring to transactions that have not been signed yet, and this requires to use a transaction
-format that separates signatures from the part of the transaction that is hashed to generate the txid, such as Segregated Witness.\\
-One of proprieties proposed by Poon-Dryja payment channel is how the channels can be close:
+the format that separates signatures from the part of the transaction that is hashed to generate the txid, such as Segregated Witness.\\
+One of the proprieties proposed by the Poon-Dryja payment channel is how the channels can be closed:
 
 \begin{itemize}
   \item Unilateral close: to close a channel required only that one side is involved. This is useful when one
         of the party start to be unresponsive, and when this happens, the funds of
-        the party that closed the channel is temporarily timelocked, and this leave the opportunity to
-        track the special on chain transaction on the blockchain;
-  \item Bilateral close: to close a channel the two party cooperate, and when this happens the result
-        on chain transaction looks like a normal 2-2 multisig transaction.
+        the party that closed the channel is temporarily time-locked, and this leaves the opportunity to
+        track the special on-chain transaction on the blockchain;
+  \item Bilateral close: to close a channel the two-party cooperate, and when this happens the result
+        on-chain transaction looks like a normal 2-2 multisig transaction.
 \end{itemize}
 
-In the other hand, the Decker-Wattenhofer duplex payment channel proposal came out at the same time with the previous proposal, and
+On the other hand, the Decker-Wattenhofer duplex payment channel proposal came out at the same time as the previous proposal, and
 it requires a new \emph{BIP 68}\cite{bip68} proposal that enforce a more strictly semantics on \emph{nSequence}, and the propose is to
 establish two unidirectional Spillman payment channels in both
 direction, where these channels referees to the nSequence instead of the nLockTime.\\
@@ -108,11 +108,11 @@ However, instead of funding unidirectional payment channels directly from an on-
 \section{Lightning Network implementation}
 
 The basic idea of the Lightning Network proposed in \cite{lightning-network-paper} is based on using Bitcoin Script
-to allow the possibility to exchange not final transaction between participants as the Figure \ref{fig:ln-onchain} shows.
-However, the actual Lightning Network implement a tech stack that looks more complicated (Figure \ref{fig:lightning-stack}).\\
-In fact, the Lightning Network implement a new \emph{Peer to Peer} protocol that exchange information through
+to allow the possibility to exchange not final transaction between participants as Figure \ref{fig:ln-onchain} shows.
+However, the actual Lightning Network implements a tech stack that looks more complicated (Figure \ref{fig:lightning-stack}).\\
+In fact, the Lightning Network implements a new \emph{Peer to Peer} protocol that exchanges information through
 a gossip protocol. For this reason, the state machine of the Lightning Network
-can be very complicated in some specific case.
+can be very complicated in some specific cases.
 
 \begin{figure}[h]
   \begin{center}
@@ -131,91 +131,91 @@ can be very complicated in some specific case.
   \label{fig:lightning-stack}
 \end{figure}
 
-In the following Section there is describe a general overview of how the Lightning Network is implemented through the
+The following Section there is described a general overview of how the Lightning Network is implemented through the
 \emph{BOLT} specification\footnote{BOLT: Basis of Lightning Technology (Lightning Network Specifications)}.
 
 \subsection{Lightning Network Specifications}
 
-Since 2017 the lightning network start to be implemented from different entities,
-and due the hight overview of the Lightning Network state machine definition in \cite{lightning-network-paper}
-the implementations start to cooperate in a Specification where all the lightning implementation agree on.
+Since 2017 the lightning network start to be implemented by different entities,
+and due the high overview of the Lightning Network state machine definition in \cite{lightning-network-paper}
+the implementations start to cooperate in a Specification that all the lightning implementations agree on.
 
-Therefore, the specification describe the following concept to allow full interoperability between implementation:
+Therefore, the specification describes the following concept to allow full interoperability between implementations:
 
 \begin{itemize}
-  \item BOLT 1: describe the basic of the protocol, like how a message is encode and what type of messages are required in order to support the communication;
-  \item BOLT 2: describe the peer to peer protocol for channels managements. This is one of the core concept of lightning, in fact after a payment channel
+  \item BOLT 1: describe the basics of the protocol, like how a message is encoded and what type of messages are required in order to support the communication;
+  \item BOLT 2: describe the peer-to-peer protocol for channels managements. This is one of the core concepts of lightning, in fact after a payment channel
         is settled up, the channels can have different cases that are described in the Section \ref{sec:channel_state}
   \item BOLT 3: describe how the Bitcoin script language is used to compose the
-        payment channel, and what kind of Bitcoin transaction are involved.
-  \item BOLT 4: describe the onion routing protocol that it is used to exchange message between peers where in this case are called \emph{hop}.
+        payment channel, and what kind of Bitcoin transactions are involved.
+  \item BOLT 4: describe the onion routing protocol that it is used to exchange messages between peers which in this case are called \emph{hop}.
         The routing schema is based on the \emph{Sphinx}\cite{sphinx} construction and is extended with a per-hop payload.
   \item BOLT 5: describe how the on-chain transaction should be handled.
-  \item BOLT 7: describe how the peer to peer node and channels are discovery through the network;
-  \item BOLT 8: describe all the authenticated and encrypted transport protocol;
-  \item BOLT 9: describe how the the feature flags\footnote{Feature flags that are used to establish what kind of feature are supported by a node} need to be managed;
+  \item BOLT 7: describe how the peer-to-peer node and channels are discovered through the network;
+  \item BOLT 8: describe all the authenticated and encrypted transport protocols;
+  \item BOLT 9: describe how the feature flags\footnote{Feature flags that are used to establish what kind of feature are supported by a node} need to be managed;
   \item BOLT 10: describe the DNS Bootstrap and Assisted Node Location;
-  \item BOLT 11: describe the invoice protocol for the lightnig network protocol;
+  \item BOLT 11: describe the invoice protocol for the lightning network protocol;
 \end{itemize}
 
-To add a new feature inside the protocol it need to be discussed between implementations and when at least two implementation support the feature, it is considered standard.\\
+To add a new feature inside the protocol it needs to be discussed between implementations and when at least two implementations supports the feature, it is considered standard.\\
 The actual implementations that are compliant and contribute to the lightning network specification are:
 
 \begin{itemize}
   \item \emph{core lightning}: it is the first implementation written in C, and it is written
-        to be a efficient solution for servers. In addition, it is focused on improve the lightning network specification. In fact, core lightning has several new proposal like the \emph{BOLT 12}\footnote{BOLT 12 is a new proposal to perform
-        lightning payment and improve several problem that exist in the BOLT 11.} implemented and in discusion to be
+        to be an efficient solution for servers. In addition, it is focused on improving the lightning network specification. In fact, core lightning has several new proposals like the \emph{BOLT 12}\footnote{BOLT 12 is a new proposal to perform
+        lightning payment and improve several problems that exists in the BOLT 11.} implemented and in discussion to be
         added inside the standard protocol;
-  \item \emph{lnd}: a lightning network implementation written in Go lang. It is one of the most used lightning network implementation in according with \footnote{add the topology paper there};
-  \item \emph{ldk}: a lightning network implementation written in rust, that provide the lightnig building blocks exposed as Library;
-  \item \emph{eclair}: a lightning network implementation written in Scala, widely used on mobile wallet, but it is written to
+  \item \emph{lnd}: a lightning network implementation written in Go lang. It is one of the most used lightning network implementations in according to \footnote{add the topology paper there};
+  \item \emph{ldk}: a lightning network implementation written in rust, that provides the lightning building blocks exposed as Library;
+  \item \emph{eclair}: a lightning network implementation written in Scala, widely used on mobile wallets, but it is written to
         support server side too.
 \end{itemize}
 
 \section{Lightning Network Channel Operation}
 \label{sec:channel_state}
 
-The channel state management define the state machine of the channels, and they are described in the BOLT 2 specification. Currently, it is a very complex
+The channel state management defines the state machine of the channels, and they are described in the BOLT 2 specification. Currently, it is a very complex
 state machine where there are involved several steps in order to avoid bad
-situation where a node can steal funds or lock the funds involve in the blockchain for a long period.\\
-In this section will be described a deep introduction to the primary operations to create and manage a channels.
+situations where a node can steal funds or lock the funds involved in the blockchain for a long period.\\
+In this section will be introduced a deep introduction to the primary operations to create and manage channels.
 
 \subsection{Channel Establishment}
 \label{sec:open_a_channels}
 
-Opening a channel between two peers involve several steps before arrive at the point to construct the Bitcoin transaction also
+Opening a channel between two peers involves several steps before arriving at the point to construct the Bitcoin transaction also
 known as \emph{funding transaction}.
-In fact, the Lightning Network protocol required a connection steps between the two peers start to opening a channel, this
+In fact, the Lightning Network protocol required connection steps between the two peers start to open a channel, this
 operation is defined inside the BOLT 2\cite{bolt2} as \emph{Channel Establishment}.
 
-For this reason, each public peer is exposed with one or more public ip address where
-they are listening for incoming connection, when a peer want to open
+For this reason, each public peer is exposed to one or more public IP addresses where
+they are listening for incoming connections when a peer wants to open
 a channel with a specific peer the following information must be provided:
 
 \begin{itemize}
-  \item Node ID: It is the node public key, differently from Bitcoin in this case it is public and it is one of the information included inside the gossip by the node;
-  \item Node IP address and port: Where the node it is listening for incoming connection.
+  \item Node ID: It is the node's public key, differently from Bitcoin in this case it is public and it is one of the information included inside the gossip by the node;
+  \item Node IP address and port: Where the node it is listening for an incoming connection.
 \end{itemize}
 
 In addition, most of the node support also the Tor network, but with the current usage of the protocol the Tor network provides very unreliable
 performance as discussed in the Section \ref{sec:payment_forwarding}.\\
 After the node is connected with the counterpart, the Channel Establishment can be performed, and a sequence
-of messages are exchanged (Figure \ref{fig:channel-establishment}). During this processed
-the following protocol message are involved:
+of messages is exchanged (Figure \ref{fig:channel-establishment}). During this process
+the following protocol messages are involved:
 
 \begin{itemize}
-  \item {\bf open\_channel}: The node that want to open a channel (sender) create an open channel message where the the information of the
+  \item {\bf open\_channel}: The node that wants to open a channel (sender) creates an open channel message where the information of the
         Blockchain Network are defined (It is not required that this network need to be the Bitcoin network);
-  \item {\bf accept\_channel}: The node that receive the open channel request (receiver) with the information of the Blockchain newtwork to use
+  \item {\bf accept\_channel}: The node that receives the open channel request (receiver) with the information of the Blockchain network to use
         can accept the request to open a channel by sending an accept channel message that contains the Blockchain network information, and
         a \emph{temporary\_channel\_id} generate from the peer information.
-  \item {\bf funding\_created}: The sender after receive the confirmation that the counterpart is ready to open a channel
+  \item {\bf funding\_created}: The sender after receiving the confirmation that the counterpart is ready to open a channel
         send a funding created message with the initial information of the funding transaction created as described in the Section \ref{sec:lightning_network_contract}
   \item {\bf funding\_signed}: After the sender communicate the initial information for the funding transaction, the
-        receiver can send the signature for the funding transaction through a funding signed message, and in this moment the temporarily
-        channel id sent in the previous steps can be override by a real channel id generated from the on chain transaction information.
-  \item {\bf funding\_lock}: The sender after commit the transaction on chain can send a message funding lock to the counterpart when
-        the on chain transaction has reach enough confirmation. This message is also know as \emph{channel\_ready} message in the BOLT 2\cite{bolt2}.
+        the receiver can send the signature for the funding transaction through a funding signed message, and at this moment the temporarily
+        channel id sent in the previous steps can be overridden by a real channel id generated from the on-chain transaction information.
+  \item {\bf funding\_lock}: The sender after committing the transaction on-chain can send a message funding lock to the counterpart when
+        the on-chain transaction has reached enough confirmation. This message is also know as \emph{channel\_ready} message in the BOLT 2\cite{bolt2}.
 \end{itemize}
 
 \begin{figure}[h]
