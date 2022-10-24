@@ -185,11 +185,11 @@ In this section will be introduced a deep introduction to the primary operations
 
 Opening a channel between two peers involves several steps before arriving at the point to construct the Bitcoin transaction also
 known as \emph{funding transaction}.
-In fact, the Lightning Network protocol required connection steps between the two peers start to open a channel, this
+In fact, the Lightning Network protocol requires some connection steps between the two peers start to open a channel, this
 operation is defined inside the BOLT 2\cite{bolt2} as \emph{Channel Establishment}.
 
-For this reason, each public peer is exposed to one or more public IP addresses where
-they are listening for incoming connections when a peer wants to open
+For this reason, each public peer is exposes to one or more public IP addresses where
+they are listening for incoming connections, and when a peer wants to open
 a channel with a specific peer the following information must be provided:
 
 \begin{itemize}
@@ -226,11 +226,37 @@ the following protocol messages are involved:
   \label{fig:channel-establishment}
 \end{figure}
 
+After the funding transaction is confirmed on the blockchain and the channel is ready to be used (this state of the channel is also know as \emph{normal state}),
+peers can perform lightning payments that can modify the state of the current channel, in the Section \ref{sec:modify_channel_state} is described how
+these operation are performed inside the protocol.
+
+\subsection{Modify Lightning Channel State}
+\label{sec:modify_channel_state}
+
+The Lightning network protocol complexity with the current implementation (defined in \cite{lightning-bolts})
+is generate from the channel state management that need to ensure that there are no situation that can
+cause  possibilities to lost funds from one participant.\\
+In fact, if one peer has an outdated channel state, and this state is shared with the network, the counterpart can
+detect this inconsistency between the real channel state and the one received. In this case, the peer can and must
+perform the punishment operation that the lightning network define in \cite{bolt2}, where the channel between the two peers
+is closed and the the receiver of the outdated channel state take all the currency involved.\\
+However, this operation of punishment can also be performed on peers that has bug in the software and publish an old state of the
+channel due a corrupted database. In this case propose like \cite{eltoo} described in the Section \ref{sec:eltoo} offers
+better solutions for channel state management.
+
+\subsubsection{Forwarding Lightning Payments}
+
+The Lightning Network protocol allow payments through the network by sending an partial sign transaction that
+allow peers to perform payment in the network.
+Therefore, in order to perform a payment the state the channel need to be alterate, and in some case the payment can involve
+different peers long a \emph{route path}.\\
+
 \section{Lightning Network Payments Forwards}
 \label{sec:payment_forwarding}
 
 Describe how the payment are forwarded
 
 \section{Lightning Network Extension}
+\label{sec:eltoo}
 
 Describe Eltoo\cite{eltoo} payment channels.

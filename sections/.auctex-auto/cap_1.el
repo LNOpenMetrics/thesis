@@ -10,6 +10,8 @@
     "sec:channel_state"
     "sec:open_a_channels"
     "fig:channel-establishment"
-    "sec:payment_forwarding"))
+    "sec:modify_channel_state"
+    "sec:payment_forwarding"
+    "sec:eltoo"))
  :latex)
 
