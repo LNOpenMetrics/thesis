@@ -5,3 +5,15 @@
 *.lol
 *.toc
 *.synctex.gz
+*.log
+*.pdf
+*.out
+*.lof
+*.lol
+*.toc
+*.gz
+*.blg
+*.fdb_latexmk
+*.fls
+*.aux
+*.auxlock

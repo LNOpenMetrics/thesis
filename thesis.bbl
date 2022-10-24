@@ -1,4 +1,35 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{bip65}
+BIP 65.
+\newblock {Bitcoin Improvement Proposals 65}.
+
+\bibitem{bip68}
+BIP 68.
+\newblock {Bitcoin Improvement Proposals 68}.
+
+\bibitem{bitcoinj-impl}
+bitcoinj.
+\newblock {bitcoinj is a library for working with the Bitcoin protocol}.
+
+\bibitem{eltoo}
+Rusty~Russell Christian~Decker and Olaoluwa Osuntokun.
+\newblock {eltoo: A Simple Layer2 Protocol for Bitcoin}.
+
+\bibitem{sphinx}
+George Danezis and Ian Goldberg.
+\newblock {Sphinx: A Compact and Provably Secure Mix Format}.
+
+\bibitem{Decker2015fast}
+Christian Decker and Roger Wattenhofer.
+\newblock {A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment
+  Channels}.
+\newblock In {\em {17th International Symposium on Stabilization, Safety, and
+  Security of Distributed Systems (SSS), Edmonton, Canada}}, August 2015.
+
+\bibitem{payment-channels-satoshi}
+Mike Hearn.
+\newblock {[Bitcoin-development] Anti DoS for tx replacement}.
 
 \bibitem{lightning-network-paper}
 Joseph Poon and Thaddeus Dryja.
@@ -8,5 +39,9 @@ Joseph Poon and Thaddeus Dryja.
 \bibitem{lightning-bolts}
 ... Rusty~Russell, Christian~Decker.
 \newblock {Lightning Network Specification}.
+
+\bibitem{visa-sheet}
+Visa.
+\newblock {Fact Sheet}.
 
 \end{thebibliography}
