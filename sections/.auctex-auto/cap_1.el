@@ -11,7 +11,9 @@
     "sec:open_a_channels"
     "fig:channel-establishment"
     "sec:modify_channel_state"
-    "sec:payment_forwarding"
+    "fig:commitment_transaction_example"
+    "fig:commitment_transaction_ln_messages"
+    "sec:close_operation"
     "sec:eltoo"))
  :latex)
 

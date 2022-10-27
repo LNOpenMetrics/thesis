@@ -212,8 +212,8 @@ the following protocol messages are involved:
   \item {\bf funding\_created}: The sender after receiving the confirmation that the counterpart is ready to open a channel
         send a funding created message with the initial information of the funding transaction created as described in the Section \ref{sec:lightning_network_contract}
   \item {\bf funding\_signed}: After the sender communicate the initial information for the funding transaction, the
-        the receiver can send the signature for the funding transaction through a funding signed message, and at this moment the temporarily
-        channel id sent in the previous steps can be overridden by a real channel id generated from the on-chain transaction information.
+        the receiver can send the signature for the \emph{refund transaction}\footnote{signature that allows the contraparty to claim her bitcoin back in case of protocol violation.} through a funding signed message, and at this moment the temporarily
+        channel id sent in the previous steps can be overridden by a real channel id generated from the funding transaction information.
   \item {\bf funding\_lock}: The sender after committing the transaction on-chain can send a message funding lock to the counterpart when
         the on-chain transaction has reached enough confirmation. This message is also know as \emph{channel\_ready} message in the BOLT 2\cite{bolt2}.
 \end{itemize}
@@ -244,19 +244,76 @@ However, this operation of punishment can also be performed on peers that has bu
 channel due a corrupted database. In this case propose like \cite{eltoo} described in the Section \ref{sec:eltoo} offers
 better solutions for channel state management.
 
-\subsubsection{Forwarding Lightning Payments}
+\subsection{Forwarding Lightning Payments}
 
 The Lightning Network protocol allow payments through the network by sending an partial sign transaction that
-allow peers to perform payment in the network.
+allow peers to perform payment.
 Therefore, in order to perform a payment the state the channel need to be alterate, and in some case the payment can involve
 different peers long a \emph{route path}.\\
+In fact, it is possible to send a payment to a peer directly connected with a channel, and send a payment to a peer
+that is not directly connected. In the last case, the peer need to perform a routing algorithm
+to find one of the best path to reach the target peer.
 
-\section{Lightning Network Payments Forwards}
-\label{sec:payment_forwarding}
+When the route is found the payment can be send across the channel or channels found by the ruouting algorithm, and this procedure
+required to redistribute the balance of the channel involve in the payment process.\\
+In fact, when the channel is opened as discussed in the section \ref{sec:open_a_channels} the full channel balance is distribute to the opener side,
+and a payment is possible only from $Opener \rightarrow Receiver$ but not viceversa.
 
-Describe how the payment are forwarded
+This update transaction is also known as \emph{commitment transaction} and in the Section \ref{sec:htlc_intro} is discussed how it is built.
+The Figure \ref{fig:commitment_transaction_example} shows a possible commitment transaction workflow.
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=0.6\columnwidth]{imgs/mtln_0706.png}
+  \end{center}
+  \caption{Commitment Transaction workflow example.}
+  \label{fig:commitment_transaction_example}
+\end{figure}
+
+
+To perform the commitment transaction operation a sequence of lightning network message are involved as show in the Figure \ref{fig:commitment_transaction_ln_messages}, and they are:
+
+\begin{itemize}
+  \item {\bf update\_add\_htlc}: TODO
+  \item {\bf commitment\_signed}: TODO
+  \item {\bf revoke\_and\_ack}: TODO
+  \item {\bf commitment\_signed}: TODO
+  \item {\bf revoke\_and\_ack}: TODO
+  \item {\bf update\_fulfill\_htlc}: TODO
+\end{itemize}
+
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=0.6\columnwidth]{imgs/mtln_0903.png}
+  \end{center}
+  \caption{Lightning Network protocol messages involved during a commitment transaction.}
+  \label{fig:commitment_transaction_ln_messages}
+\end{figure}
+
+
+\section{Close Lightning Network Channel}
+\label{sec:close_operation}
+
+At the current status of the implementation the Lightning Network protocol provides different cases where a channel can be closes such as:
+
+\begin{itemize}
+  \item Cooperational Closing: The channel parties arrives to an agreement where the channel can be close and the
+        \emph{closing transaction} (Section \ref{sec:htlc_intro}) can be brodcast on the blockchain and the funds involved released.
+  \item Unilateral Closing: One of the channel parties start to be unresponsive due some problem, such as technical problem, and the counterpart
+        decided to force close the channel, in this case TODO add the info on what changes if the channel is closed with a force close.
+  \item Closing operation caused by penality: There are some corner case briefly mentioned in \ref{sec:modify_channel_state} where a peer can voluntary or involuntary try
+        to cheet the other party by publish an old commitment transaction. In this case, the protocol provide a penality mechanism to identify
+        the cheet tentative, and protect the party by close the channel and move all the balance of it to the peer that was undergoing the attack.
+\end{itemize}
+
+TODO: add some words regarding the closing workflow, and how it is complex the close operation included the example that I found with multiple shutdown.
 
 \section{Lightning Network Extension}
 \label{sec:eltoo}
 
-Describe Eltoo\cite{eltoo} payment channels.
+By design the current Lightning Network protocol have to deal with punishment operation due some wrong behavior of some peer. Therefore, in order
+to find a solution to this problem and semplify the channel management different solution has been proposed.
+In this section, the Eltoo \cite{eltoo} solution proposed by Christian Decker, Rusty Russell, and Olauluwa Osuntokun in April 30, 2018 is described.
+
+TODO add the key concept to this and add some information and reference for the bitcoin script in the next section.
