@@ -41,11 +41,9 @@ and the relatively long time that is required to consider a transaction confirme
 In fact, the payment network Visa achieved around 65,000\cite{visa-sheet} transactions per second, and currently,
 Bitcoin supports around 7 transactions per second with a required space estimated of 1 megabyte per block. Considering,
 an average of 300 bytes per bitcoin transaction and assumed unlimited block sizes, the space for storing the same number
-of transactions is estimated in the order of terabytes\cite{lightning-network-paper}.
-
-Therefore, in order to use the Bitcoin protocol as an alternative of the current system for a subset of
-the problem, such as the accessibility to the modern world to people that live in not developed places (e.g Africa),
-there is a need to scale the protocol.
+of transactions is estimated in the order of terabytes\cite{lightning-network-paper}. Therefore, in order to use the Bitcoin
+protocol as an alternative of the current system for a subset of the problem, such as the accessibility to the modern world
+to people that live in not developed places (e.g Africa), there is a need to scale the protocol.
 
 This kind of problem is almost considered a well studied problem, and different solutions are given in different
 way, that most of the time required a hard fork (See Section \ref{sec:hard_vs_soft} for the definition of hard fork) of the protocol itself.
@@ -53,7 +51,7 @@ One of the most popular hard fork examples is given by Bitcoin Cash which increa
 inside a block more transactions.
 However, in the Bitcoin ecosystem (based on the Bitcoin Core implementation) the idea of a hard fork is considered an
 end of choice alternative and some of the ideas to solve the scalability of the protocol are proposed through Bitcoin Script trick
-that sometimes required a soft fork in the base protocol itself.
+where sometimes it is required a soft fork in the base protocol itself.
 
 \section{Lightning Network Basics}
 
@@ -102,7 +100,7 @@ One of the proprieties proposed by the Poon-Dryja payment channel is how the cha
 On the other hand, the Decker-Wattenhofer duplex payment channel proposal came out at the same time as the previous proposal, and
 it requires a new \emph{BIP 68}\cite{bip68} proposal that enforce a more strictly semantics on \emph{nSequence}, and the propose is to
 establish two unidirectional Spillman payment channels in both
-direction, where these channels referees to the nSequence instead of the nLockTime.\\
+direction, where these channels referees to the nSequence instead of the nLockTime.
 However, instead of funding unidirectional payment channels directly from an on-chain funding transaction, there is an \quotes{invalidation tree} of off-chain transactions between the funding transaction and the payment channel finalization transactions.
 
 \section{Lightning Network implementation}
@@ -255,7 +253,7 @@ that is not directly connected. In the last case, the peer need to perform a rou
 to find one of the best path to reach the target peer.
 
 When the route is found the payment can be send across the channel or channels found by the ruouting algorithm, and this procedure
-required to redistribute the balance of the channel involve in the payment process.\\
+required to redistribute the balance of the channels involve in the payment process.\\
 In fact, when the channel is opened as discussed in the section \ref{sec:open_a_channels} the full channel balance is distribute to the opener side,
 and a payment is possible only from $Opener \rightarrow Receiver$ but not viceversa.
 
