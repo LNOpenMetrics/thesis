@@ -61,11 +61,11 @@ of some previous ideas regarding the possibility to have payment channels with B
 
 \subsection{Payment Channel}
 
-A Payment Channel also known as Micro payment Channel is class of techniques designed to allow users to make multiple
+A Payment Channel also known as Micropayment Channel is class of techniques designed to allow users to make multiple
 Bitcoin transactions without committing all of the transactions to the Bitcoin blockchain. In a typical payment channel,
 only two transactions are added to the blockchain but an unlimited or nearly unlimited number of payments
 can be made between the participants.\\
-In fact, the concept of replacing an old transaction with the new one is proposed from \emph{Satoshi Nakamoto}\footnote{TODO: described who this guy is} in the main-list\cite{payment-channels-satoshi}, and
+In fact, the concept of replacing an old transaction with the new one is proposed from \emph{Satoshi Nakamoto}\footnote{TODO: described who this guy is} in the mainlist\cite{payment-channels-satoshi}, and
 the basic concept to implement this feature was present from the version 0.0.1 of Bitcoin core. However, this solution
 was not completely safe because with this method there is the possibility to steal funds from the other party or parties.\\
 
@@ -82,7 +82,7 @@ and \emph{Decker-Wattenhofer duplex payment channels}\cite{Decker2015fast} where
 of the art by allowing more complex payment channel operations.
 
 In particular, the Poon-Dryja payment channel is proposed in \cite{lightning-network-paper}, where
-the funds are locked into a 2-of-2 multisig\footnote{TODO: cite a definition maybe in my bachelor},
+the funds are locked into a 2-of-2 multisig\footnote{TODO: cite a definition maybe in my betchelor},
 but before the funding transaction is even signed, commitment transactions for each party are first written and signed.
 Therefore, these operation requires referring to transactions that have not been signed yet, and this requires to use a transaction
 the format that separates signatures from the part of the transaction that is hashed to generate the txid, such as Segregated Witness.\\
@@ -210,7 +210,7 @@ the following protocol messages are involved:
   \item {\bf funding\_created}: The sender after receiving the confirmation that the counterpart is ready to open a channel
         send a funding created message with the initial information of the funding transaction created as described in the Section \ref{sec:htlc_intro}
   \item {\bf funding\_signed}: After the sender communicate the initial information for the funding transaction, the
-        the receiver can send the signature for the \emph{refund transaction}\footnote{signature that allows the counterpart to claim her bitcoin back in case of protocol violation.} through a funding signed message, and at this moment the temporarily
+        the receiver can send the signature for the \emph{refund transaction}\footnote{signature that allows the contraparty to claim her bitcoin back in case of protocol violation.} through a funding signed message, and at this moment the temporarily
         channel id sent in the previous steps can be overridden by a real channel id generated from the funding transaction information.
   \item {\bf funding\_lock}: The sender after committing the transaction on-chain can send a message funding lock to the counterpart when
         the on-chain transaction has reached enough confirmation. This message is also know as \emph{channel\_ready} message in the BOLT 2\cite{bolt2}.
@@ -247,18 +247,16 @@ better solutions for channel state management.
 
 The Lightning Network protocol allow payments through the network by sending an partial sign transaction that
 allow peers to perform payment.
-Therefore, in order to perform a payment the state the channel need to be altered, and in some case the payment can involve
+Therefore, in order to perform a payment the state the channel need to be alterate, and in some case the payment can involve
 different peers long a \emph{route path}.\\
 In fact, it is possible to send a payment to a peer directly connected with a channel, and send a payment to a peer
 that is not directly connected. In the last case, the peer need to perform a routing algorithm
 to find one of the best path to reach the target peer.
 
-When the route is found the payment can be send across the channel or channels found by the routing algorithm, and this procedure
+When the route is found the payment can be send across the channel or channels found by the ruouting algorithm, and this procedure
 required to redistribute the balance of the channels involve in the payment process.\\
-Therefore, when the channel is opened as discussed in the section \ref{sec:open_a_channels} the full channel balance
-is distribute to the opener sidei\footnote{There is a proposal called \emph{dual funding channel} that allow the peers to open a channel
-  with the balance distribute across both direction},
-and a payment is possible only from $Opener \rightarrow Receiver$ but not vice-versa.
+Therefore, when the channel is opened as discussed in the section \ref{sec:open_a_channels} the full channel balance is distribute to the opener side,
+and a payment is possible only from $Opener \rightarrow Receiver$ but not viceversa.
 This update transaction is also known as \emph{commitment transaction} and in the Section \ref{sec:htlc_intro} is discussed how it is composed.
 The Figure \ref{fig:commitment_transaction_example} shows a possible commitment transaction workflow.
 
@@ -274,12 +272,12 @@ The Figure \ref{fig:commitment_transaction_example} shows a possible commitment 
 To perform the commitment transaction operation a sequence of lightning network message are involved as show in the Figure \ref{fig:commitment_transaction_ln_messages}, and they are:
 
 \begin{itemize}
-  \item {\bf update\_add\_htlc}: When the sender want modify a channel, and send a payment to the counterpart needs to send a message with information of the channel that need to be modified with the new amount. In addition, this message includes
-  the information regarding the onion rooting packet (Section \ref{sec:onion_rooting});
+  \item {\bf update\_add\_htlc}: When the sender want modify a channel, and send a payment to the contraparty needs to send a message with informations of the channel that need to be modified with the new amount. In addition, this message includes
+  the information regarding the onion rooting packet (Section \ref{sec:onion\_rooting});
   \item {\bf commitment\_signed}: The received of the update\_add\_htlc message confirm the operation by sending the signature for the new commitment transaction;
   \item {\bf revoke\_and\_ack}: The sender that received the signature of the new commitment transaction as confirmation of the update received. This message contains the revocation key of the sender to release the old commitment transaction, and the new information to construct the new revocation key, at this point the old commitment transaction is revoked.
-  \item {\bf commitment\_signed} and {\bf revoke\_and\_ack}: The receiver if the revoke message, the operation of revocation is perform in the opposite direction where the receiver begin the sender and vice-versa.
-  \item {\bf update\_fulfill\_htlc}: This message is send back to the sender to confirm that the payment is received, be the counterpart and to prove that the receiver send this message that contains the payment preimage that is used to verify the payment hash. The payment preimage is used as proof or payment\footnote{clarify the payment preimage workflow and where this payment is made.}
+  \item {\bf commitment\_signed} and {\bf revoke\_and\_ack}: The receiver if the revoke message, the operation of revocation is perform in the opposite direction where the receiver begin the sender and viceversa.
+  \item {\bf update\_fulfill\_htlc}: This message is send back to the sender to confirm that the payment is received, be the contraparty and to prove that the receiver send this message that contains the payment preimage that is used to verify the payment hash. The payment preimage is used as proof or payment\footnote{clarify the payment preimage workflow and where this payment is made.}
 \end{itemize}
 
 
@@ -298,23 +296,22 @@ To perform the commitment transaction operation a sequence of lightning network 
 At the current status of the implementation the Lightning Network protocol provides different cases where a channel can be closes such as:
 
 \begin{itemize}
-  \item Co-operational Closing: The channel parties arrives to an agreement where the channel can be close and the
-        \emph{closing transaction} (Section \ref{sec:htlc_intro}) can be broadcasted on the blockchain and the funds involved released.
+  \item Cooperational Closing: The channel parties arrives to an agreement where the channel can be close and the
+        \emph{closing transaction} (Section \ref{sec:htlc_intro}) can be brodcast on the blockchain and the funds involved released.
   \item Unilateral Closing: One of the channel parties start to be unresponsive due some problem, such as technical problem, and the counterpart
         decided to force close the channel.
-  \item Closing operation caused by penalty: There are some corner case briefly mentioned in \ref{sec:modify_channel_state} where a peer can voluntary or involuntary try to cheat the other party by publish an old commitment transaction. In this case, the protocol provide a penalty mechanism to identify the cheat tentative, and protect the party by close the channel and move all the balance of it to the peer that was undergoing the attack.
+  \item Closing operation caused by penality: There are some corner case briefly mentioned in \ref{sec:modify_channel_state} where a peer can voluntary or involuntary try to cheet the other party by publish an old commitment transaction. In this case, the protocol provide a penality mechanism to identify the cheet tentative, and protect the party by close the channel and move all the balance of it to the peer that was undergoing the attack.
 \end{itemize}
 
-TODO add information regarding how this operation is dangerus.
+
 
 \section{Onion Rooting}
-
 
 \section{Lightning Network Extension}
 \label{sec:eltoo}
 
 By design the current Lightning Network protocol have to deal with punishment operation due some wrong behavior of some peer. Therefore, in order
-to find a solution to this problem and simplify the channel management different solution has been proposed.
-In this section, the Eltoo\cite{eltoo} solution proposed by Christian Decker, Rusty Russell, and Olauluwa Osuntokun in April 30, 2018 is described.
+to find a solution to this problem and semplify the channel management different solution has been proposed.
+In this section, the Eltoo \cite{eltoo} solution proposed by Christian Decker, Rusty Russell, and Olauluwa Osuntokun in April 30, 2018 is described.
 
 TODO add the key concept to this and add some information and reference for the bitcoin script in the next section.
