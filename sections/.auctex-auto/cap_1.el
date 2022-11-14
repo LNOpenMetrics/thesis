@@ -14,6 +14,12 @@
     "fig:commitment_transaction_example"
     "fig:commitment_transaction_ln_messages"
     "sec:close_operation"
-    "sec:eltoo"))
+    "ex:onion_routing"
+    "fig:routing_path"
+    "ex:htl_onion_routing"
+    "fig:routing_path_htlc"
+    "sec:eltoo")
+   (LaTeX-add-environments
+    '("example" LaTeX-env-args ["argument"] 0)))
  :latex)
 

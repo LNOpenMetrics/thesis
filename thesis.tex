@@ -2,7 +2,6 @@
 
 \usepackage[english]{babel}
 \usepackage[top=1in, bottom=1in, left=1.4in, right=1in]{geometry}
-\usepackage{tcolorbox}
 \usepackage{url}
 \urlstyle{same}
 \pagestyle{plain}
@@ -44,7 +43,7 @@
     leftsub = \flq{},% 
     rightsub = \frq{} %
 ]{dirtytalk}
-
+\usepackage{tcolorbox}
 
 \hypersetup{
     colorlinks,
@@ -53,6 +52,7 @@
     linkcolor=black,
     urlcolor=black
 }
+
 \newcommand{\forceindent}{\leavevmode{\parindent=1em\indent}}
 \newcommand{\ou}{%
   \mathrel{%
@@ -63,6 +63,10 @@
 }
 
 \newcommand{\quotes}[1]{``#1''}
+
+\newcounter{example}[section]
+\newenvironment{example}[1][]{\refstepcounter{example}\par\medskip
+  \noindent \textbf{Example~\theexample. #1} \rmfamily}{\medskip}
 
 \tikzexternalize
 

@@ -256,7 +256,7 @@ to find one of the best path to reach the target peer.
 When the route is found the payment can be send across the channel or channels found by the routing algorithm, and this procedure
 required to redistribute the balance of the channels involve in the payment process.\\
 Therefore, when the channel is opened as discussed in the section \ref{sec:open_a_channels} the full channel balance
-is distribute to the opener sidei\footnote{There is a proposal called \emph{dual funding channel} that allow the peers to open a channel
+is distribute to the opener side\footnote{There is a proposal called \emph{dual funding channel} that allow the peers to open a channel
   with the balance distribute across both direction},
 and a payment is possible only from $Opener \rightarrow Receiver$ but not vice-versa.
 This update transaction is also known as \emph{commitment transaction} and in the Section \ref{sec:htlc_intro} is discussed how it is composed.
@@ -309,11 +309,75 @@ TODO add information regarding how this operation is dangerus.
 
 \section{Onion Rooting}
 
+In the Lightning Network it is used the onion routing to forward payments through a specific path.
+In particular it is used a \emph{Source Base Rooting} where the payment path it is specified by the sender.
+The goal of using the source base routing is to preserve the privacy along the path. For this reason, a peer that
+is forwarding a payment is able to know only the previous hop and the next hop, but there is any information
+about the sender or recipient of the payment.
+
+This section contains only an introduction an high overview of how the onion rooting works,
+and how it is used in the Lightning Network to forward HTLCs.
+
+\subsubsection{Onion Routing Basics}
+
+The base concept of onion routing is to build a packet in layers, where each peer can access only to the
+first onion encrypted layer. The layer is encrypted with the node id, so only the owner of the layer can access to it.
+The example \ref{ex:onion_routing} describe how the onion routing works across a routing path.
+
+\begin{example}
+  \label{ex:onion_routing}
+  Consider that Alice want to pay Dina with a Lightning Payment across a routing path generated as the Figure \ref{fig:routing_path} shows.
+  In particular, the routing packet built from Alice contains all the
+  information to reach the Destination, across a pre-calculated path.
+  In addition, it is also shows how each peer access only to the first layer (envelop in the figure) where it is possible to extract the information to the next hop.
+  The current peer is also unable to understand if the next hop is the destination or the previous hop is the source of the payment.
+
+  \begin{figure}[h]
+    \begin{center}
+      \includegraphics[width=0.6\columnwidth]{imgs/mtln_1007.png}
+    \end{center}
+    \caption{Onion Routing example to perform a payment from Alice to Dina.}
+    \label{fig:routing_path}
+  \end{figure}
+\end{example}
+
+\subsubsection{Onion Routing with HTLCs}
+
+Lightning Network protocol implement a custom version of the Onion Routing based on Sphinx \cite{cryptoeprint:2008/475}. In this case the onion routing
+goal is to forwards HTLC from the Source to the Destination and pay the fee to
+every single hop by modifying the amount forward the the next hop.
+
+Therefore, a extension of the example\ref{ex:onion_routing} shows how
+the HTLC forward with onion routing works.
+
+\begin{example}
+  \label{ex:htl_onion_routing}
+  Consider that Alice want pay Dina with a Lightning Payment, and Alice had all the
+  information that needs inside the \emph{gossip map}\footnote{The gossip map is a data structure that contains all the information that are gossiped through the network for each node. It is also known as Graph of the Network.} to feel the
+  onion packet by including the fee that each peer required to forward a payment
+  along the pre-calculated path. The Figure \ref{fig:routing_path_htlc} shows each node receive the HTLC with
+  amount $X$ and forward the packet to the next hop with an amount $x - node_{fee}$
+
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[width=0.6\columnwidth]{imgs/mtln_1008.png}
+    \end{center}
+    \caption{Onion Routing with HTLCs example to perform a payment from Alice to Dina.}
+    \label{fig:routing_path_htlc}
+  \end{figure}
+\end{example}
+
+The onion routing with HTLCs works pretty well in theory but the Lightning Network
+specification restrict in order to preserve the privacy the information regarding
+the channels balance for each node through the network, so the value
+propagate is the total amount of Bitcoin that are involved into opening a channel as described in \ref{sec:open_a_channels}.
+
+Therefore, in the example \ref{ex:htl_onion_routing} Alice has no idea if the current balance of the channel can support the payment amount\footnote{As described in the Section \ref{sec:open_a_channels} when a node open a channel the amount of Bitcoin is distribute all in one side}, and in order to mitigate this limitation of information, there is an unofficial payment technique called \emph{multi path payment} that split a single payment into chunks, and share each chunk across different path.
 
 \section{Lightning Network Extension}
 \label{sec:eltoo}
 
-By design the current Lightning Network protocol have to deal with punishment operation due some wrong behavior of some peer. Therefore, in order
+By design the current Lightning Network protocol have to deal with punishment operation due some bad behavior of some peer. Therefore, in order
 to find a solution to this problem and simplify the channel management different solution has been proposed.
 In this section, the Eltoo\cite{eltoo} solution proposed by Christian Decker, Rusty Russell, and Olauluwa Osuntokun in April 30, 2018 is described.
 
