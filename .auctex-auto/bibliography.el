@@ -12,6 +12,9 @@
     "bip68"
     "bolt2"
     "sphinx"
-    "eltoo"))
+    "eltoo"
+    "cryptoeprint:2008/475")
+   (LaTeX-add-environments
+    '("example" LaTeX-env-args ["argument"] 0)))
  :bibtex)
 

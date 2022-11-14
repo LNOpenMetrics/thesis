@@ -31,7 +31,6 @@
     "rep11"
     "babel"
     "geometry"
-    "tcolorbox"
     "url"
     "fancyhdr"
     "afterpage"
@@ -59,12 +58,17 @@
     "lipsum"
     "tabularx"
     "ltablex"
-    "dirtytalk")
+    "dirtytalk"
+    "tcolorbox")
    (TeX-add-symbols
     '("quotes" 1)
     "forceindent"
     "ou")
+   (LaTeX-add-environments
+    '("example" LaTeX-env-args ["argument"] 0))
    (LaTeX-add-bibliographies
-    "bibliography.bib"))
+    "bibliography.bib")
+   (LaTeX-add-counters
+    "example"))
  :latex)
 

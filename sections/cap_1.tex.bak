@@ -256,7 +256,7 @@ to find one of the best path to reach the target peer.
 When the route is found the payment can be send across the channel or channels found by the routing algorithm, and this procedure
 required to redistribute the balance of the channels involve in the payment process.\\
 Therefore, when the channel is opened as discussed in the section \ref{sec:open_a_channels} the full channel balance
-is distribute to the opener side\footnote{There is a proposal called \emph{dual funding channel} that allow the peers to open a channel
+is distribute to the opener sidei\footnote{There is a proposal called \emph{dual funding channel} that allow the peers to open a channel
   with the balance distribute across both direction},
 and a payment is possible only from $Opener \rightarrow Receiver$ but not vice-versa.
 This update transaction is also known as \emph{commitment transaction} and in the Section \ref{sec:htlc_intro} is discussed how it is composed.

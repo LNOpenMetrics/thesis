@@ -24,6 +24,12 @@ Rusty~Russell Christian~Decker and Olaoluwa Osuntokun.
 George Danezis and Ian Goldberg.
 \newblock {Sphinx: A Compact and Provably Secure Mix Format}.
 
+\bibitem{cryptoeprint:2008/475}
+George Danezis and Ian Goldberg.
+\newblock Sphinx: A compact and provably secure mix format.
+\newblock Cryptology ePrint Archive, Paper 2008/475, 2008.
+\newblock \url{https://eprint.iacr.org/2008/475}.
+
 \bibitem{Decker2015fast}
 Christian Decker and Roger Wattenhofer.
 \newblock {A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment

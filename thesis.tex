@@ -1,17 +1,12 @@
-%Carattere dimensione 12
-
 \documentclass[11pt]{report}
 
 \usepackage[english]{babel}
-%Margini e interlinea
 \usepackage[top=1in, bottom=1in, left=1.4in, right=1in]{geometry}
-\usepackage{tcolorbox}
 \usepackage{url}
 \urlstyle{same}
 \pagestyle{plain}
 \linespread{1.3}
 \usepackage{fancyhdr}
-%Librerie utili
 \usepackage{afterpage}
 \usepackage[utf8]{inputenc}
 \usepackage{libertine}
@@ -37,7 +32,6 @@
 \usepgfplotslibrary{external}
 \usepackage{hyperref}
 \usepackage{graphicx}
-%\usepackage{subcaption}
 \usepackage[T1]{fontenc}
 \usepackage{lipsum}  
 \usepackage{longtable}
@@ -49,6 +43,8 @@
     leftsub = \flq{},% 
     rightsub = \frq{} %
 ]{dirtytalk}
+\usepackage{tcolorbox}
+
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -56,6 +52,7 @@
     linkcolor=black,
     urlcolor=black
 }
+
 \newcommand{\forceindent}{\leavevmode{\parindent=1em\indent}}
 \newcommand{\ou}{%
   \mathrel{%
@@ -66,6 +63,10 @@
 }
 
 \newcommand{\quotes}[1]{``#1''}
+
+\newcounter{example}[section]
+\newenvironment{example}[1][]{\refstepcounter{example}\par\medskip
+  \noindent \textbf{Example~\theexample. #1} \rmfamily}{\medskip}
 
 \tikzexternalize
 
@@ -84,7 +85,6 @@
 \include{sections/cap_6}
 \include{sections/cap_7}
 
-% Rimuovere se non si vuole la tabella delle figure
 \listoffigures
 
 \appendix
