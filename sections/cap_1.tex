@@ -245,7 +245,7 @@ better solutions for channel state management.
 
 \subsection{Forwarding Lightning Payments}
 
-The Lightning Network protocol allow payments through the network by sending an partial sign transaction that
+The Lightning Network protocol allow operations through the network by sending a partial sign transaction that
 allow peers to perform payment.
 Therefore, in order to perform a payment the state the channel need to be altered, and in some case the payment can involve
 different peers long a \emph{route path}.\\
@@ -258,8 +258,9 @@ required to redistribute the balance of the channels involve in the payment proc
 Therefore, when the channel is opened as discussed in the section \ref{sec:open_a_channels} the full channel balance
 is distribute to the opener side\footnote{There is a proposal called \emph{dual funding channel} that allow the peers to open a channel
   with the balance distribute across both direction},
-and a payment is possible only from $Opener \rightarrow Receiver$ but not vice-versa.
-This update transaction is also known as \emph{commitment transaction} and in the Section \ref{sec:htlc_intro} is discussed how it is composed.
+and a payment is possible only from $Opener \rightarrow Receiver$ but not vice-versa. For this reason, to change the amount distribution
+of the channel the sender send a partial signed transaction to the receiver with the new information of the balance.
+This update transaction is also known as \emph{commitment transaction}\footnote{A commitment transaction is also know as Hash Time Lock Contract (HTLC)} and in the Section \ref{sec:htlc_intro} is discussed how it is composed.
 The Figure \ref{fig:commitment_transaction_example} shows a possible commitment transaction workflow.
 
 \begin{figure}[h]
@@ -274,7 +275,7 @@ The Figure \ref{fig:commitment_transaction_example} shows a possible commitment 
 To perform the commitment transaction operation a sequence of lightning network message are involved as show in the Figure \ref{fig:commitment_transaction_ln_messages}, and they are:
 
 \begin{itemize}
-  \item {\bf update\_add\_htlc}: When the sender want modify a channel, and send a payment to the counterpart needs to send a message with information of the channel that need to be modified with the new amount. In addition, this message includes
+  \item {\bf update\_add\_htlc}: When the sender want modify a channel, and send a payment to the counterpart, it needs to send a message with the information of the channel that need to be modified and including the new amount. In addition, this message includes
   the information regarding the onion rooting packet (Section \ref{sec:onion_rooting});
   \item {\bf commitment\_signed}: The received of the update\_add\_htlc message confirm the operation by sending the signature for the new commitment transaction;
   \item {\bf revoke\_and\_ack}: The sender that received the signature of the new commitment transaction as confirmation of the update received. This message contains the revocation key of the sender to release the old commitment transaction, and the new information to construct the new revocation key, at this point the old commitment transaction is revoked.
@@ -308,6 +309,7 @@ At the current status of the implementation the Lightning Network protocol provi
 TODO add information regarding how this operation is dangerus.
 
 \section{Onion Rooting}
+\label{sec:onion_routing}
 
 In the Lightning Network it is used the onion routing to forward payments through a specific path.
 In particular it is used a \emph{Source Base Rooting} where the payment path it is specified by the sender.
