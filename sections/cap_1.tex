@@ -306,7 +306,14 @@ At the current status of the implementation the Lightning Network protocol provi
   \item Closing operation caused by penalty: There are some corner case briefly mentioned in \ref{sec:modify_channel_state} where a peer can voluntary or involuntary try to cheat the other party by publish an old commitment transaction. In this case, the protocol provide a penalty mechanism to identify the cheat tentative, and protect the party by close the channel and move all the balance of it to the peer that was undergoing the attack.
 \end{itemize}
 
-TODO add information regarding how this operation is dangerus.
+In the Section \ref{sec:modify_channel_state} is described how the state of the channel is modified, and it is described what kind of information are
+exchange between the peers. In particular, the peers has all the necessaries information to broadcast on the blockchain an old commitment transaction.
+
+For this reason, the protocol contains a sequence of option with penalty where the node that will publish the old commitment transaction
+will receive a punishment operation that involve losing funds. However, this is not the more common bad behavior that can happens in
+the network, but it is possible that one of the peers begin unresponsive in the network for a period or forever
+and the counterpart is forced to Unilateral close the channel. This operation,
+required that the funds are locked for an amount of period, and it requires a much high on-chain fee cost for the peers involved.
 
 \section{Onion Rooting}
 \label{sec:onion_routing}
