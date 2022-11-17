@@ -245,7 +245,7 @@ better solutions for channel state management.
 
 \subsection{Forwarding Lightning Payments}
 
-The Lightning Network protocol allow payments through the network by sending an partial sign transaction that
+The Lightning Network protocol allow operations through the network by sending a partial sign transaction that
 allow peers to perform payment.
 Therefore, in order to perform a payment the state the channel need to be altered, and in some case the payment can involve
 different peers long a \emph{route path}.\\
@@ -258,8 +258,9 @@ required to redistribute the balance of the channels involve in the payment proc
 Therefore, when the channel is opened as discussed in the section \ref{sec:open_a_channels} the full channel balance
 is distribute to the opener side\footnote{There is a proposal called \emph{dual funding channel} that allow the peers to open a channel
   with the balance distribute across both direction},
-and a payment is possible only from $Opener \rightarrow Receiver$ but not vice-versa.
-This update transaction is also known as \emph{commitment transaction} and in the Section \ref{sec:htlc_intro} is discussed how it is composed.
+and a payment is possible only from $Opener \rightarrow Receiver$ but not vice-versa. For this reason, to change the amount distribution
+of the channel the sender send a partial signed transaction to the receiver with the new information of the balance.
+This update transaction is also known as \emph{commitment transaction}\footnote{A commitment transaction is also know as Hash Time Lock Contract (HTLC)} and in the Section \ref{sec:htlc_intro} is discussed how it is composed.
 The Figure \ref{fig:commitment_transaction_example} shows a possible commitment transaction workflow.
 
 \begin{figure}[h]
@@ -274,7 +275,7 @@ The Figure \ref{fig:commitment_transaction_example} shows a possible commitment 
 To perform the commitment transaction operation a sequence of lightning network message are involved as show in the Figure \ref{fig:commitment_transaction_ln_messages}, and they are:
 
 \begin{itemize}
-  \item {\bf update\_add\_htlc}: When the sender want modify a channel, and send a payment to the counterpart needs to send a message with information of the channel that need to be modified with the new amount. In addition, this message includes
+  \item {\bf update\_add\_htlc}: When the sender want modify a channel, and send a payment to the counterpart, it needs to send a message with the information of the channel that need to be modified and including the new amount. In addition, this message includes
   the information regarding the onion rooting packet (Section \ref{sec:onion_rooting});
   \item {\bf commitment\_signed}: The received of the update\_add\_htlc message confirm the operation by sending the signature for the new commitment transaction;
   \item {\bf revoke\_and\_ack}: The sender that received the signature of the new commitment transaction as confirmation of the update received. This message contains the revocation key of the sender to release the old commitment transaction, and the new information to construct the new revocation key, at this point the old commitment transaction is revoked.
@@ -305,9 +306,17 @@ At the current status of the implementation the Lightning Network protocol provi
   \item Closing operation caused by penalty: There are some corner case briefly mentioned in \ref{sec:modify_channel_state} where a peer can voluntary or involuntary try to cheat the other party by publish an old commitment transaction. In this case, the protocol provide a penalty mechanism to identify the cheat tentative, and protect the party by close the channel and move all the balance of it to the peer that was undergoing the attack.
 \end{itemize}
 
-TODO add information regarding how this operation is dangerus.
+In the Section \ref{sec:modify_channel_state} is described how the state of the channel is modified, and it is described what kind of information are
+exchange between the peers. In particular, the peers has all the necessaries information to broadcast on the blockchain an old commitment transaction.
+
+For this reason, the protocol contains a sequence of option with penalty where the node that will publish the old commitment transaction
+will receive a punishment operation that involve losing funds. However, this is not the more common bad behavior that can happens in
+the network, but it is possible that one of the peers begin unresponsive in the network for a period or forever
+and the counterpart is forced to Unilateral close the channel. This operation,
+required that the funds are locked for an amount of period, and it requires a much high on-chain fee cost for the peers involved.
 
 \section{Onion Rooting}
+\label{sec:onion_routing}
 
 In the Lightning Network it is used the onion routing to forward payments through a specific path.
 In particular it is used a \emph{Source Base Rooting} where the payment path it is specified by the sender.
@@ -368,7 +377,7 @@ the HTLC forward with onion routing works.
 \end{example}
 
 The onion routing with HTLCs works pretty well in theory but the Lightning Network
-specification restrict in order to preserve the privacy the information regarding
+specification restrict (in order to preserve the privacy) the information regarding
 the channels balance for each node through the network, so the value
 propagate is the total amount of Bitcoin that are involved into opening a channel as described in \ref{sec:open_a_channels}.
 
@@ -377,8 +386,22 @@ Therefore, in the example \ref{ex:htl_onion_routing} Alice has no idea if the cu
 \section{Lightning Network Extension}
 \label{sec:eltoo}
 
-By design the current Lightning Network protocol have to deal with punishment operation due some bad behavior of some peer. Therefore, in order
-to find a solution to this problem and simplify the channel management different solution has been proposed.
-In this section, the Eltoo\cite{eltoo} solution proposed by Christian Decker, Rusty Russell, and Olauluwa Osuntokun in April 30, 2018 is described.
+By design the current Lightning Network protocol have to deal with punishment operation due some wrong behavior or software error. For this reason, in order
+to find a solution to this problem and simplify the channel management different solutions have been proposed.
+In this section, the Eltoo\cite{eltoo} solution proposed by Christian Decker, Rusty Russell, and Olauluwa Osuntokun in April 30, 2018 is discussed.
 
-TODO add the key concept to this and add some information and reference for the bitcoin script in the next section.
+Eltoo is based on top of BIP 118 \cite{bip118} also known as \emph{SIGHASH\_NOINPUT} that introduced semantics change inside the Bitcoin Scrip language\footnote{Bitcoin Scrip is the language to descried smart contract on the Bitcoin blockchain.}, and turn the lightning network protocol to a no penalty base protocol.
+Therefore in this case the two parties creates the funding transaction denoted by \emph{Setup} in the Figure \ref{fig:eltoo_diagram_tx}.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.6\columnwidth]{imgs/1_USwvkUzr2-EHHkImnYz6gw.png}
+  \end{center}
+  \caption{Eltoo transaction diagram \cite{eltoo}.}
+  \label{fig:eltoo_diagram_tx}
+\end{figure}
+
+
+In addition, before signing the funding transaction, the two parties first need to sign a refund transaction called \emph{settlement transaction} which refunds in the funding transaction back to the owner (this is possible with the BIP 118\cite{bip118} proposal), and the Bitcoin script is described in the Section \ref{sec:eltoo_htlc}.
+
+In conclusion, the proposal drastically simplify the Lightning Network Protocol, but for the moment there is no implementation of it.
