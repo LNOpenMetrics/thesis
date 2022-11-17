@@ -10,6 +10,7 @@
     "bitcoinj-impl"
     "bip65"
     "bip68"
+    "bip118"
     "bolt2"
     "sphinx"
     "eltoo"

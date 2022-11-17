@@ -386,8 +386,22 @@ Therefore, in the example \ref{ex:htl_onion_routing} Alice has no idea if the cu
 \section{Lightning Network Extension}
 \label{sec:eltoo}
 
-By design the current Lightning Network protocol have to deal with punishment operation due some bad behavior of some peer. Therefore, in order
-to find a solution to this problem and simplify the channel management different solution has been proposed.
-In this section, the Eltoo\cite{eltoo} solution proposed by Christian Decker, Rusty Russell, and Olauluwa Osuntokun in April 30, 2018 is described.
+By design the current Lightning Network protocol have to deal with punishment operation due some wrong behavior or software error. For this reason, in order
+to find a solution to this problem and simplify the channel management different solutions have been proposed.
+In this section, the Eltoo\cite{eltoo} solution proposed by Christian Decker, Rusty Russell, and Olauluwa Osuntokun in April 30, 2018 is discussed.
 
-TODO add the key concept to this and add some information and reference for the bitcoin script in the next section.
+Eltoo is based on top of BIP 118 \cite{bip118} also known as \emph{SIGHASH\_NOINPUT} that introduced semantics change inside the Bitcoin Scrip language\footnote{Bitcoin Scrip is the language to descried smart contract on the Bitcoin blockchain.}, and turn the lightning network protocol to a no penalty base protocol.
+Therefore in this case the two parties creates the funding transaction denoted by \emph{Setup} in the Figure \ref{fig:eltoo_diagram_tx}.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.6\columnwidth]{imgs/1_USwvkUzr2-EHHkImnYz6gw.png}
+  \end{center}
+  \caption{Eltoo transaction diagram \cite{eltoo}.}
+  \label{fig:eltoo_diagram_tx}
+\end{figure}
+
+
+In addition, before signing the funding transaction, the two parties first need to sign a refund transaction called \emph{settlement transaction} which refunds in the funding transaction back to the owner (this is possible with the BIP 118\cite{bip118} proposal), and the Bitcoin script is described in the Section \ref{sec:eltoo_htlc}.
+
+In conclusion, the proposal drastically simplify the Lightning Network Protocol, but for the moment there is no implementation of it.

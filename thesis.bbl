@@ -1,5 +1,9 @@
 \begin{thebibliography}{10}
 
+\bibitem{bip118}
+BIP 118.
+\newblock {Bitcoin Improvement Proposals 119}.
+
 \bibitem{bolt2}
 BOLT 2.
 \newblock {Bolt 2}.
