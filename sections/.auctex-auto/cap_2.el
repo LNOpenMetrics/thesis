@@ -2,9 +2,8 @@
  "cap_2"
  (lambda ()
    (LaTeX-add-labels
-    "sec:hard_vs_soft"
-    "sec:htlc_intro"
-    "sec:eltoo_htlc")
+    "sec:basics"
+    "sec:htlc_intro")
    (LaTeX-add-environments
     '("example" LaTeX-env-args ["argument"] 0)))
  :latex)
