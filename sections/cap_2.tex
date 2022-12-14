@@ -57,11 +57,22 @@ is described a solution proposed to this problem.
 
 \section{Bitcoin Script}
 
-- How the process of publish a new transactions happens
 - How the transactions is a immutable concept and how the change transaction happens
 - How a transaction is verified and spendable by the correct person/people
 
 - Introduce an example that can be evolved long all the paper.
+
+At the core of Bitcoin Protocol there is a concept of transaction, and it is used to transfer value
+between users on the network. When a user is identified by a private and public wants, and the own of a
+Bitcoin transaction is expressed in the he possibility to unlock a Unspendable transaction output.
+
+The Bitcoin protocol do not express any concept of Bitcoin account, but there is a concept of address
+derived from a \emph{Bitcoin script} program encoded inside the transaction.
+
+A Bitcoin script is a simple, stack-based programming language used to encode the rules for a specific
+transaction or set of transactions on the Bitcoin network. Scripts are used to determine how the
+funds in a particular transaction can be spent, as well as to enforce certain rules on the network such as the owners
+of the bitcoin transactions.
 
 \subsection{Bitcoin Script Basics}
 
