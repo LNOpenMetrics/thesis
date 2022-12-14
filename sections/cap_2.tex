@@ -2,30 +2,66 @@
 
 \section{Introduction}
 
-The Bitcoin network is a decentralized, peer-to-peer digital currency system
-that allows users to send and receive payments without the need for a
-central authority. It is powered by a distributed ledger technology called the blockchain, which records and verifies all transactions on the network.
-Bitcoin is the first and most widely used cryptocurrency announced in the 2009
-in a white paper \cite{nakamoto2009bitcoin}\footnote{The author of the paper act as
-  Satoshi Nakamoto, and he disappear in the Bitcoin ecosystem after a while.}.
-
-The innovative idea proposed by Bitcoin was not a virtual currency that can be
-exchange on internet, but Bitcoin solves the problem of authority inside this kind
-of system, through a proof of work protocol previously described in a system called HashCash\cite{back2002hashcash}\footnote{HashCash was an early form of digital currency that was developed in 1997. It was designed to be used as a form of payment for email services, but it never gained widespread adoption. Unlike Bitcoin, HashCash was not decentralized and relied on a centralized system, making it vulnerable to fraud and manipulation.}
+Bitcoin is a digital currency that uses \emph{blockchain} technology to track
+and verify transactions. It was created in 2009 by an unknown individual or
+group using the pseudonym \emph{Satoshi Nakamoto}.
+Bitcoin is decentralized, meaning that it is not controlled by any government
+or institution. Instead, it relies on a network of computers around the world
+to process and verify transactions.
+The technology used is known with the name blockchain, and it is a transparent
+and secure record of all transactions that have
+ever occurred on the network.
 
 \section{Bitcoin Basics}
 \label{sec:basics}
 
-Describe how the bitcoin protocol work:
+One of the key features of Bitcoin is its limited supply. There will only ever
+be 21 million bitcoins in existence, and the rate at which new bitcoins are
+created is gradually decreasing. This built-in scarcity is one of the factors
+that makes Bitcoin valuable.
 
-- How a node can join to the network, and how the communication happens
+However, the innovative idea proposed by Bitcoin was not a virtual currency that can be
+exchange on internet, but Bitcoin solves the problem of authority inside this kind
+of system, through a proof of work protocol that was first proposed in a paper
+by Adam Back in 1997 called \quotes{Hashcash - A Denial of Service Counter-Measure}.
+
+In the context of Bitcoin, proof of work is a system that is used to secure the
+blockchain and prevent fraud. It is a mathematical algorithm that requires computers
+to perform a certain amount of computational work in order to create a new
+block of transactions on the blockchain.
+
+Therefore, the core ideas that make Bitcoin a solid cryptocurrency will limit the
+usage of Bitcoin, and a well known limitation of the Bitcoin network is the number of
+transactions that it can process per second. The current maximum is around 7 transactions
+per second, which is relatively low compared to other payment systems.
+
+This has led to congestion on the network such as in April of 2022 where the world start to
+see the power of some cryptocurrency like bitcoin, and some of the limitation of it in the usage.
+
+In fact, in the April of 2022 the number of transaction increase in the Network, and this
+impact of time confirmation time of the blockchain and also on the fee cost that the miner
+take to take in consideration a particular transaction.
+
+The reason for this limitation is that the size of each block on the Bitcoin blockchain is
+limited to 1 megabyte. This means that there is a physical limit to the number of transactions
+that can be included in a single block. In order to increase the number of transactions
+that the network can handle, the size of each block would need to be increased. However,
+this is a contentious issue and there is currently no consensus on how to do this.
+
+Overall, the limited number of transactions and the scalability issues on the Bitcoin network
+are significant challenges that need to be addressed in order for the network to continue
+to grow and evolve. There are various proposals and solutions being discussed,
+but it remains to be seen how these issues will be resolved. In the Section \ref{sec:lightning_network}
+is described a solution proposed to this problem.
+
+
+\section{Bitcoin Script}
+
 - How the process of publish a new transactions happens
 - How the transactions is a immutable concept and how the change transaction happens
 - How a transaction is verified and spendable by the correct person/people
 
 - Introduce an example that can be evolved long all the paper.
-
-\section{Bitcoin Script}
 
 \subsection{Bitcoin Script Basics}
 

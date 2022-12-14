@@ -16,11 +16,6 @@ BIP 65.
 BIP 68.
 \newblock {Bitcoin Improvement Proposals 68}.
 
-\bibitem{back2002hashcash}
-Adam Back et~al.
-\newblock Hashcash-a denial of service counter-measure, 2002.
-\newblock Accessed: 2016-03-09.
-
 \bibitem{bitcoinj-impl}
 bitcoinj.
 \newblock {bitcoinj is a library for working with the Bitcoin protocol}.
@@ -49,11 +44,6 @@ Christian Decker and Roger Wattenhofer.
 \bibitem{payment-channels-satoshi}
 Mike Hearn.
 \newblock {[Bitcoin-development] Anti DoS for tx replacement}.
-
-\bibitem{nakamoto2009bitcoin}
-Satoshi Nakamoto.
-\newblock Bitcoin: A peer-to-peer electronic cash system.
-\newblock May 2009.
 
 \bibitem{lightning-network-paper}
 Joseph Poon and Thaddeus Dryja.
