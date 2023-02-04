@@ -1,5 +1,3 @@
-\setcounter{page}{1}
-
 \chapter{Lightning Network}
 \label{sec:lightning_network}
 
@@ -103,6 +101,14 @@ it requires a new \emph{BIP 68}\cite{bip68} feature that enforce a more strictly
 establish two unidirectional Spillman payment channels in both
 direction, where these channels referees to the nSequence instead of the nLockTime.
 However, instead of funding unidirectional payment channels directly from an on-chain funding transaction, there is an \quotes{invalidation tree} of off-chain transactions between the funding transaction and the payment channel finalization transactions.
+
+\subsection{HTLC: Hash Time Locked Contract}
+\label{sec:htlc_intro}
+
+- Explain how the Transaction with a not standard script are used in lightning;
+- Explain how the Transaction are replaced and managed in lightning at bitcoin level;
+- Tell about bitcoin script and the segregated witness update;
+- Use the example before but with lightning, and highlight the benefit and the downside.
 
 \section{Lightning Network implementation}
 
