@@ -347,13 +347,10 @@ The example \ref{ex:onion_routing} describes how the onion routing works across 
   In addition, it also shows how each peer has access only to the first layer (envelope in the figure) where it is possible to extract the information to the next hop.
   The current peer is also unable to understand if the next hop is the destination or if the previous hop is the source of the payment.
 
-  \begin{figure}[h]
-    \begin{center}
-      \includegraphics[width=0.6\columnwidth]{imgs/mtln_1007.png}
-    \end{center}
-    \caption{Onion Routing example to perform a payment from Alice to Dina.}
-    \label{fig:routing_path}
-  \end{figure}
+  {\centering
+    \includegraphics[width=0.6\columnwidth]{imgs/mtln_1007.png}
+    \captionof{figure}{Onion Routing example to perform a payment from Alice to Dina.\label{fig:routing_path}}
+    \par}
 \end{example}
 
 \subsubsection{Onion Routing with HTLCs}
@@ -373,13 +370,10 @@ the HTLC forward with onion routing works.
   along the pre-calculated path. Figure \ref{fig:routing_path_htlc} shows each node receives the HTLC with
   amount $X$ and forward the packet to the next hop with an amount $x - node_{fee}$
 
-  \begin{figure}[H]
-    \begin{center}
+  {\centering
       \includegraphics[width=0.6\columnwidth]{imgs/mtln_1008.png}
-    \end{center}
-    \caption{Onion Routing with HTLCs example to perform a payment from Alice to Dina.}
-    \label{fig:routing_path_htlc}
-  \end{figure}
+      \captionof{figure}{Onion Routing with HTLCs example to perform a payment from Alice to Dina.\label{fig:routing_path_htlc}}
+  \par}  
 \end{example}
 
 The onion routing with HTLCs works pretty well in theory but the Lightning Network

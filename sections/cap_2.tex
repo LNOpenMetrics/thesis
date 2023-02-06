@@ -55,7 +55,7 @@ the Bitcoin unusable for small amount.
 Overall, the limited number of transactions and the scalability issues on the Bitcoin network
 are significant challenges that need to be addressed in order for the network to continue
 to grow and evolve. There are various proposals such as \emph{Side Chain} and \emph{Lightning Network}, 
-and in the Section \ref{sec:lightning_network} the Lightning Network protocol is discussed.
+where the Lightning Network is deep discussed inside the Section \ref{sec:lightning_network}.
 
 
 \section{Bitcoin Transaction}
@@ -127,7 +127,7 @@ of Bitcoin transaction:
 
     In this way now Alice consumed the UTXO that means spend bitcoins and Bob receive bitcoin by collecting UTXO that he owns. 
     If Bob want to pay Sara, he should repete the privious step and create a transaction output that Sara can own,
-    and the Figure \ref{fig:lockunlockexample} shows.
+    and the Figure \ref{fig:lockunlockexample} shows the example just described.
 
     {\centering
      \vspace{5pt}
@@ -137,30 +137,140 @@ of Bitcoin transaction:
      \par}
 \end{example}
 
-In this section there is only a generic discussion about the transactions, and it is not take into count 
+In this section there is only a generic discussion about the transactions, and it is not take into count
 what happens it the UTXO is not consumed in total! In the paper \cite{Palazzo_Estrazione_di_Informazioni_2021}
 there is a deep discussion on how the Bitcoin Transactions works.
 
 \section{Bitcoin Script}
 
-- Take the ownable transaction concept and introduce the bitcoin script
-- Introduce an example that can be evolved long all the paper.
-
 At the core of Bitcoin Protocol there is a concept of transaction, and it is used to transfer value
-between users on the network. When a user is identified by a private and public wants, and the own of a
-Bitcoin transaction is expressed in the he possibility to unlock a Unspendable transaction output.
+between users on the network, where in this kind of system a user is identified by a private and public key.
+In the Example \ref{ex:how_spend_bitcoin}, is described that Alice in order to pay Bob need to 
+own a transaction, and in other to spend this transaction that Alice owns, the wallet should
+create a new transaction capable of unlock the previous one. 
 
-The Bitcoin protocol do not express any concept of Bitcoin account, but there is a concept of address
-derived from a \emph{Bitcoin script} program encoded inside the transaction.
-
-A Bitcoin script is a simple, stack-based programming language used to encode the rules for a specific
-transaction or set of transactions on the Bitcoin network. Scripts are used to determine how the
-funds in a particular transaction can be spent, as well as to enforce certain rules on the network such as the owners
-of the bitcoin transactions.
+In this section we define what \emph{owns} a transactions means, and how it is possible
+unlock the this type of transaction with a new one. 
 
 \subsection{Bitcoin Script Basics}
 
-- Bitcoin Script basics, introduce how the bitcoin scrips works, and how may
-kind of scripts exists
+The input and output transaction described inside the Table \ref{tab:rawtxbitcoinc} are 
+implemented with a different struct as descrived inside the Table \ref{tab:tx_in_and_out}.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{p{5cm}p{5cm}}
+        \begin{tabular}{|c|c|}
+            \hline
+            \multicolumn{2}{|c|}{\textbf{TransactionInput}} \\
+            \hline \hline
+            \multicolumn{1}{|c|}{Type} & \multicolumn{1}{c|}{Name} \\
+            \hline
+            Outpoint & outpoint   \\
+            \hline
+            CScript & scriptSig \\
+            \hline
+            $uint32\_t$ & nSequence \\
+            \hline
+        \end{tabular}
+         &
+         \begin{tabular}{|c|c|}
+             \hline
+             \multicolumn{2}{|c|}{\textbf{TransactionOutput}} \\
+             \hline \hline
+             \multicolumn{1}{|c|}{Type} & \multicolumn{1}{c|}{Name} \\
+             \hline
+             $int64\_t$ & nValue   \\
+             \hline
+             CScript & scriptPubKey \\
+             \hline
+         \end{tabular}
+    \end{tabular}
+    \caption{Input and output transaction struct of Bitcoin Code.\cite{Palazzo_Estrazione_di_Informazioni_2021}}
+    \label{tab:tx_in_and_out}
+\end{table} 
+
+The more important type for this section, is the \emph{CScript} type that store the information
+the transaction owners. In particular, inside the input transaction the 
+input contains a condition that is able to unlock (verify) a previous 
+ouput transaction (UTXO) created, and the CScript inside the output
+transaction contains the condition that need to be verified in order unlock
+the transaction. The last case is also known as \emph{lock condition}.
+
+
+The condition are specified with a Stack Base language called \emph{Bitcoin Script},
+it is a stack base language and the particularities of this language are the
+limitation of it. 
+In fact, the language is not \emph{Turing Complete} and this mean that it is 
+not possible express complext operation or execute statefull programs as described 
+in \cite{Palazzo_Estrazione_di_Informazioni_2021}.
+
+The execution of the transaction has two possibile result, that are: 
+
+\begin{itemize}
+    \item {\bf True}: The unlock script has succeeded in fulfilling the 
+        conditions imposed by the lock script, 
+        and therefore the input is a valid authorization to spend UTXO;
+    \item {\bf False}: If some of the script condition are not verified.
+\end{itemize}
+
+The Bitcoin implementation (Bitcoin Core) implement different kind of scripts
+that are considered standart as discussed in \cite{Palazzo_Estrazione_di_Informazioni_2021},
+but the implementation also allow to run any kind of script, but in this case
+the transaction in not considered a standard one\footnote{Through not standard transaction are 
+implemented kind of program that are considered smart contract, such as Hash Time Lock contract, 
+used in the Lightning Network.}.
+
+\begin{example}
+    An example of standard transaction that use a particular script called \emph{pay-to-multisignature} (P2MS)
+    that define an M:N (many-to-many) condition where M is the minimum number of signatures required 
+    to verify the lock script and N is the total number of public keys. 
+
+    The maximum number of combinations allowed for a P2MS script is 15:15, but only 
+    combinations within the range of 3:3 are considered standard, instead all other combinations 
+    will be considered non-standard. The code \ref{code:p2ms} show a unlock condition:
+
+    \begin{lstlisting}[language=bitcoinscript, caption={Full example of pay-to-multisignature script.}, label={code:p2ms}]
+    OP_0 <A Signature> <B Signature>
+    OP_2 <Public key A> <Public key B> <Public key C> OP_3 OP_CHECKMULTISIG
+    \end{lstlisting}
+
+    OP\_0 acts as a placeholder for a bug in the implementation of OP\_CHECKMULTISIG, 
+    whose sole purpose is to work around a bug that has accidentally become a consensus rule. The stack 
+    will initially be populated with the values from the unlock script.
+    In this case the presence of the OP\_0 operator implies that the stack is empty when encountered, and 
+    an the stack state is shows in Figure \ref{fig:stackmultsing01}.
+
+    {\centering
+    \vspace{15pt}
+    \includegraphics[scale=0.35]{imgs/script/multisig/1.png}
+    \captionof{figure}{Stack state after the execution of the lock script (scriptSig) in thestack.\label{fig:stackmultsing01}}
+    \vspace{10pt}
+    \par}
+
+    The OP\_2 operator checks that there are 2 elements in the stack, then the three 
+    public keys are pushed onto the stack, resulting in a state as shown in Figure \ref{fig:stackmultsing02}
+
+    {\centering
+    \vspace{15pt}
+    \includegraphics[scale=0.35]{imgs/script/multisig/2.png}
+    \captionof{figure}{Stack state after the the check with the OP\_2 operator.\label{fig:stackmultsing02}}
+    \vspace{10pt}
+    \par}
+   
+    Finally, the signatures are verified against the public keys using the 
+    OP\_CHECKMULTISIG operator iteratively, meaning the first signature is compared to 
+    all the public keys and this action is repeated for all signatures pushed onto the stack, 
+    as shown in Figure \ref{fig:stackmultsing03}.
+ 
+    {\centering
+    \vspace{15pt}
+    \includegraphics[scale=0.35]{imgs/script/multisig/3.png}
+    \captionof{figure}{Esecuzione dell’operatore OP\_CHECKMULTISIG per la verifica delle chiavi \cite{learnmeabitcoin:p2ms}.\label{fig:stackmultsing03}}
+    \vspace{10pt}
+    \par}
+
+\end{example}
+
 - Introduce the Bitcoin no standard
 - Make a small zoom of what happens with the Bitcoin Script inside the example
