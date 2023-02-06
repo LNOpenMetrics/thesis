@@ -1,12 +1,13 @@
 FILE=thesis
 
-build: bib
+build:
+	pdflatex -interaction=nonstopmode -f "$(FILE).tex";
 
 bib:
-	pdflatex -interaction=nonstopmode "$(FILE).tex";
+	pdflatex -interaction=nonstopmode -f "$(FILE).tex";
 	bibtex "$(FILE).aux";
-	pdflatex -interaction=nonstopmode "$(FILE).tex";
-	pdflatex -interaction=nonstopmode "$(FILE).tex"
+	pdflatex -interaction=nonstopmode -f "$(FILE).tex";
+	pdflatex -interaction=nonstopmode -f "$(FILE).tex"
 
 view: build
 	open $(FILE).pdf

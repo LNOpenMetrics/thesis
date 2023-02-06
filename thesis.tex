@@ -43,7 +43,6 @@
     rightsub = \frq{} %
 ]{dirtytalk}
 \usepackage[longnamesfirst, authoryear]{natbib}
-\usepackage{booktabs}
 \usepackage{subcaption}
 \usepackage[breakable]{tcolorbox}
 \usepackage{listings}
@@ -95,10 +94,9 @@
 
 \newcommand{\quotes}[1]{``#1''}
 
-\tcbuselibrary{breakable}
 \newcounter{examplecounter}
 \newenvironment{example}{
-    \begin{tcolorbox}%
+    \begin{tcolorbox}[breakable]%
     \refstepcounter{examplecounter}%
     \textbf{Example \arabic{examplecounter}}%
 }{%
@@ -127,7 +125,7 @@
 \appendix
 
 \setcitestyle{square}
-\bibliographystyle{plain}
+\bibliographystyle{abbrv}
 \bibliography{bibliography.bib}
 
 \end{document}
