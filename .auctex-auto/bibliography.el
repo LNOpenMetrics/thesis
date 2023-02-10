@@ -14,7 +14,9 @@
     "bolt2"
     "sphinx"
     "eltoo"
-    "cryptoeprint:2008/475")
+    "cryptoeprint:2008/475"
+    "nakamoto2009bitcoin"
+    "back2002hashcash")
    (LaTeX-add-environments
     '("example" LaTeX-env-args ["argument"] 0)))
  :bibtex)

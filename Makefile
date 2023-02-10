@@ -1,6 +1,7 @@
 FILE=thesis
 
-build: bib
+build:
+	pdflatex -interaction=nonstopmode "$(FILE).tex";
 
 bib:
 	pdflatex -interaction=nonstopmode "$(FILE).tex";

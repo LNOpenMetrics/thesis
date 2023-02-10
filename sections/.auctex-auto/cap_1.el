@@ -5,6 +5,7 @@
     '("noteOnCLNImpl" 0)
     '("noteOnBitcoinNaming" 0))
    (LaTeX-add-labels
+    "sec:lightning_network"
     "fig:ln-onchain"
     "fig:lightning-stack"
     "sec:channel_state"

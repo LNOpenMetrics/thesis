@@ -1,5 +1,4 @@
 *.log
-*.pdf
 *.out
 *.lof 
 *.lol
@@ -15,5 +14,3 @@
 *.blg
 *.fdb_latexmk
 *.fls
-*.aux
-*.auxlock

@@ -54,8 +54,17 @@ Joseph Poon and Thaddeus Dryja.
 ... Rusty~Russell, Christian~Decker.
 \newblock {Lightning Network Specification}.
 
+\bibitem{Palazzo_Estrazione_di_Informazioni_2021}
+Palazzo Vincenzo and Carlo Sartiani.
+\newblock {Estrazione di Informazioni dalla Blockchain di Bitcoin}.
+\newblock {\em University of Basilicata thesis}, 1(1):1--60, 12 2019.
+
 \bibitem{visa-sheet}
 Visa.
 \newblock {Fact Sheet}.
+
+\bibitem{learnmeabitcoin:p2ms}
+Greg Walker.
+\newblock {Pay To Multisig}.
 
 \end{thebibliography}
