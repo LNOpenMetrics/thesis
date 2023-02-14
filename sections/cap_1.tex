@@ -33,7 +33,7 @@ only a written idea on how to build an off-chain solution without any definition
 
 \section{Off-Chain Protocol}
 
-The Bitcoin network has scalability problems in confront of the modern payment system that people use daily.
+The Bitcoin network has scalability problems compared with modern payment system that people use daily.
 In particular, these problems are related to the space required by the blockchain to store each transaction,
 and the relatively long time that is required to consider a transaction confirmed in the blockchain.
 
@@ -44,19 +44,21 @@ of transactions is estimated in the order of terabytes\cite{lightning-network-pa
 protocol as an alternative of the current system for a subset of the problem, such as the accessibility to the modern world
 to people that live in not developed places (e.g Africa), there is a need to scale the protocol.
 
-This kind of problem is almost considered a well-studied problem, and different solutions are given in different
-way and most of the time required a hard fork (See Section \ref{sec:hard_vs_soft} for the definition of a hard fork) of the protocol itself.
-One of the most popular hard fork examples is given by Bitcoin Cash which increases the block size to be able to insert
-inside a block more transactions.
+This kind of problem is almost considered a well-studied problem, and different 
+solutions are proposed, but most of the time these solitions requires a hard fork 
+of the protocol itself.
+One of the most popular hard fork examples is given by Bitcoin Cash which 
+increases the block size to be able to insert inside a block more transactions.
 However, in the Bitcoin ecosystem (based on the Bitcoin Core implementation) the idea of a hard fork is considered an
-end of choice alternative and some of the ideas to solve the scalability of the protocol are proposed through Bitcoin Script trick,
-and sometimes it is required a soft fork in the base protocol itself.
+end of choice alternative and some of the ideas to solve the scalability of the protocol are proposed through Bitcoin Script trick 
+by proposing a softwork of the Bitcoin protocol.
 
 \section{Lightning Network Basics}
 
 The actual Lightning Network is more complicated than what was described in \cite{lightning-network-paper}, and it is
 evolved a lot from the first time that the paper came out. However, the idea described in the paper was an evolution
-of some previous ideas regarding the possibility to have payment channels with Bitcoin.
+of some previous ideas regarding the possibility to have payment channels with Bitcoin, and in this section is 
+some of the initial propose are described.
 
 \subsection{Payment Channel}
 
@@ -64,7 +66,8 @@ A Payment Channel also known as Micropayment Channel is a class of techniques de
 Bitcoin transactions without committing all of the transactions to the Bitcoin blockchain. In a typical payment channel,
 only two transactions are added to the blockchain but an unlimited or nearly unlimited number of payments
 can be made between the participants.\\
-In fact, the concept of replacing an old transaction with the new one is proposed from \emph{Satoshi Nakamoto}\footnote{TODO: described who this guy is} in the main-list\cite{payment-channels-satoshi}, and
+In fact, the concept of replacing an old transaction with the new one is proposed from \emph{Satoshi Nakamoto}
+in the main-list\cite{payment-channels-satoshi}, and
 the basic concept to implement this feature was present from the version 0.0.1 of Bitcoin core. However, this solution
 was not completely safe because with this method there is the possibility to steal funds from the other party or parties.\\
 
@@ -81,10 +84,10 @@ and \emph{Decker-Wattenhofer duplex payment channels}\cite{Decker2015fast} where
 of the art by allowing more complex payment channel operations.
 
 In particular, the Poon-Dryja payment channel is proposed in \cite{lightning-network-paper}, where
-the funds are locked into a 2-of-2 multisig\footnote{TODO: cite a definition maybe in my bachelor},
+the funds are locked into a 2-of-2 multisig\cite{Palazzo_Estrazione_di_Informazioni_2019},
 but before the funding transaction is even signed, commitment transactions for each party are first written and signed.
 Therefore, these operation requires referring to transactions that have not been signed yet, and this requires to use a transaction
-the format that separates signatures from the part of the transaction that is hashed to generate the txid, such as Segregated Witness.\\
+the format that separates signatures from the part of the transaction that is hashed to generate the txid, such as Segregated Witness\cite{Palazzo_Estrazione_di_Informazioni_2019}.\\
 In addition, one of the proprieties proposed by the Poon-Dryja payment channel is how the channels can be closed:
 
 \begin{itemize}
@@ -97,17 +100,20 @@ In addition, one of the proprieties proposed by the Poon-Dryja payment channel i
 \end{itemize}
 
 On the other hand, the Decker-Wattenhofer duplex payment channel proposal came out at the same time as the previous proposal, and
-it requires a new \emph{BIP 68}\cite{bip68} feature that enforce a more strictly semantics on \emph{nSequence}, and the propose is to
+it requires a new \emph{BIP 68}\cite{bip68} feature that enforce a more strictly semantics on \emph{nSequence}, where the propose is to
 establish two unidirectional Spillman payment channels in both
-direction, where these channels referees to the nSequence instead of the nLockTime.
+direction, and these channels referees to the nSequence instead of the nLockTime.
 However, instead of funding unidirectional payment channels directly from an on-chain funding transaction, there is an \quotes{invalidation tree} of off-chain transactions between the funding transaction and the payment channel finalization transactions.
 
 \subsection{HTLC: Hash Time Locked Contract}
 \label{sec:htlc_intro}
 
 - Explain how the Transaction with a not standard script are used in lightning;
+
 - Explain how the Transaction are replaced and managed in lightning at bitcoin level;
+
 - Tell about bitcoin script and the segregated witness update;
+
 - Use the example before but with lightning, and highlight the benefit and the downside.
 
 \section{Lightning Network implementation}
@@ -203,7 +209,7 @@ a channel with a specific peer the following information must be provided:
 \end{itemize}
 
 In addition, most of the node support also the Tor network, but with the current usage of the protocol the Tor network provides very unreliable
-performance as discussed in Section \ref{sec:payment_forwarding}.\\
+performance as discussed in Section (TODO point to the problem Section).\\
 After the node is connected with the counterpart, the Channel Establishment can be performed, and a sequence
 of messages is exchanged (Figure \ref{fig:channel-establishment}). During this process
 the following protocol messages are involved:
@@ -283,11 +289,13 @@ To perform the commitment transaction operation a sequence of lightning network 
 
 \begin{itemize}
   \item {\bf update\_add\_htlc}: When the sender wants to modify a channel and send a payment to the counterpart, it needs to send a message with the information of the channel that needs to be modified and including the new amount. In addition, this message includes
-  the information regarding the onion rooting packet (Section \ref{sec:onion_rooting});
+  the information regarding the onion rooting packet (Section \ref{sec:onion_routing});
   \item {\bf commitment\_signed}: The received of the update\_add\_htlc message confirms the operation by sending the signature for the new commitment transaction;
   \item {\bf revoke\_and\_ack}: The sender that received the signature of the new commitment transaction as confirmation of the update received. This message contains the revocation key of the sender to release the old commitment transaction, and the new information to construct the new revocation key, at this point the old commitment transaction is revoked.
   \item {\bf commitment\_signed} and {\bf revoke\_and\_ack}: The receiver if the revoke message, the operation of revocation is performed in the opposite direction where the receiver begins the sender and vice-versa.
-  \item {\bf update\_fulfill\_htlc}: This message is sent back to the sender to confirm that the payment is received, be the counterpart, and to prove that the receiver send this message that contains the payment preimage that is used to verify the payment hash. The payment preimage is used as proof or payment\footnote{clarify the payment preimage workflow and where this payment is made.}
+  \item {\bf update\_fulfill\_htlc}: This message is sent back to the sender to confirm that the payment is received, 
+      be the counterpart, and to prove that the receiver send this message that contains the payment preimage 
+        that is used to verify the payment hash. The payment preimage is used as proof or payment\footnote{clarify the payment preimage workflow and where this payment is made.}
 \end{itemize}
 
 
@@ -404,6 +412,6 @@ Therefore in this case the two parties create the funding transaction denoted by
 \end{figure}
 
 
-In addition, before signing the funding transaction, the two parties first need to sign a refund transaction called \emph{settlement transaction} which refunds the funding transaction back to the owner (this is possible with the BIP 118\cite{bip118} proposal), and the Bitcoin script is described in the Section \ref{sec:eltoo_htlc}.
+In addition, before \cite{Palazzo_Estrazione_di_Informazioni_2019} need to sign a refund transaction called \emph{settlement transaction} which refunds the funding transaction back to the owner (this is possible with the BIP 118\cite{bip118} proposal), and the Bitcoin script is described in the Section \ref{sec:eltoo_htlc}.
 
 In conclusion, the proposal drastically simplify the Lightning Network Protocol, but for the moment there is no implementation of it.
