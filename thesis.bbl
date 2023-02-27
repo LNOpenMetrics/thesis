@@ -1,19 +1,19 @@
 \begin{thebibliography}{10}
 
 \bibitem{bip118}
-BIP 118.
+B.~118.
 \newblock {Bitcoin Improvement Proposals 119}.
 
 \bibitem{bolt2}
-BOLT 2.
+B.~2.
 \newblock {Bolt 2}.
 
 \bibitem{bip65}
-BIP 65.
+B.~65.
 \newblock {Bitcoin Improvement Proposals 65}.
 
 \bibitem{bip68}
-BIP 68.
+B.~68.
 \newblock {Bitcoin Improvement Proposals 68}.
 
 \bibitem{bitcoinj-impl}
@@ -21,41 +21,59 @@ bitcoinj.
 \newblock {bitcoinj is a library for working with the Bitcoin protocol}.
 
 \bibitem{eltoo}
-Rusty~Russell Christian~Decker and Olaoluwa Osuntokun.
+R.~R. Christian~Decker and O.~Osuntokun.
 \newblock {eltoo: A Simple Layer2 Protocol for Bitcoin}.
 
 \bibitem{sphinx}
-George Danezis and Ian Goldberg.
+G.~Danezis and I.~Goldberg.
 \newblock {Sphinx: A Compact and Provably Secure Mix Format}.
 
 \bibitem{cryptoeprint:2008/475}
-George Danezis and Ian Goldberg.
+G.~Danezis and I.~Goldberg.
 \newblock Sphinx: A compact and provably secure mix format.
 \newblock Cryptology ePrint Archive, Paper 2008/475, 2008.
 \newblock \url{https://eprint.iacr.org/2008/475}.
 
+\bibitem{lngossip}
+C.~Decker.
+\newblock Lightning network research topology datasets.
+\newblock \url{https://github.com/lnresearch/topology}.
+\newblock Accessed: 2020-10-01.
+
 \bibitem{Decker2015fast}
-Christian Decker and Roger Wattenhofer.
+C.~Decker and R.~Wattenhofer.
 \newblock {A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment
   Channels}.
 \newblock In {\em {17th International Symposium on Stabilization, Safety, and
   Security of Distributed Systems (SSS), Edmonton, Canada}}, August 2015.
 
 \bibitem{payment-channels-satoshi}
-Mike Hearn.
+M.~Hearn.
 \newblock {[Bitcoin-development] Anti DoS for tx replacement}.
 
+\bibitem{DBLP:journals/corr/abs-2103-08576}
+R.~Pickhardt, S.~Tikhomirov, A.~Biryukov, and M.~Nowostawski.
+\newblock Security and privacy of lightning network payments with uncertain
+  channel balances.
+\newblock {\em CoRR}, abs/2103.08576, 2021.
+
 \bibitem{lightning-network-paper}
-Joseph Poon and Thaddeus Dryja.
+J.~Poon and T.~Dryja.
 \newblock {The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments}.
 \newblock In {\em {}}, January 2016.
 
 \bibitem{lightning-bolts}
-... Rusty~Russell, Christian~Decker.
+.~Rusty~Russell, Christian~Decker.
 \newblock {Lightning Network Specification}.
 
+\bibitem{cryptoeprint:2022/1454}
+C.~Shikhelman and S.~Tikhomirov.
+\newblock Unjamming lightning: A systematic approach.
+\newblock Cryptology ePrint Archive, Paper 2022/1454, 2022.
+\newblock \url{https://eprint.iacr.org/2022/1454}.
+
 \bibitem{Palazzo_Estrazione_di_Informazioni_2021}
-Palazzo Vincenzo and Carlo Sartiani.
+P.~Vincenzo and C.~Sartiani.
 \newblock {Estrazione di Informazioni dalla Blockchain di Bitcoin}.
 \newblock {\em University of Basilicata thesis}, 1(1):1--60, 12 2019.
 
@@ -64,7 +82,7 @@ Visa.
 \newblock {Fact Sheet}.
 
 \bibitem{learnmeabitcoin:p2ms}
-Greg Walker.
+G.~Walker.
 \newblock {Pay To Multisig}.
 
 \end{thebibliography}

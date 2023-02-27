@@ -1,3 +1,52 @@
-\chapter{Problem}
+\chapter{Problem and State of the Art}
 
-\section{Introduction}
+\section{Problem}
+
+The Lightning Network protocol as described in \ref{sec:lightning_network} is 
+driven by a consensius between group of implementors in order to standardize
+a feature. Where most of the time in order to adress a well known problem a data 
+driven analysis on a groupd of nodes it is required in order to emphasize the
+problem and sometimes also to see the real impact of the solution after be 
+implemented but before begin a standard.
+However, in order to perform a data driven analysis in an ecosystem where the decision
+is drive by a kind of consensius, it is required also to some kind of 
+constraint on how this data driven analysis is perform and analyzed across 
+different implementations.
+
+\subsection{Data Drive Analysis on the Lightning Network}
+
+Currently the most common data driven analysis on the Lightning Network is performed 
+on gossip data that any node can with at least one public channel can 
+have access to. An example of this kind analysis is descrived in \cite{lngossip}
+where the data are collected from core lightning and archived.
+
+However, at the current state of the art there is no example on how to perform
+an data driven analysis on local data collected across implementations to 
+analyze the current daily behaivord of a node in a real envoirment, but there
+are a notorius number of reseach that can receive more attention if was 
+descrived with a data analysis on real nodes such as \cite{DBLP:journals/corr/abs-2103-08576} 
+and \cite{cryptoeprint:2022/1454}.
+
+
+\subsection{Local Data Driven Analysis}
+
+Today perform a data driven analysis on local data that are considered private
+is difficult because there is no real data available where to perform simulation
+other that the one provided by reseach tool such as \cite{lngossip}.
+Therefore, this lack of data can slow down the reseach process or limit the 
+reseach scope because currently the reseacher that are not Lightning Network
+developer have no access to local data because it is required to run a 
+Lightning Node with real bitcoin involved, or perform the analysis on a 
+testnet Network that it is not reliable like the real one as described in 
+\ref{sec:solution}. 
+Another problem caused by this lack of data is that the reseach propose till now
+are pure teoretycally and in this way the implementors are required to deep 
+understanding the problem (and this is not always possible) and move the 
+assumtion to implementation specific values, and most of the time this required
+another data driven analysis.
+
+\section{State of the Art}
+
+\subsection{Probabilistic Path Finding}
+
+\subsection{Jamming Attach on Lightning}
