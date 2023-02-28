@@ -16,7 +16,7 @@ different implementations.
 \subsection{Data Drive Analysis on the Lightning Network}
 
 Currently the most common data driven analysis on the Lightning Network is performed 
-on gossip data that any node can with at least one public channel can 
+on gossip data where any node can with at least one public channel can 
 have access to. An example of this kind analysis is descrived in \cite{lngossip}
 where the data are collected from core lightning and archived.
 
@@ -34,19 +34,95 @@ Today perform a data driven analysis on local data that are considered private
 is difficult because there is no real data available where to perform simulation
 other that the one provided by reseach tool such as \cite{lngossip}.
 Therefore, this lack of data can slow down the reseach process or limit the 
-reseach scope because currently the reseacher that are not Lightning Network
-developer have no access to local data because it is required to run a 
-Lightning Node with real bitcoin involved, or perform the analysis on a 
-testnet Network that it is not reliable like the real one as described in 
-\ref{sec:solution}. 
-Another problem caused by this lack of data is that the reseach propose till now
-are pure teoretycally and in this way the implementors are required to deep 
-understanding the problem (and this is not always possible) and move the 
-assumtion to implementation specific values, and most of the time this required
-another data driven analysis.
+reseach scope because collect real data required to run a lightning node 
+with real bitcoin involved, or perform the analysis on a 
+testnet network, but this kind of networks are not reliable such as 
+the real one as described in \ref{sec:solution}. 
+
+In addition, another problem caused by this lack of data is the quality impact
+of an implementation of the solution proposed because in these cases 
+the implementors are required to deep understanding the problem 
+in order to trasform an assumtion to implementation specific values, 
+and this can required another data driven analysis.
 
 \section{State of the Art}
 
 \subsection{Probabilistic Path Finding}
 
+In the Section \ref{sec:modify_channel_state} is described how the payment are
+forwarded across the network, and also how it is difficult perform an efficient 
+path finding without know the exact amount of a channel. 
+In order to improve the current Dijkstra algorith \cite{DBLP:journals/corr/abs-2103-08576}
+proposo a probabilistic approach.
+The paper \cite{DBLP:journals/corr/abs-2103-08576} uses probability theory to 
+model the uncertainty of channel balances by considering the single channel, 
+and then generalize the solution to multi-hop payment flow.
+
+The Lightning Network graph can be seen such as a transportation network 
+defined as a graph $G = (V, E)$ where each edges $(u, v) \in E$ has a 
+a maximum capacity $C(u, v) \ge 0$.
+
+In addition, each edge $(u, v)$ in the network has a parallel edge $(v, u)$ 
+with a capacity $c(v, u)$ where the sum of the parallel edge capacity is
+equal to the max capacity $C$. More formally is that 
+
+\begin{center}
+    $\forall (u, v) \in E \: \exists \: (u, v) \in E \: \rightarrow \: C(u, v) = c(u, v) + c(v, v)$.
+\end{center}
+
+Then, payment of an amount $a$ between two vertexes $(u, v)$ in the network is defined 
+as a path between $u$ and $v$ where each vertex has different fee that need to payed for a 
+single unit of flow, and also has a base fee that it is payed anyway.
+
+\begin{definition}
+    Cost of each edges $(u, v) \in E$ is defined as $fee = base(u, v) + perUnit(u, v)$.
+\end{definition}
+
+In addition, the last constrain in this kind of transportation network, is the 
+unknown exactly capacity of the edge $c(u, v)$, and the only information provided 
+is the maximum capacity $C(u, v)$.
+The probabilistic solution is defined as follow: Given by a random variable $X = [0 \dots c]$ where $c$ i
+s a integer bounded to the max capacity of the network. We define the probability 
+$P \rightarrow [0, 1]$ such as $P(X = b)$ where $b$ is the balance to sent.
+Then the \emph{channel failure probility} and \emph{channel sucess probability} are defined as follow:
+
+\begin{definition}
+   The {\bf channel failure probability} is defined as $P(X < amount) = \sum_{x = 0}^{amount - 1} P(X = x)$ 
+\end{definition}
+
+\begin{definition}
+    The {\bf channel success probability} is defined as $P(X > amount) = 1 -  P(X < amount)$
+\end{definition}
+
+After several consideration, in an analogous way is calculate the \emph{path success probability} and
+\emph{path failure probability} by do the product of the probability of each edge in the path.
+
+In conclusion, the paper proof that the channel success probability is defined as in 
+\ref{def:channel_success_prob_def} and the figure \ref{fig:channel_success_prob_score}
+shows an application: 
+
+\begin{definition}
+\label{def:channel_success_prob_def}
+    $P(X > amount) = \frac{capacity + 1 - amount}{capacity + 1}$
+\end{definition}
+
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=0.6\columnwidth]{imgs/mincost_rene1.png}
+  \end{center}
+  \caption{Lightning Network Payment from A to B using channel success probability score.} 
+  \label{fig:channel_success_prob_score}
+\end{figure}
+
+
+However, the paper shows also that with gossip data is difficult simulate 
+a real envoirment, and this mean that the model described do not take into 
+count the how fast an capacity $c(u, v)$ arrive to zero, or if this is a 
+common case.
+
 \subsection{Jamming Attach on Lightning}
+
+Uncertain channel balances problem described in the previous section 
+is not the only reason why payments on the lightning network are unreliable. 
+
