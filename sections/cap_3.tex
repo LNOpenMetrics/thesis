@@ -39,8 +39,8 @@ with real bitcoin involved, or perform the analysis on a
 testnet network, but this kind of networks are not reliable such as 
 the real one as described in \ref{sec:solution}. 
 
-In addition, another problem caused by this lack of data is the quality impact
-of an implementation of the solution proposed because in these cases 
+In addition, another possible problem caused by this lack of data is the implementation
+quality of the solution proposed, because in these cases 
 the implementors are required to deep understanding the problem 
 in order to trasform an assumtion to implementation specific values, 
 and this can required another data driven analysis.
@@ -124,5 +124,55 @@ common case.
 \subsection{Jamming Attach on Lightning}
 
 Uncertain channel balances problem described in the previous section 
-is not the only reason why payments on the lightning network are unreliable. 
+is not the only reason why payments on the lightning network are unreliable.
+Another well known problem on the Lightning Network is \emph{jamming attack},
+it is a cheap denial-of-service (DoS) attack, where the goal of this DoS attack 
+is to prevent payments, either routed through the victim or paying the victim. 
+The effectiveness of jamming thus could be characterized by the reduction of 
+payment success rate, applied to the victim or the entire Lightning Network.
 
+The paper \cite{cryptoeprint:2022/1454} decribe an solution to this problem 
+based on a \emph{reputation system} and \emph{up-front fee} that allows to make
+the Jamming attach costly due to the up-front fee and difficult to do during the time 
+due to the reputation system.
+In addition, the paper define different kind of Jamming attach, divided in :
+
+\begin{itemize}
+    \item {\bf Slow Jamming}: The attacker make a payment with a very long timeout, 
+        in this way all channel along the route has the balance locked;
+    \item {\bf Fast Jamming}: The attacker try to mimic the onest payment, by sending
+        a failed payment; Currently in the Lightning Network there is a similar operation
+        that it is used to steal information from a channel called probing.
+\end{itemize}
+
+In order to mitigate slow and fast jamming the paper \cite{cryptoeprint:2022/1454}
+propose a combination of two strategies, combined in the following way:
+
+\begin{itemize}
+    \item {\bf Up-front fee} paid to the downstream peer addresses quick jamming 
+        by imposing a small cost on every payment;
+    \item {\bf Local reputation} based on past behavior addresses slow jamming by 
+        punishing peers who forward payments that take too long to resolve.
+\end{itemize}
+
+The solution proposed regarding the unconditional fee are realative simple to implements 
+because required to a node to pay for an attempt also if this fails (if succided the up-front fee can 
+be returned back), and the choise of the path is driven by the local reputation that 
+score the channel based on the following information:
+
+\begin{itemize}
+    \item  $\gamma$ (seconds): the maximal resolution time to consider a payment honest;
+    \item  $\gamma$  (seconds), T (seconds), A (satoshis per second): reputation update 
+    parameters;
+    \item  K (integer), L(satoshis): the high-risk quota of slots and liquidity.
+\end{itemize}
+
+
+Calculating the Reputation Scores works by considering two possible values
+for reputation scores:  \emph{high}  and  \emph{low}. Initially, all peers 
+receive a low score. A payment is deemed  honest  if it resolves within  
+$\gamma$  seconds, otherwise, it is considered a jamm attach. 
+A peer’s behavior is defined as  good  if it only offers honest payments 
+for forwarding. Moreover, those payments must pay at least A satoshis 
+per second in fees to the routing node. Reputation of a peer grows if it 
+demonstrates good behavior for a long enough period.
