@@ -51,7 +51,7 @@ One of the most popular hard fork examples is given by Bitcoin Cash which
 increases the block size to be able to insert inside a block more transactions.
 However, in the Bitcoin ecosystem (based on the Bitcoin Core implementation) the idea of a hard fork is considered an
 end of choice alternative and some of the ideas to solve the scalability of the protocol are proposed through Bitcoin Script trick 
-by proposing a softwork of the Bitcoin protocol.
+by proposing a soft-fork of the Bitcoin protocol.
 
 \section{Lightning Network Basics}
 
@@ -103,10 +103,15 @@ On the other hand, the Decker-Wattenhofer duplex payment channel proposal came o
 it requires a new \emph{BIP 68}\cite{bip68} feature that enforce a more strictly semantics on \emph{nSequence}, where the propose is to
 establish two unidirectional Spillman payment channels in both
 direction, and these channels referees to the nSequence instead of the nLockTime.
-However, instead of funding unidirectional payment channels directly from an on-chain funding transaction, there is an \quotes{invalidation tree} of off-chain transactions between the funding transaction and the payment channel finalization transactions.
+However, instead of funding unidirectional payment channels directly from an on-chain funding transaction, there is 
+an \quotes{invalidation tree} of off-chain transactions between the funding transaction and the payment channel finalization transactions.
 
 \subsection{HTLC: Hash Time Locked Contract}
 \label{sec:htlc_intro}
+
+Hash Time locked contract are the building blocks of the Lightning Network,
+and are \emph{non standard script} expressed inside the Output Transaction. 
+
 
 - Explain how the Transaction with a not standard script are used in lightning;
 
@@ -142,7 +147,7 @@ can be very complicated in some specific cases.
   \label{fig:lightning-stack}
 \end{figure}
 
-The following Section there is described a general overview of how the Lightning Network is implemented through the
+In the following Section there is described a general overview of how the Lightning Network is implemented through the
 \emph{BOLT} specification\footnote{BOLT: Basis of Lightning Technology (Lightning Network Specifications)}.
 
 \subsection{Lightning Network Specifications}
