@@ -4,6 +4,10 @@
 B.~118.
 \newblock {Bitcoin Improvement Proposals 119}.
 
+\bibitem{bip141}
+B.~151.
+\newblock {Bitcoin Improvement Proposals 141}.
+
 \bibitem{bolt2}
 B.~2.
 \newblock {Bolt 2}.
@@ -15,6 +19,16 @@ B.~65.
 \bibitem{bip68}
 B.~68.
 \newblock {Bitcoin Improvement Proposals 68}.
+
+\bibitem{lnbook}
+R.~P. Andreas M.~Antonopoulos, Olaoluwa~Osuntokun.
+\newblock Mastering the lightning network.
+\newblock \url{https://github.com/lnbook/lnbook}.
+
+\bibitem{hashcash}
+A.~Back.
+\newblock {Hashcash - A Denial of Service Counter-Measure}, August 2002.
+\newblock Available at: \url{http://www.hashcash.org/papers/hashcash.pdf}.
 
 \bibitem{bitcoinj-impl}
 bitcoinj.
@@ -50,6 +64,11 @@ C.~Decker and R.~Wattenhofer.
 \bibitem{payment-channels-satoshi}
 M.~Hearn.
 \newblock {[Bitcoin-development] Anti DoS for tx replacement}.
+
+\bibitem{nakamoto2009bitcoin}
+S.~Nakamoto.
+\newblock Bitcoin: A peer-to-peer electronic cash system.
+\newblock May 2009.
 
 \bibitem{DBLP:journals/corr/abs-2103-08576}
 R.~Pickhardt, S.~Tikhomirov, A.~Biryukov, and M.~Nowostawski.
