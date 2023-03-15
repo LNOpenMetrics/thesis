@@ -32,8 +32,8 @@ ideas to solve the problem are proposed, but most of the time these solitions re
 of the protocol itself.
 One of the most popular hard fork examples is given by Bitcoin Cash which 
 increases the block size to be able to insert inside a block more transactions.
-However, in the Bitcoin ecosystem (based on the Bitcoin Core implementation) the idea of a considered 
-as last resort is considered, and some of the ideas to solve the scalability of the protocol are proposed through 
+However, in the Bitcoin ecosystem (based on the Bitcoin Core implementation) the idea of an hard fork is considered 
+as last resort, and some of the ideas to solve the scalability of the protocol are proposed through 
 Bitcoin Script trick by proposing a soft-fork of the Bitcoin protocol.
 
 \section{Lightning Network Basics}
@@ -52,7 +52,7 @@ can be made between the participants.\\
 In fact, the concept of replacing an old transaction with the new one is proposed from \emph{Satoshi Nakamoto}
 in the mailinglist\cite{payment-channels-satoshi}, and
 the basic concept to implement this feature was present from the version 0.0.1 of Bitcoin core. However, this solution
-was not completely safe because with this method there is the possibility to steal funds from the other party or parties.\\
+was not safe because with this method there is the possibility to steal funds from the other party or parties.\\
 
 Later, there was a new proposal to implement this kind of concept called \emph{Spillman-style payment channels}, and it is
 implemented inside a \emph{bitcoinj}\cite{bitcoinj-impl}. Spillman payment channels are unidirectional where
@@ -222,7 +222,7 @@ the following protocol messages are involved:
   \begin{center}
   \includegraphics[width=0.6\columnwidth]{imgs/mtln_0703.png}
   \end{center}
-  \caption{Channel Establishment procedure workflow.}
+    \caption{Channel Establishment procedure workflow.\cite{lnbook}}
   \label{fig:channel-establishment}
 \end{figure}
 
