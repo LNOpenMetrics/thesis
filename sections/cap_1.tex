@@ -1,35 +1,18 @@
 \chapter{Lightning Network}
 \label{sec:lightning_network}
 
-\newcommand{\noteOnBitcoinNaming}[0]{
-    \footnote{
-        From now till the end of the document we will use the word Bitcoin Protocol and
-        Bitcoin with capitalized to identify the protocol, and the word bitcoin not capitalized to identify the currency
-    }
-}
-
-\newcommand{\noteOnCLNImpl}[0]{
-    \footnote{
-    core lightning is one of the main implementations today, and it is available at
-    \href{https://github.com/ElementsProject/lightning}{https://github.com/ElementsProject/lightning}
-    }
-}
-
-
-
 \section{Introduction}
 
-The \emph{Lightning Network} is a peer-to-peer protocol that proposes a scalable solution for Bitcoin\noteOnBitcoinNaming where one
+The \emph{Lightning Network} is a peer-to-peer protocol that proposes a scalable solution for Bitcoin where one
 of the goal of the proposal is to be able to execute micro-transaction with it.
-In fact, Bitcoin does not scale for a sequence of reasons, and one of them is the number of
+In fact, Bitcoin does not scale for a number of reasons, and one of them is the number of
 maximum rate transactions that the network can process.\\
-Therefore, with the awareness that some of these limitations are features in Bitcoin, the lightning network try to solve
+Therefore, with the awareness that some of these limitations are features in Bitcoin, the lightning network tries to solve
 the scalability problem by offering an \emph{off-chain} solution that enables peers to exchange partially
 signed transaction without violating the Bitcoin rules.\\
-Lightning Network is proposed for the first time in 2015 in a draft paper \cite{lightning-network-paper},
-and then implemented in 2018 with the \emph{c-lightning}\noteOnCLNImpl (aka \emph{core lightning}) implementation.
-However, the protocol is evolving over the years through a process of standardization\cite{lightning-bolts}, and the paper is considered
-only a written idea on how to build an off-chain solution without any definition of the current protocol state machine.
+Lightning Network was proposed for the first time in 2015 in a draft paper \cite{lightning-network-paper},
+and then implemented in 2018 with the \emph{c-lightning} (aka \emph{core lightning}) implementation.
+However, the protocol is evolving over the years through a process of standardization\cite{lightning-bolts}.
 
 \section{Off-Chain Protocol}
 
@@ -42,16 +25,16 @@ Bitcoin supports around 7 transactions per second with a required space estimate
 an average of 300 bytes per bitcoin transaction and assumed unlimited block sizes, the space for storing the same number
 of transactions is estimated in the order of terabytes\cite{lightning-network-paper}. Therefore, in order to use the Bitcoin
 protocol as an alternative of the current system for a subset of the problem, such as the accessibility to the modern world
-to people that live in not developed places (e.g Africa), there is a need to scale the protocol.
+to people that live in not developed countries, there is a need to scale the protocol.
 
 This kind of problem is almost considered a well-studied problem, and different 
-solutions are proposed, but most of the time these solitions requires a hard fork 
+ideas to solve the problem are proposed, but most of the time these solitions requires a hard fork 
 of the protocol itself.
 One of the most popular hard fork examples is given by Bitcoin Cash which 
 increases the block size to be able to insert inside a block more transactions.
-However, in the Bitcoin ecosystem (based on the Bitcoin Core implementation) the idea of a hard fork is considered an
-end of choice alternative and some of the ideas to solve the scalability of the protocol are proposed through Bitcoin Script trick 
-by proposing a soft-fork of the Bitcoin protocol.
+However, in the Bitcoin ecosystem (based on the Bitcoin Core implementation) the idea of a considered 
+as last resort is considered, and some of the ideas to solve the scalability of the protocol are proposed through 
+Bitcoin Script trick by proposing a soft-fork of the Bitcoin protocol.
 
 \section{Lightning Network Basics}
 
@@ -67,42 +50,43 @@ Bitcoin transactions without committing all of the transactions to the Bitcoin b
 only two transactions are added to the blockchain but an unlimited or nearly unlimited number of payments
 can be made between the participants.\\
 In fact, the concept of replacing an old transaction with the new one is proposed from \emph{Satoshi Nakamoto}
-in the main-list\cite{payment-channels-satoshi}, and
+in the mailinglist\cite{payment-channels-satoshi}, and
 the basic concept to implement this feature was present from the version 0.0.1 of Bitcoin core. However, this solution
 was not completely safe because with this method there is the possibility to steal funds from the other party or parties.\\
 
-Later, there is a new proposal to implement this kind of concept called \emph{Spillman-style payment channels}, and it is
+Later, there was a new proposal to implement this kind of concept called \emph{Spillman-style payment channels}, and it is
 implemented inside a \emph{bitcoinj}\cite{bitcoinj-impl}. Spillman payment channels are unidirectional where
 there is a payer and a payee, in this kind of channel it is not possible to transfer money back in the reverse direction, and the payment
 channels expire after a specific time.
 In addition, the receiver needs to close the channel before the expiration time.
 However, this proposal has malleability problems solved later by the \emph{BIP  65}\cite{bip65} Bitcoin proposal that includes a new Bitcoin Script OP code
-called \emph{OP\_CHECKLOCKTIMEVERIFY} that unlock a new version of the \emph{Spillman-style payment channels}.\\
+called \emph{OP\_CHECKLOCKTIMEVERIFY} that unlock a new version of payment channels called \emph{CLTV-style payment channels}.\\
 While the idea of payment channels start to be explored around the Bitcoin community, two new proposals came out that are
 \emph{Poon-Dryja payment channels}\cite{lightning-network-paper} (currently used in the Lightning Network),
 and \emph{Decker-Wattenhofer duplex payment channels}\cite{Decker2015fast} where these proposals try to improve the known state
 of the art by allowing more complex payment channel operations.
 
 In particular, the Poon-Dryja payment channel is proposed in \cite{lightning-network-paper}, where
-the funds are locked into a 2-of-2 multisig\cite{Palazzo_Estrazione_di_Informazioni_2019},
+the funds are locked into a 2-of-2 multisig\cite{Palazzo_Estrazione_di_Informazioni_2021},
 but before the funding transaction is even signed, commitment transactions for each party are first written and signed.
 Therefore, these operation requires referring to transactions that have not been signed yet, and this requires to use a transaction
-the format that separates signatures from the part of the transaction that is hashed to generate the txid, such as Segregated Witness\cite{Palazzo_Estrazione_di_Informazioni_2019}.\\
-In addition, one of the proprieties proposed by the Poon-Dryja payment channel is how the channels can be closed:
+the format that separates signatures from the part of the transaction that is hashed to generate the txid, such as Segregated Witness proposed 
+in the \emph{151}\cite{bip141}.\\
+In addition, one of the properties proposed by the Poon-Dryja payment channel is how the channels can be closed:
 
 \begin{itemize}
   \item Unilateral close: to close a channel required only that one side is involved. This is useful when one
-        of the party start to be unresponsive, and when this happens, the funds of
-        the party that closed the channel is temporarily time-locked, and this leaves the opportunity to
-        track the special on-chain transaction on the blockchain;
-  \item Bilateral close: to close a channel the two-party cooperate, and when this happens the result
+        of the parties start to be unresponsive. When this happens, the funds of
+        the party that closed the channel is temporarily time-locked, which leaves the opportunity to
+        track a special on-chain transaction on the blockchain;
+  \item Collaborative close: to close a channel the two-party cooperate, and when this happens the result
         on-chain transaction looks like a normal 2-2 multisig transaction.
 \end{itemize}
 
 On the other hand, the Decker-Wattenhofer duplex payment channel proposal came out at the same time as the previous proposal, and
-it requires a new \emph{BIP 68}\cite{bip68} feature that enforce a more strictly semantics on \emph{nSequence}, where the propose is to
+it requires a new \emph{BIP 68}\cite{bip68} feature that enforce a new semantics on \emph{nSequence}, where the propose is to
 establish two unidirectional Spillman payment channels in both
-direction, and these channels referees to the nSequence instead of the nLockTime.
+direction, and these channels refer to the nSequence instead of the nLockTime.
 However, instead of funding unidirectional payment channels directly from an on-chain funding transaction, there is 
 an \quotes{invalidation tree} of off-chain transactions between the funding transaction and the payment channel finalization transactions.
 
@@ -134,7 +118,7 @@ can be very complicated in some specific cases.
   \begin{center}
   \includegraphics[width=0.6\columnwidth]{imgs/mtln_0702.png}
   \end{center}
-  \caption{Diagram provides an overview of how the open and close a channel operations work.}
+    \caption{Diagram provides an overview of how the open and close a channel operations work\cite{lnbook}.}
   \label{fig:ln-onchain}
 \end{figure}
 
@@ -143,7 +127,7 @@ can be very complicated in some specific cases.
   \begin{center}
   \includegraphics[width=0.6\columnwidth]{imgs/mtln_0601.png}
   \end{center}
-  \caption{Diagram provides an overview of these layers and their component protocols.}
+    \caption{Diagram provides an overview of these layers and their component protocols\cite{lnbook}.}
   \label{fig:lightning-stack}
 \end{figure}
 
@@ -152,29 +136,29 @@ In the following Section there is described a general overview of how the Lightn
 
 \subsection{Lightning Network Specifications}
 
-Since 2017 the lightning network start to be implemented by different entities,
+Since 2016 the lightning network start to be implemented by different teams,
 and due the high overview of the Lightning Network state machine definition in \cite{lightning-network-paper}
 the implementations start to cooperate in a Specification that all the lightning implementations agree on.
 
-Therefore, the specification describes the following concept to allow full interoperability between implementations:
+The specification describes the following concept to allow full interoperability between implementations:
 
 \begin{itemize}
-  \item BOLT 1: describe the basics of the protocol, like how a message is encoded and what type of messages are required in order to support the communication;
-  \item BOLT 2: describe the peer-to-peer protocol for channels managements. This is one of the core concepts of lightning, in fact after a payment channel
+  \item BOLT 1: describes the basics of the protocol, like how a message is encoded and what type of messages are required in order to support the communication;
+  \item BOLT 2: describes the peer-to-peer protocol for channels managements. This is one of the core concepts of lightning, in fact after a payment channel
         is settled up, the channels can have different cases that are described in the Section \ref{sec:channel_state}
-  \item BOLT 3: describe how the Bitcoin script language is used to compose the
+  \item BOLT 3: describes how the Bitcoin script language is used to compose the
         payment channel, and what kind of Bitcoin transactions are involved.
-  \item BOLT 4: describe the onion routing protocol that it is used to exchange messages between peers which in this case are called \emph{hop}.
+  \item BOLT 4: describes the onion routing protocol that it is used to exchange messages between peers which in this case are called \emph{hop}.
         The routing schema is based on the \emph{Sphinx}\cite{sphinx} construction and is extended with a per-hop payload.
-  \item BOLT 5: describe how the on-chain transaction should be handled.
-  \item BOLT 7: describe how the peer-to-peer node and channels are discovered through the network;
-  \item BOLT 8: describe all the authenticated and encrypted transport protocols;
-  \item BOLT 9: describe how the feature flags\footnote{Feature flags that are used to establish what kind of feature are supported by a node} need to be managed;
-  \item BOLT 10: describe the DNS Bootstrap and Assisted Node Location;
-  \item BOLT 11: describe the invoice protocol for the lightning network protocol;
+  \item BOLT 5: describes how the on-chain transaction should be handled.
+  \item BOLT 7: describes how the peer-to-peer node and channels are discovered through the network;
+  \item BOLT 8: describes all the authenticated and encrypted transport protocols;
+  \item BOLT 9: describes how the feature flags\footnote{Feature flags that are used to establish what kind of feature are supported by a node} need to be managed;
+  \item BOLT 10: describes the DNS Bootstrap and Assisted Node Location;
+  \item BOLT 11: describes the invoice protocol for the lightning network protocol;
 \end{itemize}
 
-To add a new feature inside the protocol it needs to be discussed between implementations and when at least two implementations support the feature, it is considered standard.\\
+To add a new feature to the protocol it needs to be discussed between implementations and when at least two implementations support the feature, it is considered standard.\\
 The actual implementations that are compliant and contribute to the lightning network specification are:
 
 \begin{itemize}
@@ -182,7 +166,7 @@ The actual implementations that are compliant and contribute to the lightning ne
         to be an efficient solution for servers. In addition, it is focused on improving the lightning network specification. In fact, core lightning has several new proposals such as the \emph{BOLT 12}\footnote{BOLT 12 is a new proposal to perform
         lightning payment and improve several problems that exist in the BOLT 11.} feature implemented and under discussion to be
         included in the standard protocol;
-  \item \emph{lnd}: a lightning network implementation written in Go lang. It is one of the most used lightning network implementations according to \footnote{add the topology paper there};
+    \item \emph{lnd}: a lightning network implementation written in Go lang. It is one of the most used lightning network implementations according with \cite{lngossip};
   \item \emph{ldk}: a lightning network implementation written in rust, that provides the lightning building blocks exposed as Library;
   \item \emph{eclair}: a lightning network implementation written in Scala, widely used on mobile wallets, but it is written to
         support server side too.
@@ -191,10 +175,10 @@ The actual implementations that are compliant and contribute to the lightning ne
 \section{Lightning Network Channel Operation}
 \label{sec:channel_state}
 
-The channel state management defines the state machine of the channels, and they are described in the BOLT 2 specification. Currently, it is a very complex
+The channel state management defines the state machine of the channels, and they are described in the BOLT 2 specification. it is a very complex
 state machine where there are involved several steps in order to avoid bad
 situations where a node can steal funds or lock the funds involved in the blockchain for a long period.\\
-In this section will be introduced a deep introduction to the primary operations to create and manage channels.
+In this section will introduce a deep introduction to the primary operations to create and manage channels.
 
 \subsection{Channel Establishment}
 \label{sec:open_a_channels}
@@ -213,7 +197,7 @@ a channel with a specific peer the following information must be provided:
   \item Node IP address and port: Where the node is listening for an incoming connection.
 \end{itemize}
 
-In addition, most of the node support also the Tor network, but with the current usage of the protocol the Tor network provides very unreliable
+In addition, most of the nodes support the Tor network, but with the current usage of the protocol the Tor network provides very unreliable
 performance as discussed in Section (TODO point to the problem Section).\\
 After the node is connected with the counterpart, the Channel Establishment can be performed, and a sequence
 of messages is exchanged (Figure \ref{fig:channel-establishment}). During this process
@@ -246,7 +230,7 @@ After the funding transaction is confirmed on the blockchain and the channel is 
 peers can perform lightning payments that can modify the state of the current channel, in Section \ref{sec:modify_channel_state} is described how
 these operations are performed inside the protocol.
 
-\subsection{Modify Lightning Channel State}
+\subsection{modifying Lightning Channel State}
 \label{sec:modify_channel_state}
 
 
@@ -255,9 +239,10 @@ is generated from the channel state management that needs to ensure that there a
 cause  possibilities to lose funds from one participant.
 In fact, if one peer has an outdated channel state, and this state is shared with the network, the counterpart can
 detect this inconsistency between the real channel state and the one received. In this case, the peer can and must
-perform the punishment operation that the lightning network defines in \cite{bolt2}, where the channel between the two peers
+% FIXME: define the penality mechanism, but how?
+perform the a \emph{penality mechanism} defined in the BOLT2\cite{bolt2}, where the channel between the two peers
 is closed and the receiver of the outdated channel state takes all the currency involved.\\
-However, this operation of punishment can also be performed on peers that have bugs in the software and publish an old state of the
+However, this penalty operation may be performed on peers that have bugs in the software and publish an old state of the
 channel due to a corrupted database. In this case propose like \cite{eltoo} described in Section \ref{sec:eltoo} offers
 better solutions for channel state management.
 
@@ -268,7 +253,7 @@ allow peers to perform a payment.
 Therefore, in order to perform a payment the state of the channel needs to be altered, and in some cases the payment can involve
 different peers long a \emph{route path}.\\
 In fact, it is possible to send a payment to a peer directly connected with a channel, and send a payment to a peer
-that is not directly connected. In the last case, the peer needs to perform a routing algorithm
+that is not directly connected. In the latter case, the peer needs to execute a routing algorithm
 to find one of the best paths to reach the target peer.
 
 When the route is found the payment can be sent across the channel or channels found by the routing algorithm, and this procedure
@@ -285,7 +270,7 @@ Figure \ref{fig:commitment_transaction_example} shows a possible commitment tran
   \begin{center}
   \includegraphics[width=0.6\columnwidth]{imgs/mtln_0706.png}
   \end{center}
-  \caption{Commitment Transaction workflow example.}
+    \caption{Commitment Transaction workflow example\cite{lnbook}.}
   \label{fig:commitment_transaction_example}
 \end{figure}
 
@@ -298,8 +283,9 @@ To perform the commitment transaction operation a sequence of lightning network 
   \item {\bf commitment\_signed}: The received of the update\_add\_htlc message confirms the operation by sending the signature for the new commitment transaction;
   \item {\bf revoke\_and\_ack}: The sender that received the signature of the new commitment transaction as confirmation of the update received. This message contains the revocation key of the sender to release the old commitment transaction, and the new information to construct the new revocation key, at this point the old commitment transaction is revoked.
   \item {\bf commitment\_signed} and {\bf revoke\_and\_ack}: The receiver if the revoke message, the operation of revocation is performed in the opposite direction where the receiver begins the sender and vice-versa.
-  \item {\bf update\_fulfill\_htlc}: This message is sent back to the sender to confirm that the payment is received, 
-      be the counterpart, and to prove that the receiver send this message that contains the payment preimage 
+  \item {\bf update\_fulfill\_htlc}: This message is sent back to the sender to confirm that the payment is received,
+      % FIXME: define the payment preimage here!
+      be the counterpart, and to prove that the receiver send this message that contains the \emph{payment preimage} 
         that is used to verify the payment hash. The payment preimage is used as proof or payment\footnote{clarify the payment preimage workflow and where this payment is made.}
 \end{itemize}
 
@@ -308,7 +294,7 @@ To perform the commitment transaction operation a sequence of lightning network 
   \begin{center}
   \includegraphics[width=0.6\columnwidth]{imgs/mtln_0903.png}
   \end{center}
-  \caption{Lightning Network protocol messages involved during a commitment transaction.}
+    \caption{Lightning Network protocol messages involved during a commitment transaction\cite{lnbook}.}
   \label{fig:commitment_transaction_ln_messages}
 \end{figure}
 
@@ -319,9 +305,9 @@ To perform the commitment transaction operation a sequence of lightning network 
 At the current status of the implementation, the Lightning Network protocol provides different cases where a channel can be closed such as:
 
 \begin{itemize}
-  \item Co-operational Closing: The channel parties arrive to an agreement where the channel can be closed and the
+  \item Co-operative Closing: The channel parties arrive to an agreement where the channel can be closed and the
         \emph{closing transaction} (Section \ref{sec:htlc_intro}) can be broadcasted on the blockchain and the funds involved released.
-  \item Unilateral Closing: One of the channel parties start to be unresponsive due to some problem, such as a technical problem, and the counterpart
+  \item Unilateral Closing: One of the channel parties start to be unresponsive due to some problem, such as a technical problem, and the counterparty
         decided to force close the channel.
   \item Closing operation caused by penalty: There are corner cases briefly mentioned in \ref{sec:modify_channel_state} where a peer can voluntarily or involuntarily try to cheat the other party by publishing an old commitment transaction. In this case, the protocol provides a penalty mechanism to identify the cheat tentative and protect the party by closing the channel and moving all the balance of it to the peer that was undergoing the attack.
 \end{itemize}
@@ -334,22 +320,22 @@ will receive a punishment operation that involves losing funds. However, this is
 the network, but it is possible that one of the peers begins unresponsive in the network for a period or forever, and the counterpart is forced to Unilateral close the channel. This operation
 required that the funds are locked for an amount period, and it requires a much high on-chain fee cost for the peers involved.
 
-\section{Onion Rooting}
+\section{Onion Routing}
 \label{sec:onion_routing}
 
 In the Lightning Network, it is used onion routing to forward payments through a specific path.
 In particular, it is used a \emph{Source Base Rooting} where the payment path it is specified by the sender.
 The goal of using the source base routing is to preserve privacy along the path. For this reason, a peer that
-is forwarding a payment is able to know only the previous hop and the next hop, but there is any information
+is forwarding a payment is able to know only the previous hop and the next hop, but there isn't any information
 about the sender or recipient of the payment.
 
-This section contains only an introduction a high overview of how onion rooting works,
+This section contains only an introduction a high overview of how onion routing works,
 and how it is used in the Lightning Network to forward HTLCs.
 
 \subsubsection{Onion Routing Basics}
 
 The base concept of onion routing is to build a packet in layers, where each peer can access only to the
-first onion-encrypted layer. The layer is encrypted with the node id, so only the owner of the layer can access to it.
+first onion-encrypted layer. The layer is encrypted with the node, so only the owner of the layer can access to it.
 The example \ref{ex:onion_routing} describes how the onion routing works across a routing path.
 
 \begin{example}
@@ -362,7 +348,7 @@ The example \ref{ex:onion_routing} describes how the onion routing works across 
 
   {\centering
     \includegraphics[width=0.6\columnwidth]{imgs/mtln_1007.png}
-    \captionof{figure}{Onion Routing example to perform a payment from Alice to Dina.\label{fig:routing_path}}
+    \captionof{figure}{Onion Routing example to perform a payment from Alice to Dina\cite{lnbook}.\label{fig:routing_path}}
     \par}
 \end{example}
 

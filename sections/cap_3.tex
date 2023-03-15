@@ -2,10 +2,12 @@
 
 \section{Problem}
 
-The Lightning Network protocol as described in \ref{sec:lightning_network} is 
+The Lightning Network protocol as described in Section \ref{sec:lightning_network} is 
 driven by a consensus between a group of implementors in order to standardize
-a feature. Where most of the time in order to address a well-known problem a data 
-driven analysis on a group of nodes is required in order to emphasize the
+features. Where in some cases in order to address a problem such as 
+improve the path finding algorithm\cite{DBLP:journals/corr/abs-2103-08576} or 
+propose a solution for the \emph{Jamming Attack}\cite{cryptoeprint:2022/1454} 
+a data driven analysis on a group of nodes is required in order to emphasize the
 problem and sometimes also to see the real impact of the solution after being 
 implemented but before beginning a standard.
 However, in order to perform a data-driven analysis in an ecosystem where the decision
@@ -16,8 +18,8 @@ different implementations.
 \subsection{Data Drive Analysis on the Lightning Network}
 
 Currently, the most common data-driven analysis on the Lightning Network is performed 
-on gossip data which any node can with at least one public channel  
-have access to. An example of this kind of analysis is described in \cite{lngossip}
+on gossip data which any node can with a connection to another node connected 
+to the network have access to. An example of this kind of analysis is described in \cite{lngossip}
 where the data are collected from core lightning and archived.
 
 However, at the current state of the art, there is no example of how to perform
