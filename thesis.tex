@@ -1,4 +1,4 @@
-\documentclass[11pt]{report}
+\documentclass[12pt]{report}
 
 \usepackage[english]{babel}
 \usepackage[top=1in, bottom=1in, left=1.4in, right=1in]{geometry}
@@ -82,6 +82,18 @@
     linkcolor=cosmoblue,
     urlcolor=cosmoblue
 }
+
+% Add a quotes
+% \begin{chapquote}[30pt]{author}
+%    your quote
+% \end{chapquote}
+\newenvironment{chapquote}[2][2em]
+  {\setlength{\@tempdima}{#1}%
+   \def\chapquote@author{#2}%
+   \parshape 1 \@tempdima \dimexpr\textwidth-2\@tempdima\relax%
+   \itshape}
+  {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
+\makeatother
 
 \newcommand{\forceindent}{\leavevmode{\parindent=1em\indent}}
 \newcommand{\ou}{%
