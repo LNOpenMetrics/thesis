@@ -52,6 +52,7 @@
 \definecolor{cosmoblue}{RGB}{25, 103, 190}
 \definecolor{cosmored}{RGB}{255, 0, 57}
 \definecolor{cosmoblack}{RGB}{55, 58, 60}
+\definecolor{cosmogray}{RGB}{173, 181, 189}
 
 % definizione BITCOIN script
 \lstdefinelanguage{bitcoinscript}{
@@ -68,12 +69,24 @@
     numbers=left,
     numberstyle=\tiny\color{cosmoblack},
     keywordstyle=\color{cosmoblue},
-    commentstyle=\color{cosmoorange},
+    commentstyle=\color{cosmoogray},
     stringstyle=\color{cosmogreen},
     breaklines=true,
     breakatwhitespace=true,
     tabsize=3
 }
+
+\lstset{language=go,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{cosmoblue}\ttfamily,
+  stringstyle=\color{cosmogreen}\ttfamily,
+  commentstyle=\color{cosmogreen}\ttfamily,
+  numbers=left,
+}
+
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{cosmoblack}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
 
 \hypersetup{
     colorlinks,

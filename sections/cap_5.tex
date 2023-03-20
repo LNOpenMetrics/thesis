@@ -6,46 +6,50 @@ If we have data, let’s look at data. If all we have are opinions, let’s go w
 
 \section{Introduction}
 
-Perform a data driven analysis required to develop a collection of tools
-that are good enough to run in a lightning network node with daly activity. 
-In this section is described an open source framework for the definition and 
+Perform a data-driven analysis required to develop a collection of tools
+that are good enough to run in a lightning network node with daily activity. 
+This section is described an open-source framework for the definition and 
 the collection of lightning network metrics.
 
-Therefore, in order to implement this framework, and analysis of the state 
-of the art was required (descibed in the Section \ref{sec:problem_and_state_of_the_art})
-to better understanding what are the information that are more difficult 
-to get from a researcher point of view.
+Therefore, in order to implement this framework an analysis of the state 
+of the art was required (described in Section \ref{sec:problem_and_state_of_the_art})
+to better understand what are the informations that are more difficult 
+to get from a researcher's point of view.
 
-From our preliminary study we found that information on how a node perform 
-on a daily basis are difficult to get, due the following problems:
+From our preliminary study, we found that information on how a node performs 
+on a daily basis are difficult to get, due to the following problems:
 \begin{itemize}
-    \item Requires a direct interaction with the\emph{node operators};\footnote{node operators are people that own a lightning node that point to 
+    \item Requires a direct interaction with \emph{node operators};\footnote{node operators are people that own a lightning node that point to 
     help the network in routing payments.}
-    \item Data collection of this kind can lend of some
-    that a node operators may want not share.
+    \item Data collection of this kind can lend to some
+    that node operators may want not to share.
 \end{itemize}
 
-So, in order to work around to these problem our proposal is define in a 
+So, in order to work around these problems our proposal defines in a 
 public manner what data will be collected, and how these are analyzed. This 
 definition process is done through a lnmetrics Request for Comments (RFC) 
 called \emph{lnmetrics RFC}. Then, after the data are defined, the collection 
 of this data is done with a public server with public API with the possibility 
-to self hosting the server on hardwar with at least of a Raspberry PI 2 capability.
+to self-hosting the server on hardware with at least a Raspberry PI 2 capability.
 
-In addition, in order to incentivize the node operators to provide share the 
-information with one of the public server available we write the tool that 
-collect the information on the lightning node with the possibility to ran 
+In addition, in order to incentivize node operators to provide and share the 
+information with one of the public servers available we write the tool that 
+collect the information on the lightning node with the possibility to run 
 in an offline mode, and only if and when the node operators want the data 
-are shared with one of the server choosed (or more than one server).
+are shared with one of the servers chosen (or more than one server).
+One of the reasons that make the possibility to run in an offline mode a good
+the incentive for node operators to be part of the research is that they 
+are seeking a tool to analyze the node performance in order to increase the profit of
+their node.
 
-The Figure \ref{fig:lnmetrics_process} shows as the general process of propose a solution that 
-required daily data analysis to solve a problem looks like.
+The Figure \ref{fig:lnmetrics_process} shows as the general process of propose 
+a solution with our framework looks like.
 
 \begin{figure}
     \begin{center}
       \includegraphics[scale=0.7]{imgs/lnmetrics-workflow-drawio.png}
     \end{center}
-    \caption{Example of a process that use lnmetrics looks like.}
+    \caption{Example of a process that uses lnmetrics.}
     \label{fig:lnmetrics_process}
 \end{figure}
 
@@ -53,8 +57,88 @@ required daily data analysis to solve a problem looks like.
 \section{LNMetrics Request for Comments (RFC)}
 
 The LNMetics Request for Comment (RFC) proposed is a more general idea of what 
-it is already done in the Lightning Network protocol definition. In fact,
-this RFC is point to have the data description of what data are collected in 
-order and how these data are used. It is not trying to define an only way to 
-define a particular metrics on the lightning nertwork, but more to incentivize
-discussion between people to achive a better result.
+it is already been done in the Lightning Network protocol definition. In fact,
+this RFC is pointing to having the data description of what data are collected in 
+order and how these data are used. It is not trying to define the only way to 
+define particular metrics on the lightning network, but more to incentivize
+discussion between people to achieve a better result.
+
+\subsection{Data Definition}
+
+Data definition is the most important part to propose a solution for a problem 
+that required data analysis. Therefore, the data definition is a core 
+part of the lnmetrics data definition process as the Figure \ref{fig:lnmetrics_process}
+shows. For this reason, the lnmetrics.rfc process is driven by proposing a new 
+\emph{metric} that is composed of the following part:
+
+\begin{itemize}
+    \item {\bf Metric Introduction}: An Introduction of the area that the metrics are targeting;
+    \item {\bf Input Metric}: Data definition of the data that the researchers need. The data definition is done through a \emph{JSON schema}, and
+    \item {\bf Output Metric}: Data definition of the data that the research point to return as a result. 
+\end{itemize}
+
+Ideally, the Metric proposal needs to be supported by a reference implementation to 
+allow people to be part of the research by running the tool provided.
+For this reason, the input and output metrics are defined through a JSON schema 
+that allows the usage of source code generation tools in order to simplify the development process.
+However, at this time the problem on how to easily integrate new metrics inside the 
+existing code is an open problem, and a possible solution is to allow the server 
+to support a \emph{plugin protocol} that allow any person to extend the existing 
+server with additional features such as a new metric with any languages that they preferer.
+
+In conclusion, when the new metric has been proposed inside the RFC a discussion between interested 
+people need to be done in order to try to improve and verify the proposal, but if this is not possible
+the proposal can be accepted directly by providing a reference implementation of the metrics proposed.
+
+\section{LNMetrics Client Data Collection}
+
+LNMetrics client is a generic concept of a tool that is able to collect one or more metrics 
+defined inside the RFC, and allow a node operator or anyone that runs a lightning node
+to collect data and share it with an analysis system described in Section \ref{sec:lnmetrics_server}.
+
+In order to support our proposal a generic solution implemented in \emph{Go language} is provided 
+and available on Github at \url{https://github.com/LNOpenMetrics/go-lnmetrics.reporter}. In order to 
+provide a generic solution and support different kind of metrics, we develop the code with 
+Object oriented paradigm and implement the concept of metrics under an interface defined 
+in Code \ref{code:lnmetric_client_inter}.
+
+\begin{lstlisting}[language=go, basicstyle=\small,
+                  caption={Metric interface provided in our client reference implementation.}, 
+                  label={code:lnmetric_client_inter}]
+// All the metrics need to respect this interface
+type Metric interface {
+    // return the unique name that the metrics has
+	MetricName() *string
+    // called when the metrics is initialized from 
+    // the lightning node
+    OnInit(lightning client.Client) error
+    // called when the node is shutting down
+    OnStop(msg *Msg, lightning client.Client) error
+    // used to make the actual status of the metrics
+    // persistent
+    MakePersistent() error
+    // called when the metrics is ready to be published
+    UploadOnRepo(client *graphql.Client, 
+        lightning client.Client) error
+    // called when the metrics for the specific node 
+    // need to be initialized on the server
+    InitOnRepo(client *graphql.Client, 
+        lightning client.Client) error
+    // call that the lightning node use when it is 
+    // time to update the metrics with new data
+    Update(lightning client.Client) error
+    // a more specific method to be able to call the 
+    // update metrics with a specific message that allow 
+    // to pass more information to the update method
+    UpdateWithMsg(message *Msg, 
+        lightning client.Client) error
+    ToMap() (map[string]any, error)
+    ToJSON() (string, error)
+    // allow to perform data migration from an old 
+    // data version to a new one
+    Migrate(payload map[string]any) error
+}
+\end{lstlisting}
+
+\section{LNMetrics Data Analsys}
+\label{sec:lnmetrics_server}
