@@ -8,7 +8,7 @@ If we have data, let’s look at data. If all we have are opinions, let’s go w
 
 Perform a data-driven analysis required to develop a collection of tools
 that are good enough to run in a lightning network node with daily activity. 
-This sectiondescribesn open-source framework for the definition and 
+This section describes an open-source framework for the definition and 
 the collection of lightning network metrics.
 
 Therefore, in order to implement this framework an analysis of the state 
@@ -53,24 +53,32 @@ a solution with our framework looks like.
     \label{fig:lnmetrics_process}
 \end{figure}
 
-% FIXME: add the description of the figure here!
+The suggested process to propose a new metrics described in the Figure \ref{fig:lnmetrics_process}
+is composed by the following steps:
+
+\begin{itemize}
+    \item {\bf Data Definition}:
+    \item {\bf Client Implementation}:
+    \item {\bf Analysis Implementation}:
+    \item {\bf Possible Proposal}:
+\end{itemize}
 
 \section{LNMetrics Request for Comments (RFC)}
 
 The LNMetics Request for Comment (RFC) proposed is a more general idea of what 
 it is already been done in the Lightning Network protocol definition. In fact,
 this RFC is pointing to having the data description of what data are collected 
-and how these data are used. It is not trying to define a only way to 
-define particular metric on the lightning network, but more to incentivize
-discussion between people to achieve a better result.
+and how these data are used. It is not trying to define a 
+standart of metrics for the lightning network, 
+but more to incentivize discussion between people to achieve a better result.
 
 \subsection{Data Definition}
 
 Data definition is the most important part to propose a solution for a problem 
 that required data analysis. Therefore, the data definition is a core 
 part of the lnmetrics RFC process as the Figure \ref{fig:lnmetrics_process}
-shows, and the process to propose a new \emph{metric} that is composed of 
-the following part:
+shows, and the process to propose a new \emph{metric} is composed from 
+the following parts:
 
 \begin{itemize}
     \item {\bf Metric Introduction}: An Introduction of the area that the metrics are targeting;
@@ -81,8 +89,6 @@ the following part:
 Ideally, the Metric proposal needs to be supported by a reference implementation to 
 allow people to be part of the research by running the tool provided, and 
 to support the RFC discussion.
-For this reason, the input and output metrics are defined through a JSON schema 
-that allows to have a standart way to define the data.
 
 However, at this time the problem on how to easily integrate new metrics inside the 
 existing code is an open problem, and a possible solution is to allow the server 
@@ -98,7 +104,6 @@ the proposal can be accepted directly by providing a reference implementation of
 A LNMetrics client is a generic concept of a tool that is able to collect one or more metrics 
 defined inside the RFC, and allow a node operator or anyone that runs a lightning node
 to collect data and share it with an analysis system described in Section \ref{sec:lnmetrics_server}.
-
 In order to support our proposal a generic solution implemented in \emph{Go language} is provided 
 and available on Github at \url{https://github.com/LNOpenMetrics/go-lnmetrics.reporter}, where we was able 
 to provide a generic solution and allow the support of a generic metric concept 
@@ -149,8 +154,20 @@ In addition, in order to allow an easy developmen of the plugin a
 Go API for core lightning is also provided, and available on 
 Github at \url{https://github.com/vincenzopalazzo/cln4go}.
 
-% FIXME: talk a little how the interface implement the basic messagge that a 
-% any kind of metrics needs.
+When the plugin is started a setup operation is performed, by creating a 
+metrics database where the plugin make persistent the informations 
+across node restarts, and also to support the offline mode feature. 
+The database choosed is \emph{leveldb} that is a \emph{NO SQL} database 
+that allow to store in an efficent way the data as key value and preserve
+the disk space with a compression algorithm built-in the database itlsef.
+In fact, our client implementation is havly based on the 
+compression feature in order to preserve and allow anyone to 
+run the tool. 
+
+In the Figure (TODO add reference) it is shows how much space is 
+consumed by the database in order to store 3 months of data on the server. 
+
+TODO: put the figure here!
 
 \section{LNMetrics Data Analsys}
 \label{sec:lnmetrics_server}
@@ -160,7 +177,20 @@ our proposal is to aggregate the data in a server with public API where the data
 public accessible to everyone. In this section there is a discussion of 
 the server solution provided.
 
-\section{Local Reputation}
+\section{Local Reputation Metric}
+
+In this section is described our case study develop with the our metrics, and
+in order to address a basic issue that we noted while we was running a lightning
+node on the Bitcoin Network. 
+
+\subsection{Problem}
+
+When a new user want to run a lightning node from scratch at the moment it is 
+difficult choose with what kind of peers if is a good incentivize to open a channel with. 
+
+The choise of a good peer is important in this case because open a channel 
+required to lock some bitcoin in a channel and also pay \emph{on-chain}\footnote{on chain fee are the fee that the Bitcoin network take in order to validate a block.} 
+fe.
 
 \subsection{Data Definition}
 
