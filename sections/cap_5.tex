@@ -57,11 +57,23 @@ The suggested process to propose a new metrics described in the Figure \ref{fig:
 is composed by the following steps:
 
 \begin{itemize}
-    \item {\bf Data Definition}:
-    \item {\bf Client Implementation}:
-    \item {\bf Analysis Implementation}:
-    \item {\bf Possible Proposal}:
+    \item {\bf Data Definition}: Should be the first step of the process in order
+        to clear define the scope of the data collection;
+    \item {\bf Client Implementation}: After a first draft of the data mode is defined,
+        the next step should be the implementation of the tools that is able to collect 
+        the data. This step could required to can back to the previous step and change 
+        somethings in the data model.
+    \item {\bf Analysis Implementation}: Could be done in parallel to the Client implementation,
+        and as in the client case the Analsys of the data collected can bring to rethink the data model
+        and return to the stap 1.
+    \item {\bf RFC proposal}: When the the data model and the code are in a stable phase,
+        the metric can be proposed with an RFC and the discussion between the people interested
+        can be done, this steps can require to introduce some change in one of more of the previous steps;
+    \item {\bf Possible Proposal}: After the RFC is discussed the data analysis can bring to some 
+        official proposal to the lightning network protocol or to one of the lightning networ implementation.
 \end{itemize}
+
+In the section \ref{sec:demo} the process of our case study is discussed.
 
 \section{LNMetrics Request for Comments (RFC)}
 
@@ -164,10 +176,23 @@ In fact, our client implementation is havly based on the
 compression feature in order to preserve and allow anyone to 
 run the tool. 
 
-In the Figure (TODO add reference) it is shows how much space is 
-consumed by the database in order to store 3 months of data on the server. 
+In the Figure \ref{fig:disk_space_servers} it is shows how much space is 
+consumed by the database. 
 
-TODO: put the figure here!
+\begin{figure}
+    \begin{center}
+    \includegraphics[scale=0.7]{imgs/disk_space_servers.png}
+    \end{center}
+    \caption{LNMetrics database size by istances.}
+    \label{fig:lnmetrics_diskspace}
+\end{figure}
+
+\begin{itemize}
+    \item {\bf Cloud machine}: Disk space consumed by the lnmetrics 
+        sysytem on the cloud machine to store more that 1 year of metrics data;
+    \item {\bf Raspberry PI 3}: Disk space consumed by the lnmetrics sysytem
+        on a Raspberry PI to store 4 months of metrics data.
+\end{itemize}
 
 \section{LNMetrics Data Analsys}
 \label{sec:lnmetrics_server}
@@ -177,24 +202,113 @@ our proposal is to aggregate the data in a server with public API where the data
 public accessible to everyone. In this section there is a discussion of 
 the server solution provided.
 
+\subsection{Design Choise}
+
+The choise to aggregare the data collected in a peer to peer system in a public 
+server may sound a little bit odd, but the lnmetrics framework is designed in a 
+way to keep every concept separate as the Figure \ref{fig:lnmetrics_architecture} 
+shows. In fact the analysis sysytem is indipended from the report sysytem, and 
+and the only information in common that this two sysytem need to have is the 
+the data format, that it our design is done through the lnmetrics RFC.
+
+\begin{figure}
+    \begin{center}
+    \includegraphics[scale=0.5]{imgs/lnmetrics-architecture.drawio.png}
+    \end{center}
+    \caption{LNMetrics architecture fesign diagram.}
+    \label{fig:lnmetrics_architecture}
+\end{figure}
+
+Our choise to provide the lnmetrics server as method to analyze the data is to 
+give one tool to organizzation and University to collect the data in a centralized
+way to semplify the analysis step. However, our client implementation is able also
+to compute the metric analysis also in the local envoirment and allow the own
+of the node to inspec the result calculated without share the data with the centralized
+server.
+
+\subsection{API Description}
+
+The server API use the \emph{GraphQL API} that allow an flexible way to fetch
+a subpart of the data from the server. In particular, the GraphQL Protocol use
+a concept of \emph{Query} where it is possible specify only the data that the 
+caller want to know and avoid to receive all the JSON as response. This choice is to
+improve the efficiency of the server, and speed up the performance. 
+
+However, the downside of this approach is that with the GraphQL API the learning 
+courve for a user is more hight that an normal Rest API, for this reason for our
+case study a python library that implement a wrap of the server API is provided 
+and an example of usage is given by a simple command line application 
+available on Github at \url{https://github.com/LNOpenMetrics/py-lnmetrics.api}, 
+where this command line tool is used to query the API periodically 
+and store the data on the Github repository. 
+
+Give the size of the database in the Figure \ref{fig:lnmetrics_diskspace}
+storing a snapshot of the metrics as blob data in Github can be easily done, this allow 
+to provide the data in another format and also to have a extra backup of the data 
+in case of the server will brash or just reach the end of support from who is running it.
+
+In conclusion, we provided an public API available at \url{https://api.lnmetrics.info} and 
+a web site available at \url{https://lnmetrics.info} that privide access to the 
+lnmetrics RFC, and some analsys on the case study described in the 
+following sections.
+
 \section{Local Reputation Metric}
+\label{sec:demo}
 
-In this section is described our case study develop with the our metrics, and
-in order to address a basic issue that we noted while we was running a lightning
-node on the Bitcoin Network. 
+In this section is described our case study that use the lnmetrics framework to 
+define a local reputation of the node in order to provide a solution to a problem 
+that we had while we was building our lightning node on the Bitcoin network.
 
-\subsection{Problem}
-
-When a new user want to run a lightning node from scratch at the moment it is 
-difficult choose with what kind of peers if is a good incentivize to open a channel with. 
-
-The choise of a good peer is important in this case because open a channel 
-required to lock some bitcoin in a channel and also pay \emph{on-chain}\footnote{on chain fee are the fee that the Bitcoin network take in order to validate a block.} 
-fe.
+So the local reputation described in this section is point to have some data 
+in order to support a lightning network user during the initial phase that include 
+discovery \emph{good lightning node} where it is possile to initialized a channel 
+and also to discovery other node to increate the number of channel by analyze
+the local view of our peers by having access to the server data.
 
 \subsection{Data Definition}
 
-% FIXME: describe the data definition
+The first step that we have done is to start to design our data model by analyze
+the data that we was able to get from the core lightning node. Our first version
+of the data model is available at the following link (TODO: put the link). 
+
+Moreover the data are split in to main part divided as follow:
+
+\begin{itemize}
+    \item {\bf Lightning Node performance information}: The performance of the node that it is running
+        the metrics, including
+        \begin{itemize}
+           \item Operative System information;
+           \item The number of channels that the node has;
+           \item The number of forwards payments that the node has performance the last 30 minutes
+           \item The current lightning fee that the node has in order to forward a payment
+        \end{itemize}
+    \item {\bf Performance for each channel}:
+    \begin{itemize}
+        \item If the node is online at the moment of the check;
+        \item The current lightning fee of the channel in order to forward a payment through it;
+        \item The number of payment that are forwarded in the last 30 minutes through this specific 
+            channel;
+        \item The channel direction, so for each lightning channel there will be two item one of inbound connection, 
+            and another one for outbound connection. In this way it is possible to try to estiamte what is the 
+            usable direction of the channel.
+    \end{itemize}
+\end{itemize}
+
+An more detailed descripion of the data is available on Github (TODO add link) where the
+JSON schema is provided.
+
+When the client push the data on the server the follwing metric output is calculated:
+
+\begin{itemize}
+    \item Lightning channel up time scoring divided by period is calculated;
+    \item Lightning channel forwards payment scoring divided in \emph{success}, \emph{failure} and \emph{local failure}
+        is calculated, where the local failure is how many forwards are failing caused to some lightning node problem,
+        e.g the node that it is running the metrics has no channel with enough outbound capacity. 
+    \item For each channel the previous information are calculated for this particular channel.
+\end{itemize}
+
+A more detailed description of the metric output is provided on Github as RFC with the JSON schema 
+of the data just described. 
 
 \subsection{Reference Implementation}
 
@@ -202,4 +316,4 @@ fe.
 
 \subsection{Data Analsys}
 
-% FIXME: Describe a little bit how the data are analyzed
+% FIXME: Describe a little it how the data are analyzed
