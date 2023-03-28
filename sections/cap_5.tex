@@ -43,7 +43,7 @@ are seeking a tool to analyze the node performance in order to increase the prof
 their node.
 
 The Figure \ref{fig:lnmetrics_process} shows as the general process of propose 
-a solution with our framework looks like.
+a solution with our framework looks like, where the steps are:
 
 \begin{figure}
     \begin{center}
@@ -53,13 +53,10 @@ a solution with our framework looks like.
     \label{fig:lnmetrics_process}
 \end{figure}
 
-The suggested process to propose a new metrics described in the Figure \ref{fig:lnmetrics_process}
-is composed by the following steps:
-
 \begin{itemize}
     \item {\bf Data Definition}: Should be the first step of the process in order
-        to clear define the scope of the data collection;
-    \item {\bf Client Implementation}: After a first draft of the data mode is defined,
+        to define in a clear way the scope of the data collection;
+    \item {\bf Client Implementation}: After a first draft of the data model is defined,
         the next step should be the implementation of the tools that is able to collect 
         the data. This step could required to can back to the previous step and change 
         somethings in the data model.
@@ -68,9 +65,9 @@ is composed by the following steps:
         and return to the stap 1.
     \item {\bf RFC proposal}: When the the data model and the code are in a stable phase,
         the metric can be proposed with an RFC and the discussion between the people interested
-        can be done, this steps can require to introduce some change in one of more of the previous steps;
+        can be done, but these steps can require to introduce some change in one of more of the previous steps;
     \item {\bf Possible Proposal}: After the RFC is discussed the data analysis can bring to some 
-        official proposal to the lightning network protocol or to one of the lightning networ implementation.
+        official proposal to the lightning network protocol or to one of the lightning network implementation.
 \end{itemize}
 
 In the section \ref{sec:demo} the process of our case study is discussed.
@@ -171,13 +168,12 @@ metrics database where the plugin make persistent the informations
 across node restarts, and also to support the offline mode feature. 
 The database choosed is \emph{leveldb} that is a \emph{NO SQL} database 
 that allow to store in an efficent way the data as key value and preserve
-the disk space with a compression algorithm built-in the database itlsef.
+the disk space with a compression algorithm built-in the database itself.
 In fact, our client implementation is havly based on the 
 compression feature in order to preserve and allow anyone to 
 run the tool. 
-
-In the Figure \ref{fig:disk_space_servers} it is shows how much space is 
-consumed by the database. 
+In the Figure \ref{fig:lnmetrics_diskspace} it is shows how much space is 
+consumed by the database in our two test machine. 
 
 \begin{figure}
     \begin{center}
@@ -194,6 +190,8 @@ consumed by the database.
         on a Raspberry PI to store 4 months of metrics data.
 \end{itemize}
 
+In the Section \ref{sec:demo} more information of the data collected is discussed.
+
 \section{LNMetrics Data Analsys}
 \label{sec:lnmetrics_server}
 
@@ -207,9 +205,9 @@ the server solution provided.
 The choise to aggregare the data collected in a peer to peer system in a public 
 server may sound a little bit odd, but the lnmetrics framework is designed in a 
 way to keep every concept separate as the Figure \ref{fig:lnmetrics_architecture} 
-shows. In fact the analysis sysytem is indipended from the report sysytem, and 
-and the only information in common that this two sysytem need to have is the 
-the data format, that it our design is done through the lnmetrics RFC.
+shows. In fact, the analysis system is indipended from the report system, and 
+and the only information shared across the systems is the data format, 
+that in our design is done through the lnmetrics RFC.
 
 \begin{figure}
     \begin{center}
@@ -221,18 +219,19 @@ the data format, that it our design is done through the lnmetrics RFC.
 
 Our choise to provide the lnmetrics server as method to analyze the data is to 
 give one tool to organizzation and University to collect the data in a centralized
-way to semplify the analysis step. However, our client implementation is able also
-to compute the metric analysis also in the local envoirment and allow the own
-of the node to inspec the result calculated without share the data with the centralized
+way in order to semplify the analysis step. However, our client implementation is able
+to compute the metric analysis in a local envoirment, and allow the own
+of the node to inspect the result calculated without share the data with the centralized
 server.
 
 \subsection{API Description}
 
-The server API use the \emph{GraphQL API} that allow an flexible way to fetch
+The server API use the \emph{GraphQL API} that allow a flexible way to fetch
 a subpart of the data from the server. In particular, the GraphQL Protocol use
 a concept of \emph{Query} where it is possible specify only the data that the 
 caller want to know and avoid to receive all the JSON as response. This choice is to
-improve the efficiency of the server, and speed up the performance. 
+improve the efficiency of the server, and speed up the performance when the caller need 
+to access to a subset of information and not to the full raw content. 
 
 However, the downside of this approach is that with the GraphQL API the learning 
 courve for a user is more hight that an normal Rest API, for this reason for our
@@ -259,28 +258,32 @@ In this section is described our case study that use the lnmetrics framework to
 define a local reputation of the node in order to provide a solution to a problem 
 that we had while we was building our lightning node on the Bitcoin network.
 
-So the local reputation described in this section is point to have some data 
-in order to support a lightning network user during the initial phase that include 
-discovery \emph{good lightning node} where it is possile to initialized a channel 
-and also to discovery other node to increate the number of channel by analyze
-the local view of our peers by having access to the server data.
+The local reputation described in this section is point to have some data 
+in order to support a lightning network user during the initial phase, and 
+helps to define some criteria in order to discovery a \emph{good lightning node} 
+where it is possile to initialized a channel. In addition, with these local reputation 
+system it is possible help node management tools like \emph{clboss}\cite{clboss}
+to score the channel, and have some additional information in order to 
+take decision at runtime.
 
 \subsection{Data Definition}
+\label{sec:data_definition_datadef}
 
 The first step that we have done is to start to design our data model by analyze
 the data that we was able to get from the core lightning node. Our first version
-of the data model is available at the following link (TODO: put the link). 
+of the data model is available on Github at \cite{lnmetrics_localreputation}. 
+Moreover the data are split in two main part divided as follow:
 
-Moreover the data are split in to main part divided as follow:
-
-\begin{itemize}
+\begin{enumerate}
     \item {\bf Lightning Node performance information}: The performance of the node that it is running
         the metrics, including
         \begin{itemize}
            \item Operative System information;
            \item The number of channels that the node has;
-           \item The number of forwards payments that the node has performance the last 30 minutes
-           \item The current lightning fee that the node has in order to forward a payment
+           \item The number of forwards payments that the node has perform in the 
+               last 30 minutes;
+           \item The current lightning fee that the node has in order to 
+               forward a payment.
         \end{itemize}
     \item {\bf Performance for each channel}:
     \begin{itemize}
@@ -288,19 +291,16 @@ Moreover the data are split in to main part divided as follow:
         \item The current lightning fee of the channel in order to forward a payment through it;
         \item The number of payment that are forwarded in the last 30 minutes through this specific 
             channel;
-        \item The channel direction, so for each lightning channel there will be two item one of inbound connection, 
-            and another one for outbound connection. In this way it is possible to try to estiamte what is the 
-            usable direction of the channel.
+        \item The channel direction, where for each lightning channel there will be two items: one of 
+            inbound connection, and another one for outbound connection. In this way it is possible to 
+            try to estimate the usable direction of the channel.
     \end{itemize}
-\end{itemize}
+\end{enumerate}
 
-An more detailed descripion of the data is available on Github (TODO add link) where the
-JSON schema is provided.
-
-When the client push the data on the server the follwing metric output is calculated:
+When the client provide the data to the analysis sysytem the follwing metric output is calculated:
 
 \begin{itemize}
-    \item Lightning channel up time scoring divided by period is calculated;
+    \item Lightning node up time scoring divided by period is calculated;
     \item Lightning channel forwards payment scoring divided in \emph{success}, \emph{failure} and \emph{local failure}
         is calculated, where the local failure is how many forwards are failing caused to some lightning node problem,
         e.g the node that it is running the metrics has no channel with enough outbound capacity. 
@@ -308,11 +308,61 @@ When the client push the data on the server the follwing metric output is calcul
 \end{itemize}
 
 A more detailed description of the metric output is provided on Github as RFC with the JSON schema 
-of the data just described. 
+of the data just described, and we avoid to report the full code example due the size of the 
+JSON schema. 
 
 \subsection{Reference Implementation}
 
-% FIXME: Describe how the plugin works under the hood
+The client implementation of the local reputation described in \ref{sec:data_definition_datadef} 
+is provided inside our Go lang reference implementation discussed in \ref{sec:lnmetrics_client},
+and this section include a practical description on how to use it.
+Therefore, the client implementation is a plugin for core lightning able to 
+run as part of the deamon itself, so in order to run the plugin the core lightning
+need to know te path of the plugin binary, and an example of the command is shows in
+the code \ref{code:cln_with_lnmetrics}.
+
+\begin{lstlisting}[language=bash, basicstyle=\small,
+                  caption={Command to run the core lightning deamon with the lnmetrics plugin enabled.}, 
+                  label={code:cln_with_lnmetrics}]
+>> lightningd --plugin=/<path to the plugin binary>/go-lnmetrics
+\end{lstlisting}
+
+When core lightning will finish to setup all the envoirment, a directory inside 
+the core lightning home (by defalt is in /home/<user>/.lightning) 
+with the name metrics is created, andit is the home of the lnmetrics 
+plugin where all the information are stored. In addition, a metrics.log file 
+is created to be able to debug the plugin without interact with the 
+core lightning log deamon.
+
+After the node is running the plugin will perform the initialization 
+of the information required by the local reputation described before, and 
+then each 30 minutes the plugin will perform the update of the metrics by 
+get the last information by query the core lightning node. 
+
+However, if the plugin is runned with the command \ref{code:cln_with_lnmetrics}
+the plugin will run in the offline mode, and this mean that the metrics are keep 
+only in the local machine where the node is running, and not shared with the server. 
+Therefore, in order to share the data with the server the API URL need to be specified,
+as the Code \ref{code:cln_with_lnmetrics_url} shows.
+
+\begin{lstlisting}[language=bash, basicstyle=\small,
+                  caption={Command to run core lightning with the lnmetrics plugin an publish the data.}, 
+                  label={code:cln_with_lnmetrics_url}]
+>> lightningd --plugin=/<path to the plugin binary>/go-lnmetrics \ 
+--lnmetrics-urls=https://api.lnmetrics.info/query
+\end{lstlisting}
+
+More endpoint can be specified by append them to the lnmetrics-urls command line operation separate by a comma.
+
+In conclusion, it is possible query the plugin by interacting with the core lightning command line interface,
+and call the following method provided by the plugin:
+
+\begin{itemize}
+    \item {\bf raw-local-reputation}: Query the last input data collected by the plugin in the last 30 minuts; 
+        the data format of this plugin is described inside the \cite{lnmetrics_localreputation};
+    \item {\bf local-reputation}: Query the last local reputation calculate on the data provided by the 
+        raw-local-reputation command, and the data format is described in \cite{lnmetrics_localreputation}.
+\end{itemize}
 
 \subsection{Data Analsys}
 

@@ -70,6 +70,12 @@ S.~Nakamoto.
 \newblock Bitcoin: A peer-to-peer electronic cash system.
 \newblock May 2009.
 
+\bibitem{lnmetrics_localreputation}
+V.~Palazzo.
+\newblock Local reputation.
+\newblock
+  \url{https://github.com/LNOpenMetrics/lnmetrics.rfc/blob/main/metrics/metric_1.md}.
+
 \bibitem{DBLP:journals/corr/abs-2103-08576}
 R.~Pickhardt, S.~Tikhomirov, A.~Biryukov, and M.~Nowostawski.
 \newblock Security and privacy of lightning network payments with uncertain
@@ -103,5 +109,10 @@ Visa.
 \bibitem{learnmeabitcoin:p2ms}
 G.~Walker.
 \newblock {Pay To Multisig}.
+
+\bibitem{clboss}
+ZmnSCPxj.
+\newblock Automated core lightning node manager.
+\newblock \url{https://github.com/ZmnSCPxj/clboss}.
 
 \end{thebibliography}
