@@ -76,7 +76,34 @@
     tabsize=3
 }
 
+% define the graphql language
+\lstdefinelanguage{graphql}{
+    alsodigit = {-},
+    keywords = {mutation, query},
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    numberstyle=\tiny\color{cosmoblack},
+    keywordstyle=\color{cosmoblue},
+    commentstyle=\color{cosmoogray},
+    stringstyle=\color{cosmogreen},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3
+}
+
 \lstset{language=go,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{cosmoblue}\ttfamily,
+  stringstyle=\color{cosmogreen}\ttfamily,
+  commentstyle=\color{cosmogreen}\ttfamily,
+  numbers=left,
+}
+
+\lstset{language=python,
   basicstyle=\ttfamily\scriptsize,
   keywordstyle=\color{cosmoblue}\ttfamily,
   stringstyle=\color{cosmogreen}\ttfamily,

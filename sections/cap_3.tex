@@ -4,14 +4,14 @@
 \section{Problem}
 
 The Lightning Network protocol as described in Section \ref{sec:lightning_network} is 
-driven by a consensus between a group of implementors in order to standardize
-features. Where in some cases in order to address a problem such as 
-improve the path finding algorithm\cite{DBLP:journals/corr/abs-2103-08576} or 
+driven by a consensus between a group of implementors to standardize
+features. Where in some cases to address a problem such as 
+improve the pathfinding algorithm\cite{DBLP:journals/corr/abs-2103-08576} or 
 propose a solution for the \emph{Jamming Attack}\cite{cryptoeprint:2022/1454} 
-a data driven analysis on a group of nodes is required in order to emphasize the
+a data-driven analysis of a group of nodes is required to emphasize the
 problem and sometimes also to see the real impact of the solution after being 
 implemented but before beginning a standard.
-However, in order to perform a data-driven analysis in an ecosystem where the decision
+However, to perform a data-driven analysis in an ecosystem where the decision
 is driven by a kind of consensus, it is required also to some kind of 
 constraint on how this data-driven analysis is performed and analyzed across 
 different implementations.
@@ -20,7 +20,7 @@ different implementations.
 
 Currently, the most common data-driven analysis on the Lightning Network is performed 
 on gossip data which any node can with a connection to another node connected 
-to the network have access to. An example of this kind of analysis is described in \cite{lngossip}
+to the network has access to. An example of this kind of analysis is described in \cite{lngossip}
 where the data are collected from core lightning and archived.
 
 However, at the current state of the art, there is no example of how to perform
@@ -34,7 +34,7 @@ and \cite{cryptoeprint:2022/1454}.
 \subsection{Local Data-Driven Analysis}
 
 Today perform a data-driven analysis on local data that are considered private
-is difficult because there is no real data available where to perform the simulation
+is difficult because there is no real data available on where to perform the simulation
 other than the one provided by research tools such as \cite{lngossip}.
 Therefore, this lack of data can slow down the research process or limit the 
 research scope because collecting real data is required to run a lightning node 
@@ -45,7 +45,7 @@ the real one as described in \ref{sec:solution}.
 In addition, another possible problem caused by this lack of data is the implementation
 quality of the solution proposed, because in these cases 
 the implementors are required to deep understanding of the problem 
-in order to transform an assumption into implementation-specific values, 
+to transform an assumption into implementation-specific values, 
 and this can require another data-driven analysis.
 
 \section{State of the Art}
@@ -97,7 +97,7 @@ Then the \emph{channel failure probility} and \emph{channel sucess probability} 
     The {\bf channel success probability} is defined as $P(X > amount) = 1 -  P(X < amount)$
 \end{definition}
 
-After several considerations, in an analogous way calculate the \emph{path success probability} and
+After several considerations, analogously calculate the \emph{path success probability} and
 \emph{path failure probability} by doing the product of the probability of each edge in the path.
 
 In conclusion, the paper proves that the channel success probability is defined as in 
@@ -138,7 +138,7 @@ The paper \cite{cryptoeprint:2022/1454} describe an solution to this problem
 based on a \emph{reputation system} and \emph{up-front fee} that allows to make
 the Jamming attack is costly due to the up-front fee and difficult to do during the time 
 due to the reputation system.
-In addition, the paper defines different kind of Jamming attack, divided in :
+In addition, the paper defines different kinds of Jamming attacks, divided in :
 
 \begin{itemize}
     \item {\bf Slow Jamming}: The attacker makes a payment with a very long timeout, 
@@ -148,7 +148,7 @@ In addition, the paper defines different kind of Jamming attack, divided in :
         that it is used to steal information from a channel called probing.
 \end{itemize}
 
-In order to mitigate slow and fast jamming the paper \cite{cryptoeprint:2022/1454}
+To mitigate slow and fast jamming the paper \cite{cryptoeprint:2022/1454}
 propose a combination of two strategies, combined in the following way:
 
 \begin{itemize}
@@ -160,7 +160,7 @@ propose a combination of two strategies, combined in the following way:
 
 The solution proposed regarding the unconditional fee is relatively simple to implement 
 because required a node to pay for an attempt also if this fails (if succeeded the up-front fee can 
-be returned back), and the choice of the path is driven by the local reputation that 
+be returned), and the choice of the path is driven by the local reputation that 
 score the channel based on the following information:
 
 \begin{itemize}
@@ -174,7 +174,7 @@ score the channel based on the following information:
 Calculating the Reputation Scores works by considering two possible values
 for reputation scores:  \emph{high}  and  \emph{low}. Initially, all peers 
 receive a low score. A payment is deemed  honest  if it resolves within  
-$\gamma$  seconds, otherwise, it is considered a jam attack. 
+$\gamma$  seconds, otherwise, it is considered a jamming attack. 
 A peer’s behavior is defined as  good  if it only offers honest payments 
 for forwarding. Moreover, those payments must pay at least A satoshis 
 per second in fees to the routing node. The reputation of a peer grows if 
