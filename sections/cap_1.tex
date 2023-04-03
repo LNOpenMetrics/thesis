@@ -233,7 +233,6 @@ these operations are performed inside the protocol.
 \subsection{modifying Lightning Channel State}
 \label{sec:modify_channel_state}
 
-
 The Lightning Network protocol complexity with the current implementation (defined in \cite{lightning-bolts})
 is generated from the channel state management that needs to ensure that there are no situations that can
 cause  possibilities to lose funds from one participant.
@@ -247,6 +246,7 @@ channel due to a corrupted database. In this case propose like \cite{eltoo} desc
 better solutions for channel state management.
 
 \subsection{Forwarding Lightning Payments}
+\label{sec:lightning_forwarding}
 
 The Lightning Network protocol allows operations through the network by sending a partial sign transaction that
 allow peers to perform a payment.

@@ -102,7 +102,7 @@ to support the RFC discussion.
 However, at this time the problem on how to easily integrate new metrics inside the 
 existing code is an open problem, and a possible solution is to allow the server 
 described in Section \ref{sec:lnmetrics_server} to support a \emph{plugin protocol}
-that allows any person to extend the existing server with additional features and leave to the user 
+that allows any person to extend the existing server with additional features and leave it to the user 
 the decision on how to implement the client as described in the Section \ref{sec:lnmetrics_client}.
 In conclusion, when the new metric has been proposed inside the RFC a discussion between interested 
 group of people needs to be done to try to improve and verify the proposal, but if this is not possible
@@ -138,7 +138,7 @@ type Metric interface {
     UploadOnRepo(client *graphql.Client, 
         lightning client.Client) error
     // called when the metrics for the specific node 
-    //needs to be initialised on the server
+    //needs to be initialized on the server
     InitOnRepo(client *graphql.Client, 
         lightning client.Client) error
     // call that the lightning node used when it is 
@@ -305,7 +305,7 @@ JSON schema.
 
 \subsection{Reference Implementation}
 
-The client implementation of the local reputation described in \ref{sec:data_definition_datadef} 
+The client implementation of the local reputation is described in \ref{sec:data_definition_datadef} 
 is provided inside our Go Lang reference implementation discussed in \ref{sec:lnmetrics_client},
 and this section includes a practical description of how to use it.
 Therefore, the client implementation is a plugin for core lightning able to 
@@ -450,7 +450,7 @@ noted that it is possible noted some at least two kinds of nodes that are:
 
 \begin{itemize}
     \item {\bf Routing Node}: Nodes that are always online;
-    \item {\bf Casual User} Node Node Node that are not always online.
+    \item {\bf Casual User} Nodes that are not always online.
 \end{itemize}
 
 Therefore, just by analysing the up-time of the node it is possible to extract useful information 
