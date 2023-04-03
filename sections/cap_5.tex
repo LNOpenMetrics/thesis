@@ -59,18 +59,18 @@ a solution with our framework looks like, where the steps are:
     \item {\bf Client Implementation}: After a first draft of the data model is defined,
         the next step should be the implementation of the tools that can collect 
         the data. This step could require going back to the previous step and change 
-        somethings in the data model.
+        part of the data model.
     \item {\bf Analysis Implementation}: Could be done in parallel with the Client implementation,
         and as in the client's case, the analysis of the data collected can bring to rethink the data model
         and return to step 1.
     \item {\bf RFC proposal}: When the data model and the code are in a stable phase,
         the metric can be proposed with an RFC and the discussion between the people interested
-        can be done, but these steps can require to introduce of some change in one or more of the previous steps;
+        can be done, but these steps can require to introduce changes in one or more of the previous steps;
     \item {\bf Possible Proposal}: After the RFC is discussed the data analysis can bring to some 
-        official proposal to the lightning network protocol or one of the lightning network implementations.
+        official proposal to the lightning network protocol or to one of the lightning network implementations.
 \end{enumerate}
 
-In section \ref{sec:demo} the process of our case study is discussed.
+In Section \ref{sec:demo} the process of our case study is discussed.
 
 \section{LNMetrics Request for Comments (RFC)}
 
@@ -101,8 +101,9 @@ to support the RFC discussion.
 
 However, at this time the problem on how to easily integrate new metrics inside the 
 existing code is an open problem, and a possible solution is to allow the server 
-to support a \emph{plugin protocol} that allow any person to extend the existing 
-server with additional features.
+described in Section \ref{sec:lnmetrics_server} to support a \emph{plugin protocol}
+that allow any person to extend the existing server with additional features and leave to the user 
+the decision on how to implement the client as described in the Section \ref{sec:lnmetrics_client}.
 In conclusion, when the new metric has been proposed inside the RFC a discussion between interested 
 group of people needs to be done to try to improve and verify the proposal, but if this is not possible
 the proposal can be accepted directly by providing a reference implementation of the metrics proposed.
@@ -159,7 +160,7 @@ type Metric interface {
 The LNMetrics client provided uses the core lightning plugin API
 that allows us to easily integrate the client with the core lightning daemon 
 and run the metrics client as part of the node itself. 
-In addition, to allow easy development of the plugin a 
+In addition, to allow an easy development of the plugin a 
 Go API for core lightning is also provided, and available on 
 Github at \url{https://github.com/vincenzopalazzo/cln4go}.
 
@@ -220,7 +221,7 @@ that in our design is done through the lnmetrics RFC.
 Our choice to provide the lnmetrics server as a method to analyze the data is to 
 give one tool to organizations and Universities to collect the data in a centralized
 way to simplify the analysis step. However, our client implementation is able
-to compute the metric analysis in a local environment, and allow the own
+to compute the metric analysis in a local environment, and allow the owner
 of the node to inspect the result calculated without sharing the data with the centralized
 server.
 
@@ -229,8 +230,8 @@ server.
 The server API uses the \emph{GraphQL protocol} that allows a flexible way to fetch
 a subpart of the data from the server. In particular, the GraphQL Protocol uses
 a concept of \emph{Query} where it is possible to specify only the data that the 
-caller wants to know and avoid receiving all the JSON as a response. This choice is to
-improve the efficiency of the server and speed up the performance when the caller needs 
+caller wants to know and avoid receiving all the JSON as a response. The motivation of this 
+choice is to improve the efficiency of the server and speed up the performance when the caller needs 
 access to a subset of information and not to the full raw content. 
 
 However, the downside of this approach is that with the GraphQL protocol the learning 
@@ -238,7 +239,7 @@ curve for a user is more hight that a normal Rest protocol, for this reason for 
 case study a python library that implements a wrap of the server API is provided 
 and available on Github at \url{https://github.com/LNOpenMetrics/py-lnmetrics.api}. 
 
-In conclusion, we provided a public API available at \url{https://api.lnmetrics.info} with a 
+In conclusion, we provided a public API available at \url{https://api.lnmetrics.info} with 
 a web site available at \url{https://lnmetrics.info} that provide access to the 
 lnmetrics RFC, and some analysis on the case study described in the 
 following sections.
@@ -250,7 +251,7 @@ This section is described our case study that uses the lnmetrics framework to
 define a local reputation of the node to provide a solution to a problem 
 that we had while we were building our lightning node on the Bitcoin network.
 
-The local reputation described in this section is a point to have some data 
+The local reputation described in this section is pointing to have some data 
 to support a lightning network user during the initial phase, and 
 helps to define some criteria to discover a \emph{good lightning node} 
 where it is possible to initialize a channel. In addition, with these local reputations 
@@ -357,9 +358,9 @@ and call the following method provided by the plugin:
 \subsection{Data Analsys}
 
 When the client is running with an endpoint as in the Code \ref{code:cln_with_lnmetrics_url},
-the metrics are collected and reported to the server provided by calling an endpoint with the following 
-\emph{Mutation}\footnote{A Mutation query in the GraphQL is a special query that point to mutate the state of the server.} query, 
-and an example is shows in the Code \ref{code:lnmetrics_mutation}.
+the metrics are collected and reported to the server provided. The server instance expose an
+endpoint that accept a \emph{Mutation}\footnote{A Mutation query in the GraphQL is a special query that point to mutate the state of the server.} query,
+as the Code \ref{code:lnmetrics_mutation} shows.
 
 \begin{lstlisting}[language=graphql, basicstyle=\small,
                   caption={Mutation query call by the client to initialize the metric on the server.}, 
@@ -401,15 +402,16 @@ client = LNMetricsClient(service_url="https://api.lnmetrics.info/query")
 nodes = client.get_nodes(network="bitcoin")
 print(f"The nodes on the server are {nodes}")
 metric = client.get_local_score_output(network="bitcoin", 
-               node_id="03e2408a49f07d2f4083a47344138ef89e7617e63919202c92aa8d49b574a560ae")
+               node_id="03e2408a49f07...")
 print(f"The local score of the node is {metric}")
 \end{lstlisting}
 
-In addition, we use the python API to write Jupyter Notebook available at \url{https://github.com/LNOpenMetrics/local-reputation-analysis}
-where to analyzed the initial data that we had on the servers, and also to give 
-an initial analysis on metric data available.
+In addition, we use the python API to write a Jupyter Notebook available at \url{https://github.com/LNOpenMetrics/local-reputation-analysis}
+where we make an initial analsys of the data collected, and in the we discuss 
+the result in the remaing section.
 
 \subsubsection{Nodes Up time}
+\label{sec:node_uptime}
 
 In this section is discussed the result of the analsys of metrics provide by 
 the node available on the cloud server.
@@ -418,7 +420,7 @@ the node available on the cloud server.
     \begin{center}
       \includegraphics[scale=0.7]{imgs/bitcoin_uptime.png}
     \end{center}
-    \caption{Lightning Nede uptime scoring on the Bitcoin Network calculate by the cloud machine.}
+    \caption{Lightning Node uptime scoring on the Bitcoin Network calculate by the cloud machine.}
     \label{fig:lnmetrics_uptime_bitcoin}
 \end{figure}
 
@@ -426,54 +428,94 @@ the node available on the cloud server.
     \begin{center}
       \includegraphics[scale=0.7]{imgs/testnet_uptime.png}
     \end{center}
-    \caption{Lightning Nede uptime scoring on the Testnet Network calculate by the cloud machine.}
+    \caption{Lightning Node uptime scoring on the Testnet Network calculate by the cloud machine.}
     \label{fig:lnmetrics_uptime_testnet}
 \end{figure}
 
 In the Figure \ref{fig:lnmetrics_uptime_bitcoin} is shows the uptime scoring of the nodes that 
 are sharing data on the server each 30 minutes, so the node with the 100\% uptime 
-are the node that are always online. Therefore, the node from this analysis we can 
-see the node that not always online like the one with the alias \emph{SLICKERGOPHER}. In fact, 
+are the node that are always online. Therefore, from this analysis we can 
+see some kinds of patter where there are nodes that not always online such as the one 
+with the alias \emph{SLICKERGOPHER}. In fact, 
 this node is not an routing node, but it is just a node that it is runned from a casual user.
 
-In conclusion, we can see that also the uptime on the testnet network from the Figure \ref{fig:lnmetrics_uptime_testnet}
-shows this difference between routing nodes and casual users, and this information could be use 
-from the users to choose the node where to open a channel with, but this alone is not an usefult information.
+In conclusion, in the Figure \ref{fig:lnmetrics_uptime_testnet} is
+shows the uptime of the nodes in the testnet network, where we can see also 
+this difference between node always online and casual users.
 
 \subsubsection{Forwards Rating}
 
-In the previous section, we analyzed the uptime of the nodes and we noted that it is possible 
-extract useful information just looking to the up time of a node. However, known just the 
-uptime of a node is not so useful because a node with an good uptime can be a bad node because 
-it has no much activity or it can have a lot of bad activity. 
-In this section, we use the forwards rating to mesur the activity of the channel, and we also
-take in consideration only two nodes that are: 
+In the Section \ref{sec:node_uptime} analyzed the up-time of the nodes and we 
+noted that it is possible noted some at lest two kinds of nodes that are: 
 
 \begin{itemize}
-    \item {\bf BLUEIRON}: The lightning node with the public key \emph{024b9a1fa8e006f1e3937f65f66c408e6da8e1ca728ea43222a7381df1cc449605} for the Bitcoin Network;
-    \item {\bf BRUCEWAINE-Testnet}: The lightning node with public key \emph{030b686a163aa2bba03cebb8bab7778fac251536498141df0a436d688352d426f6} for the Testnet Network.
+    \item {\bf Routing Node}: The node that are always online;
+    \item {\bf Casual User} Then node that are not always online.
 \end{itemize}
 
-\begin{figure}
+Therefore, just analyzing the up-time of the node it is possible extract useful information 
+in order to drive some decision at runtime. However, know just the 
+up-time of a node is not enough to estimate if a node is a good node for the public network 
+because the a routing node that it is always online need to have some activity and this activity 
+should not be dangerus for the network.
+For this reason, in this section, we use the forwards rating to measure the activity of a node 
+by analyzing how many payments are forwarded by the routing node under analysism and for our analysis 
+we take in consideration two nodes, one of the Bitcoin Network and the other one in the Testnet network.
+
+\begin{itemize}
+    % FIXME: there is a better way to go to the next line, but I am not able to find this better way!
+    \item {\bf BLUEIRON}: The lightning node with the public key 024b9a1fa8e006f1e3937f6-\\5f66c408e6da8e1ca728ea43222a7381df1cc449605 for the Bitcoin Network;
+    \item {\bf BRUCEWAINE-Testnet}: The lightning node with public key 030b686a163aa2bba0-\\3cebb8bab7778fac251536498141df0a436d688352d426f6 for the Testnet Network.
+\end{itemize}
+
+In the Figure \ref{fig:bitcoin_vs_testnet_forwards} there is an the analsys of the forwarded payments by 
+the node under analysis for each network, and in the Figure \ref{fig:bitcoin_vs_testnet_channels_size} there is an 
+analysis on the size of the node during all the period that include the number of channel that the node 
+has.
+
+Therefore, from this comparison we can see that the activity on the Bitcoin network 
+is order of magnitude bigger that the activity on the testnet network, also if the 
+side of the node is close to be the same. This shows that the activity on the Bitcoin network and 
+the activity on the Testnet network are very different, and this may impact proposal evaluation 
+that are dependent from the network such as the local scoring proposed by the solution to solve 
+the Jammin Attack discussed on the Section \ref{sec:jamming}.
+
+\begin{figure}[H]
     \begin{center}
-      \includegraphics[scale=0.7]{imgs/bitcoin_forwards.png}
+        \includegraphics[scale=0.7]{imgs/bitcoin_vs_testnet_forwards.png}
     \end{center}
-    \caption{Lightning Nede forwards scoring on the Bitcoin Network calculate from the cloud machine.}
-    \label{fig:lnmetrics_forwards_bitcoin}
+    \caption{Comparison between networks of the Lightning Node forwards scoring.}
+    \label{fig:bitcoin_vs_testnet_forwards}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
     \begin{center}
-      \includegraphics[scale=0.7]{imgs/testnet_forwards.png}
+      \includegraphics[scale=0.7]{imgs/bitcoin_vs_testnet_channels_size.png}
     \end{center}
-    \caption{Lightning Nede forwards scoring on the Testnet Network calculate by the cloud machine.}
-    \label{fig:lnmetrics_forwards_testnet}
+    \caption{Comparison between networks of the Lightning Node size.}
+    \label{fig:bitcoin_vs_testnet_channels_size}
 \end{figure}
 
+However, with the Figure \ref{fig:bitcoin_forwards_rating} we can see how also the success forwards scoring 
+on the Bitcoin network is close to the 5\% of the total forwards performed in the last 6 months. One of the main 
+reasons of this result can be the probing techniques that some nodes are using in order to estimate the extract capacity
+of the channel before perform the path finding algorithm. In these probing techniques the node that want to make a payments
+will send before fake payments that are already failed with an increase amount just to know if the channel where this 
+payment is directed is able to forwards it. The lightning node that is receiving this forwards payment is not able to 
+note that it is a fake payment due the onion routing discussed in the Section \ref{sec:onion_routing}.
+So, just looking to the global forwards scoring 
+of a node it is not enough because the failure scoring will be always a big part of this analysis due to 
+these probing techniques.
 
-\subsection{Network Activities}
 
-In this section there is an analsys of the activity that there is on the main 
-Bitcoin network and on the testnet network, where it is show that the two networks 
-are conceptually different, and this means that experiment result on a testnet network 
-can me conceptually different from an experiment runned on the real Bitcoin network.
+\begin{figure}
+    \begin{center}
+      \includegraphics[scale=0.7]{imgs/bitcoin_forwards_rating.png}
+    \end{center}
+    \caption{Forwards Scoring for the Lightning network node on the Bitcoin Network.}
+    \label{fig:bitcoin_forwards_rating}
+\end{figure}
+
+% FIXME: we could add a small analysis of the forwards scoring for each channels
+
+
