@@ -198,13 +198,13 @@ In Section \ref{sec:demo} more information about the data collected is discussed
 
 After the data are collected by the LNMetrics client described in \ref{sec:lnmetrics_client}
 we propose to aggregate the data in a server with public API where the data are 
-public access to everyone. In this section, there is a discussion of 
+publicly accessible to everyone. In this section, there is a discussion of 
 the server solution provided.
 
 \subsection{Design Choice}
 
 The choice to aggregate the data collected in a peer-to-peer system in a public 
-the server may sound a little bit odd, but the lnmetrics framework is designed in a 
+server may sound a little bit odd, but the lnmetrics framework is designed in a 
 way to keep every concept separate as the Figure \ref{fig:lnmetrics_architecture} 
 shows. The analysis system is independent of the client that collects and reports
 the data and the only information shared across the systems is the data format, 
@@ -251,7 +251,7 @@ This section is described our case study that uses the lnmetrics framework to
 define a local reputation of the node to provide a solution to a problem 
 that we had while we were building our lightning node on the Bitcoin network.
 
-The local reputation described in this section is pointing to have some data 
+The local reputation described in this section is trying to have anought data 
 to support a lightning network user during the initial phase, and 
 helps to define some criteria to discover a \emph{good lightning node} 
 where it is possible to initialise a channel. In addition, with these local reputations 
@@ -445,7 +445,7 @@ this difference between nodes is always online and casual users.
 
 \subsubsection{Forwards Rating}
 
-In Section \ref{sec:node_uptime} analysed the up-time of the nodes and we 
+In Section \ref{sec:node_uptime} is analysed the up-time of the nodes and we 
 noted that it is possible noted some at least two kinds of nodes that are: 
 
 \begin{itemize}
@@ -498,14 +498,15 @@ the Jamming Attack discussed on the Section \ref{sec:jamming}.
 
 However, with Figure \ref{fig:bitcoin_forwards_rating} we can see how also the success forwards scoring 
 on the Bitcoin network is close to the 5\% of the total forwards performed in the last 6 months. One of the main 
-reasons for this result can be the probing techniques that some nodes are using in order to estimate the extract capacity
+reasons for this result can be the probing techniques that some nodes are using in order to estimate the exact capacity
 of the channel before performing the path-finding algorithm. In these probing techniques, the node that wants to make payments
 will send fake payments that are already failed with an increasing amount just to know if the channel where this 
 payment is directed is able to forward it. The lightning node that is receiving this forward payment is not able to 
 note that it is a fake payment due to the onion routing discussed in Section \ref{sec:onion_routing}.
 So, just looking at the global forwards scoring 
 of a node, it is not enough because the failure scoring will be always a big part of this analysis due to 
-these probing techniques.
+these probing techniques, but this information is useful to be able to filter nodes that forwards only payments 
+that will fails payments, and are not local failure.
 
 
 \begin{figure}
