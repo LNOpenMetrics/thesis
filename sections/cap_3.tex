@@ -75,7 +75,7 @@ equal to the max capacity $C$. More formally is that
 
 Then, payment of an amount $a$ between two vertexes $(u, v)$ in the network is defined 
 as a path between $u$ and $v$ where each vertex has a different fee that needs to payed for a 
-a single unit of flow, and also has a base fee that is paid anyway.
+single unit of flow, and also has a base fee that is paid anyway.
 
 \begin{definition}
     The cost of each edge $(u, v) \in E$ is defined as $fee = base(u, v) + perUnit(u, v)$.
@@ -132,7 +132,7 @@ is not the only reason why payments on the lightning network are unreliable.
 Another well-known problem on the Lightning Network is \emph{jamming attack},
 it is a cheap denial-of-service (DoS) attack, where the goal of this DoS attack 
 is to prevent payments, either routed through the victim or paying the victim. 
-The effectiveness of jamming thus could be characterized by the reduction of 
+The effectiveness of jamming attack could be characterized by the reduction of 
 payment success rate, applied to the victim or the entire Lightning Network.
 
 The paper \cite{cryptoeprint:2022/1454} describe an solution to this problem 
