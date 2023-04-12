@@ -20,6 +20,11 @@ B.~65.
 B.~68.
 \newblock {Bitcoin Improvement Proposals 68}.
 
+\bibitem{gqlgen}
+99designs.
+\newblock gqlgen is a go library for building graphql servers without any fuss.
+\newblock \url{https://github.com/99designs/gqlgen}.
+
 \bibitem{lnbook}
 R.~P. Andreas M.~Antonopoulos, Olaoluwa~Osuntokun.
 \newblock Mastering the lightning network.
@@ -60,6 +65,16 @@ C.~Decker and R.~Wattenhofer.
   Channels}.
 \newblock In {\em {17th International Symposium on Stabilization, Safety, and
   Security of Distributed Systems (SSS), Edmonton, Canada}}, August 2015.
+
+\bibitem{graphql}
+Facebook/Meta.
+\newblock Graphql is a query language for apis.
+\newblock \url{https://graphql.org}.
+
+\bibitem{gojson}
+M.~Goshima.
+\newblock Fast json encoder/decoder compatible with encoding/json for go.
+\newblock \url{https://github.com/goccy/go-json}.
 
 \bibitem{payment-channels-satoshi}
 M.~Hearn.
