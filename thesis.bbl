@@ -106,6 +106,12 @@ J.~Poon and T.~Dryja.
 .~Rusty~Russell, Christian~Decker.
 \newblock {Lightning Network Specification}.
 
+\bibitem{glightning}
+N.~Saitug.
+\newblock A golang driver for c-lightning. includes both an rpc client and
+  plugin framework.
+\newblock \url{https://github.com/niftynei/glightning}.
+
 \bibitem{cryptoeprint:2022/1454}
 C.~Shikhelman and S.~Tikhomirov.
 \newblock Unjamming lightning: A systematic approach.
