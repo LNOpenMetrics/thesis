@@ -49,11 +49,12 @@ and this can require another data-driven analysis.
 
 \subsection{Probabilistic Path Finding}
 
-In Section \ref{sec:modify_channel_state} it is described how  payments are
-forwarded across the network, and also how much it is difficult to perform an efficient 
-path-finding without knowing the exact amount of a channel. 
-In order to improve the current Dijkstra algorithm, in \cite{DBLP:journals/corr/abs-2103-08576} Pickhardt et al. 
-propose a probabilistic approach, that uses probability theory to 
+In the Section \ref{sec:modify_channel_state} is described how the payment are
+forwarded across the network, and also how it is difficult to perform an efficient 
+pathfinding without knowing the exact amount of a channel. 
+In order to improve the current Dijkstra algorithm the research \cite{DBLP:journals/corr/abs-2103-08576}
+propose a probabilistic approach.
+The paper \cite{DBLP:journals/corr/abs-2103-08576} uses probability theory to 
 model the uncertainty of channel balances by considering the single channel, 
 and then generalize the solution to multi-hop payment flow.
 
