@@ -1,4 +1,4 @@
-\chapter{Proposed Solution}
+\chapter{Proposed Solution}\label{chap:propsol}
 
 \begin{chapquote}{Jim Barksdale}
 If we have data, let’s look at data. If all we have are opinions, let’s go with mine.
@@ -21,7 +21,7 @@ privacy concerns. Second, data collection of this kind can leak private data,
 and node operators do not want to be exposed to this risk.
 
 To work around these problems, our proposal defines what data will be collected 
-and how it will be analyzed in a public manner through a lnmetrics Request for Comments (RFC) 
+and how it will be analyzed in a public manner through a lnmetrics Request for Comments (RFC), 
 called \emph{lnmetrics RFC}. Once the data is defined, it is collected using a public 
 server with a public API, with the possibility to self-host the server on hardware 
 with at least a Raspberry PI 2 capability.
@@ -32,9 +32,9 @@ the lightning node with the possibility to run in offline mode. Node operators c
 choose whether or not to share their data with one or more of the servers. The ability 
 to run the tool in offline mode is a good incentive for node operators to participate 
 in the research since they are seeking a tool to analyze the node performance to 
-increase their node's profit.
+increase their node profit.
 
-The Figure \ref{fig:lnmetrics_process} illustrates the general process of how 
+Figure \ref{fig:lnmetrics_process} illustrates the general process of how 
 our framework works. The process involves five steps:
 
 \begin{figure}
@@ -82,7 +82,7 @@ process to propose a new metric consists of the following parts:
 
 \begin{itemize}
     \item \textbf{Metric Introduction}: An introduction of the area that the metrics target;
-    \item \textbf{Input Metric}: The definition of the data that researchers need. This is done through a JSON schema.
+    \item \textbf{Input Metric}: The definition of the data that researchers need. This is done through a JSON Schema schema.
     \item \textbf{Output Metric}: The definition of the data that the research aims to return as a result.
 \end{itemize}
 
@@ -104,13 +104,13 @@ implementation of the proposed metrics.
 
 An LNMetrics client is a generic tool that can collect one or more metrics
 defined within the RFC. It allows a node operator or anyone running a Lightning
-node to collect data and share it with an analysis system described in 
+node to collect data and share it with an analytical system described in 
 Section \ref{sec:lnmetrics_server}. To support our proposal, we provide a
 generic solution implemented in Go language, which is available on GitHub
 at \url{https://github.com/LNOpenMetrics/go-lnmetrics.reporter}. With this
 solution, we were able to provide a generic implementation and support a 
 generic metric concept by implementing the metric as an interface, defined
-as shown in Code \ref{code:lnmetric_client_inter}.
+as shown in Listing \ref{code:lnmetric_client_inter}.
 
 \begin{lstlisting}[language=go, basicstyle=\small,
                   caption={Metric interface provided in our client reference implementation.}, 
@@ -245,7 +245,7 @@ The local reputation described in this section aims to provide enough
 data to support a lightning network user during the initial phase and
 helps define some criteria to discover a "good" lightning node where 
 it is possible to initialize a channel. In addition, with this local 
-reputation system, it is possible to help node management tools such as
+reputation system, it is possible to help node management tools, such as
 clboss \cite{clboss} to score the channel and have some additional 
 information at runtime.
 
@@ -260,10 +260,10 @@ into two main parts, as follows:
 
 \begin{enumerate}
     \item {\bf Lightning Node performance information}: The performance of the node that it is running
-        the metrics, including
+        the metrics, including:
         \begin{itemize}
            \item Operative System information;
-           \item The number of channels that the node has;
+           \item The number of channels of the node;
            \item The number of forwards payments that the node has performed in the 
                last 30 minutes;
            \item The current lightning fee that the node has to 
@@ -286,25 +286,25 @@ output is calculated:
 
 \begin{itemize}
     \item Lightning node up time scoring divided by period is calculated;
-    \item Lightning channel forwards payment scoring divided in \emph{success}, \emph{failure} and \emph{local failure}
-        is calculated, where the local failure is how many forwards are failing caused to some lightning node problem,
-        e.g the node that is running the metrics has no channel with enough outbound capacity. 
+    \item Lightning channel forwards payment scoring divided in \emph{success}, \emph{failure}, and \emph{local failure}
+        is calculated, where the local failure is how many forwards are failing because of some lightning node problem,
+        e.g., the node that is running the metrics has no channel with enough outbound capacity. 
     \item For each channel the previous information is calculated for this particular channel.
 \end{itemize}
 
 
 A more detailed description of the metric output is provided on Github as RFC with 
-the JSON schema of the data just described. We avoid reporting the full code example 
-due to the size of the JSON schema.
+the  schema of the data just described. We avoid reporting the full code example 
+due to the size of the  schema.
 
 \subsection{Reference Implementation}
 
-The client implementation of the local reputation described in section \ref{sec:data_definition_datadef} 
-is provided within our Go Lang reference implementation discussed in section \ref{sec:lnmetrics_client}. 
+The client implementation of the local reputation described in Section \ref{sec:data_definition_datadef} 
+is provided within our Go Lang reference implementation, already  discussed in Section \ref{sec:lnmetrics_client}. 
 This section includes a practical description of how to use it. Therefore, the client implementation is 
 a plugin for core lightning that can run as part of the daemon itself. To run the plugin, the core lightning 
 needs to know the path of the plugin binary, and an example of the command is shown in
-code \ref{code:cln_with_lnmetrics}.
+Listing \ref{code:cln_with_lnmetrics}.
 
 \begin{lstlisting}[language=bash, basicstyle=\small,
                   caption={Command to run the core lightning daemon with the lnmetrics plugin enabled.}, 
@@ -318,14 +318,14 @@ lnmetrics plugin, which stores all relevant information. Additionally, a metrics
 file is created to facilitate debugging of the plugin without the need to 
 interact with the core lightning log daemon.
 
-Upon initialization, the plugin for the local reputation described previously 
+Upon initialization, the plugin for the local reputation previously described 
 initializes the required information. Every 30 minutes thereafter, the plugin
 updates metrics by querying the core lightning node for the latest information.
 
-If the plugin is run with the command \ref{code:cln_with_lnmetrics}, it will run
-in offline mode, meaning that metrics will only be stored locally on the node's 
+If the plugin is run with the command of Listing \ref{code:cln_with_lnmetrics}, it will run
+in offline mode, meaning that metrics will only be stored locally on the node
 machine and not shared with the server. To share the data with the server, the 
-API URL must be specified, as demonstrated in Code \ref{code:cln_with_lnmetrics_url}.
+API URL must be specified, as demonstrated in Listing \ref{code:cln_with_lnmetrics_url}.
 
 \begin{lstlisting}[language=bash, basicstyle=\small,
                   caption={Command to run core lightning with the lnmetrics plugin an publish the data.}, 
@@ -340,19 +340,19 @@ In conclusion, the plugin can be queried by interacting with the core lightning
 command line interface and calling the methods provided by the plugin:
 
 \begin{itemize}
-    \item {\bf raw-local-reputation}: This endpoint allows you to query the most recent input data 
+    \item {\bf raw-local-reputation}: This endpoint allows one to query the most recent input data 
         collected by the plugin in the past 30 minutes. The data format for this endpoint 
         is described in \cite{lnmetrics_localreputation}.
-    \item {\bf local-reputation}: This endpoint allows you to query the most recent local 
+    \item {\bf local-reputation}: This endpoint allows one to query the most recent local 
         reputation score calculated using the data provided by the raw-local-reputation 
         endpoint. The data format for this endpoint is also described in \cite{lnmetrics_localreputation}.
 \end{itemize}
 
 \subsection{Data Analysis}
 
-When the client is running with an endpoint as shown in Code \ref{code:cln_with_lnmetrics_url}, the metrics are 
+When the client is running with an endpoint, as shown in Listing \ref{code:cln_with_lnmetrics_url}, the metrics are 
 collected and reported to the specified server. The server instance exposes an endpoint that accepts a \emph{Mutation} 
-query, as shown in Code \ref{code:lnmetrics_mutation}.
+query, as shown in Listing \ref{code:lnmetrics_mutation}.
 
 \begin{lstlisting}[language=graphql, basicstyle=\small,
                   caption={Mutation query call by the client to initialise the metric on the server.}, 
@@ -368,20 +368,20 @@ mutation {
 The mutation query accepts the following input parameters:
 
 \begin{itemize}
-    \item {\bf node\_id}: The node's public key used as the node identifier on the lightning network.
+    \item {\bf node\_id}: The node public key used as the node identifier on the lightning network.
     \item {\bf payload}: The JSON payload of the metric that the node is publishing.
     \item {\bf signature}: The signature of the JSON payload sent as input to verify that the
         payload is sent by the node with the provided public key.
 \end{itemize}
 
-The algorithm used to sign the payload is a custom algorithm provided by the major
+The algorithm used to sign the payload is a custom one provided by the major
 lightning implementation, and we provide our own Go implementation, which is available
 at \url{https://github.com/LNOpenMetrics/lnmetrics.utils}.
 
 Once the server accepts and verifies the metrics, it will analyze the provided data and calculate the
 metrics output described in section \ref{sec:data_definition_datadef}. The metrics will then be available
 through the server endpoint. Additionally, our Python client provides an easy API to access any server instances.
-Code \ref{code:lnmetrics_python_api} provides a runnable example.
+Listing \ref{code:lnmetrics_python_api} provides a runnable example.
 
 \begin{lstlisting}[language=python, basicstyle=\small,
                   caption={Python script to show a runnable example of our Python wrapper API usage.}, 
@@ -396,7 +396,7 @@ metric = client.get_local_score_output(network="bitcoin",
 print(f"The local score of the node is {metric}")
 \end{lstlisting}
 
-In addition, we have utilized the Python API to create a Jupyter Notebook, which 
+In addition, we have used the Python API to create a Jupyter Notebook, which 
 is available at \url{https://github.com/LNOpenMetrics/local-reputation-analysis}.
 In the notebook, we perform an initial analysis of the collected data and discuss 
 the results in the remaining sections.
@@ -411,7 +411,7 @@ nodes available on the cloud server.
     \begin{center}
       \includegraphics[scale=0.7]{imgs/bitcoin_uptime.png}
     \end{center}
-    \caption{Lightning Node up-time scoring on the Bitcoin Network calculate by the cloud machine.}
+    \caption{Lightning Node up-time scoring on the Bitcoin Network calculated by the cloud machine.}
     \label{fig:lnmetrics_uptime_bitcoin}
 \end{figure}
 
@@ -419,14 +419,14 @@ nodes available on the cloud server.
     \begin{center}
       \includegraphics[scale=0.7]{imgs/testnet_uptime.png}
     \end{center}
-    \caption{Lightning Node up-time scoring on the Testnet Network calculate by the cloud machine.}
+    \caption{Lightning Node up-time scoring on the Testnet Network calculated by the cloud machine.}
     \label{fig:lnmetrics_uptime_testnet}
 \end{figure}
 
 Figure \ref{fig:lnmetrics_uptime_bitcoin} shows the uptime scores of the nodes that share data on 
 the server every 30 minutes. The node with 100\% uptime is always online. From this analysis, we can 
 observe certain patterns where some nodes are not always online, such as the node with the 
-alias \emph{SLICKERGOPHER}. This node is not a routing node but is run by a casual user.
+alias \emph{SLICKERGOPHER}. This node is not a routing node, but it is run by a casual user.
 
 In conclusion, Figure \ref{fig:lnmetrics_uptime_testnet} shows the uptime of the nodes 
 in the Testnet network, where we can also observe this difference between nodes that 
@@ -440,7 +440,7 @@ and noted that there are at least two kinds of nodes:
 
 \begin{itemize}
     \item {\bf Routing Node}: Nodes that are always online;
-    \item {\bf Casual User} Node Node Node that are not always online.
+    \item {\bf Casual User Node} Nodes that are not always online.
 \end{itemize}
 
 Therefore, just analyzing the uptime of a node is not enough to estimate if a node is a 
@@ -496,7 +496,7 @@ detect that it is a fake payment due to the onion routing discussed in Section \
 Therefore, it is not enough to solely rely on the global forward scoring of a node, 
 as the failure scoring will always be a significant part of this analysis due to these 
 probing techniques. However, this information is still useful in filtering out nodes 
-that only forward payments that are destined to fail, and are not due to local failures.
+that only forward payments that are destined to fail, and are not subject to local failures.
 
 \begin{figure}[H]
     \begin{center}
