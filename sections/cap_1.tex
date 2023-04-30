@@ -215,8 +215,8 @@ detect this inconsistency between the real channel state and the one received. I
 perform  a \emph{penality mechanism} defined in the BOLT2~\cite{bolt2}, where the channel between the two peers
 is closed and the receiver of the outdated channel state takes all the currency involved.\\
 However, this penalty operation may be performed on peers that have bugs in the software and publish an old state of the
-channel due to a corrupted database. In this case proposals like ~\cite{eltoo}, described in Section \ref{sec:eltoo}, offer
-better solutions for channel state management.
+channel due to a corrupted database. In this case proposals like \quotes{eltoo: A Simple Layer2 Protocol for Bitcoin} ~\cite{eltoo},
+that offers a better solutions for channel state management.
 
 \subsection{Forwarding Lightning Payments}
 \label{sec:lightning_forwarding}
@@ -350,56 +350,3 @@ The onion routing with HTLCs works pretty well in theory, but the {\LN} specific
 the channels balance for each node through the network, so the propagated value is the total amount of Bitcoin that is involved in opening a channel, as described in Section \ref{sec:open_a_channels}.
 
 Therefore, in Example \ref{ex:htl_onion_routing} Alice has no idea if the current balance of the channel can support the payment amount,\footnote{As described in the Section \ref{sec:open_a_channels} when a node opens a channel the amount of Bitcoin is distributed all in one side.} and, in order to mitigate this limitation of information, there is an unofficial payment technique, called \emph{multi path payment}, that splits a single payment into chunks and shares each chunk across the different path.
-
-\section{{\LN} Extension}
-\label{sec:eltoo}
-
-By design, the current {\LN} protocol must deal with punishment operations due to incorrect
-behavior or software errors. To address this problem and simplify channel management,
-different solutions have been proposed. In this section, we discuss Eltoo~\cite{eltoo}, a
-solution proposed by Christian Decker, Rusty Russell, and Olaoluwa Osuntokun in April 30, 2018.
-
-Eltoo is built on top of BIP 118 ~\cite{bip118}, also known as \emph{SIGHASH\_NOINPUT},
-which introduced a change in semantics within the Bitcoin Script language\footnote{Bitcoin Script is the language used to describe smart contracts on the Bitcoin blockchain.}, turning the {\LN} protocol into a no-penalty-based protocol.
-In this case, the two parties create the funding transaction,
-denoted by \emph{Setup} in Figure~\ref{fig:eltoo_diagram_tx}.
-
-Eltoo is designed to solve a key problem with the current {\LN}
-protocol, which is the need for penalty transactions to be broadcast in the case
-of unilateral channel closures. Penalty transactions are a necessary feature of
-the Lightning Network, as they discourage cheating by channel participants who
-attempt to close channels in their favor. However, the current penalty transaction
-construction used in the Lightning Network has several limitations, including the
-need for transaction chains and a significant delay before funds can be recovered.
-
-Eltoo proposes a new construction for penalty transactions that eliminates these
-limitations. Instead of using transaction chains, eltoo uses a new type of
-transaction called the \textit{anchor transaction}, which commits to the
-current channel state without actually closing the channel. When a channel
-participant wants to update the channel state, they can create a new anchor
-transaction that commits to the updated state, while invalidating the previous anchor
-transaction. The old anchor transaction is not broadcast, and the new anchor transaction
-takes its place as the latest commitment to the channel state. This process can be repeated
-as many times as necessary, without requiring any penalty transactions to be broadcast.
-
-Eltoo has several advantages over the current Lightning Network penalty transaction construction.
-First, it eliminates the need for transaction chains, reducing the complexity and cost of
-penalty transactions. Second, it allows for almost instantaneous recovery of funds after
-a unilateral channel closure, improving the user experience of the Lightning Network. Finally,
-it allows for the implementation of new features, such as watchtowers, that can monitor channels
-for fraud without requiring access to private keys.
-
-Although Eltoo is still in the experimental stage of development, it has generated significant
-interest and support within the Bitcoin community. Several Lightning Network implementations,
-such as core lightning, is already working on integrating Eltoo into their software.
-With further testing and development, Eltoo has the potential to become a key improvement to
-the Lightning Network protocol, providing a more secure, efficient, and user-friendly payment
-channel network for Bitcoin users.
-
-\begin{figure}[h]
-  \begin{center}
-    \includegraphics[width=0.6\columnwidth]{imgs/1_USwvkUzr2-EHHkImnYz6gw.png}
-  \end{center}
-  \caption{Eltoo transaction diagram ~\cite{eltoo}.}
-  \label{fig:eltoo_diagram_tx}
-\end{figure}

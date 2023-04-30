@@ -4,6 +4,7 @@
    (TeX-add-symbols
     '("noteOnBitcoinNaming" 0))
    (LaTeX-add-labels
+    "chap:bitcoin"
     "sec:basics"
     "fig:fee_x_block"
     "tab:rawtxbitcoinc"
