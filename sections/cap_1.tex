@@ -81,21 +81,6 @@ directions, and these channels refer to the nSequence instead of the nLockTime.
 However, instead of funding unidirectional payment channels directly from an on-chain funding transaction, there is 
 an \quotes{invalidation tree} of off-chain transactions between the funding transaction and the payment channel finalization transactions.
 
-\subsection{HTLC: Hash Time Locked Contract}
-\label{sec:htlc_intro}
-
-Hash Time locked contracts are the building blocks of the {\LN},
-and are \emph{non standard scripts} expressed inside the Output Transaction. 
-
-
-- Explain how the Transaction with a not standard script are used in lightning;
-
-- Explain how the Transaction are replaced and managed in lightning at bitcoin level;
-
-- Tell about bitcoin script and the segregated witness update;
-
-- Use the example before but with lightning, and highlight the benefit and the downside.
-
 \section{{\LN} implementation}
 
 The basic idea of the {\LN} proposed in ~\cite{lightning-network-paper} is based on using Bitcoin Script
@@ -188,7 +173,7 @@ a channel with a specific peer the following information must be provided:
 \end{itemize}
 
 In addition, most of the nodes support the Tor network, but with the current usage of the protocol the Tor network provides very unreliable
-performance, as discussed in Section (TODO point to the problem Section).\\
+performance, as discussed in Section \ref{sec:node_uptime}.\\
 After the node is connected with the counterpart, the Channel Establishment can be performed, and a sequence
 of messages is exchanged (Figure \ref{fig:channel-establishment}). During this process
 the following protocol messages are involved:
@@ -369,14 +354,47 @@ Therefore, in Example \ref{ex:htl_onion_routing} Alice has no idea if the curren
 \section{{\LN} Extension}
 \label{sec:eltoo}
 
-{\bf This need to be rewritten, because the current section is based on a blog post that was not clear at all, in fact this section do not make sense.}
+By design, the current {\LN} protocol must deal with punishment operations due to incorrect
+behavior or software errors. To address this problem and simplify channel management,
+different solutions have been proposed. In this section, we discuss Eltoo~\cite{eltoo}, a
+solution proposed by Christian Decker, Rusty Russell, and Olaoluwa Osuntokun in April 30, 2018.
 
-By design, the current {\LN} protocol has to deal with punishment operations due to some wrong behavior or software error. For this reason, in order
-to find a solution to this problem and simplify channel management different solutions have been proposed.
-In this section, the Eltoo~\cite{eltoo} solution proposed by Christian Decker, Rusty Russell, and Olauluwa Osuntokun in April 30, 2018 is discussed.
+Eltoo is built on top of BIP 118 ~\cite{bip118}, also known as \emph{SIGHASH\_NOINPUT},
+which introduced a change in semantics within the Bitcoin Script language\footnote{Bitcoin Script is the language used to describe smart contracts on the Bitcoin blockchain.}, turning the {\LN} protocol into a no-penalty-based protocol.
+In this case, the two parties create the funding transaction,
+denoted by \emph{Setup} in Figure~\ref{fig:eltoo_diagram_tx}.
 
-Eltoo is based on top of BIP 118 ~\cite{bip118} also known as \emph{SIGHASH\_NOINPUT} that introduced semantics change inside the Bitcoin Scrip language\footnote{Bitcoin Scrip is the language to describe smart contract on the Bitcoin blockchain.}, and turn the {\LN} protocol to a no penalty base protocol.
-Therefore in this case the two parties create the funding transaction denoted by \emph{Setup} in Figure \ref{fig:eltoo_diagram_tx}.
+Eltoo is designed to solve a key problem with the current {\LN}
+protocol, which is the need for penalty transactions to be broadcast in the case
+of unilateral channel closures. Penalty transactions are a necessary feature of
+the Lightning Network, as they discourage cheating by channel participants who
+attempt to close channels in their favor. However, the current penalty transaction
+construction used in the Lightning Network has several limitations, including the
+need for transaction chains and a significant delay before funds can be recovered.
+
+Eltoo proposes a new construction for penalty transactions that eliminates these
+limitations. Instead of using transaction chains, eltoo uses a new type of
+transaction called the \textit{anchor transaction}, which commits to the
+current channel state without actually closing the channel. When a channel
+participant wants to update the channel state, they can create a new anchor
+transaction that commits to the updated state, while invalidating the previous anchor
+transaction. The old anchor transaction is not broadcast, and the new anchor transaction
+takes its place as the latest commitment to the channel state. This process can be repeated
+as many times as necessary, without requiring any penalty transactions to be broadcast.
+
+Eltoo has several advantages over the current Lightning Network penalty transaction construction.
+First, it eliminates the need for transaction chains, reducing the complexity and cost of
+penalty transactions. Second, it allows for almost instantaneous recovery of funds after
+a unilateral channel closure, improving the user experience of the Lightning Network. Finally,
+it allows for the implementation of new features, such as watchtowers, that can monitor channels
+for fraud without requiring access to private keys.
+
+Although Eltoo is still in the experimental stage of development, it has generated significant
+interest and support within the Bitcoin community. Several Lightning Network implementations,
+such as core lightning, is already working on integrating Eltoo into their software.
+With further testing and development, Eltoo has the potential to become a key improvement to
+the Lightning Network protocol, providing a more secure, efficient, and user-friendly payment
+channel network for Bitcoin users.
 
 \begin{figure}[h]
   \begin{center}
@@ -385,8 +403,3 @@ Therefore in this case the two parties create the funding transaction denoted by
   \caption{Eltoo transaction diagram ~\cite{eltoo}.}
   \label{fig:eltoo_diagram_tx}
 \end{figure}
-
-
-In addition, before ~\cite{Palazzo_Estrazione_di_Informazioni_2019} need to sign a refund transaction called \emph{settlement transaction} which refunds the funding transaction back to the owner (this is possible with the BIP 118~\cite{bip118} proposal), and the Bitcoin script is described in the Section \ref{sec:eltoo_htlc}.
-
-In conclusion, the proposal drastically simplify the {\LN} Protocol, but for the moment there is no implementation of it.

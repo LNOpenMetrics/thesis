@@ -4,6 +4,10 @@
 Json-rpc 2.0 specification.
 \newblock \url{https://www.jsonrpc.org/specification}.
 
+\bibitem{tor}
+Tor network.
+\newblock \url{https://2019.www.torproject.org/about/overview.html.en}.
+
 \bibitem{bip118}
 B.~118.
 \newblock {Bitcoin Improvement Proposals 119}.
