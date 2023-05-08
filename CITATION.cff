@@ -1,10 +1,23 @@
 cff-version: 1.2.0
-message: "LNMetrics a Open Source Framework to Collect Metrics on Lightning Network."
-authors:
-  - family-names: Palazzo
-    given-names: Vincenzo
-    orcid:
-title: "LNMetrics a Open Source Frameworkto Collect Metrics on Lightning Network."
-version: 0.0;1
-doi:
-date-released: 2022-11-01
+referred-citation:
+  type: article
+  authors:
+    - family-names: Palazzo
+      given-names: Vincenzo
+      orcid: https://orcid.org/0000-0001-7887-6350
+    - family-names: Sartiani
+      given-names: Carlo
+      orcid: https://orcid.org/0000-0002-6514-3569
+    - family-names: Ricci
+      given-names: Laurea
+    - family-names: Decker
+      given-names: Christian
+  doi: "10.0000/00000"
+  journal: "University of Pisa Thesis"
+  month: 5
+  start: 1 # First page number
+  end: 48 # Last page number
+  title: "LNMetrics: a Open Source Framework to Collect Metrics on Lightning Network.
+  issue: 1
+  volume: 1
+  year: 2023
