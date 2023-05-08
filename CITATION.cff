@@ -1,6 +1,5 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-type: article
 authors:
     - family-names: Palazzo
       given-names: Vincenzo
@@ -14,12 +13,8 @@ authors:
     - family-names: Decker
       given-names: Christian
     - orcid: ""
-doi: "10.0000/00000"
-journal: "University of Pisa Thesis"
-month: 5
-start: 1 # First page number
-end: 48 # Last page number
-title: "LNMetrics: a Open Source Framework to Collect Metrics on Lightning Network.
-issue: 1
-volume: 1
-year: 2023
+title: "LNMetrics: a Open Source Framework to Collect Metrics on Lightning Network."
+version: 1.0.0
+doi: ""
+date-released: 2023-5-26
+url: "https://github.com/LNOpenMetrics/thesis"
