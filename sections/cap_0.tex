@@ -1,0 +1,85 @@
+\setcounter{page}{1}
+\chapter{Introduction}\label{sec:introduction}
+
+The Lightning Network is a peer-to-peer protocol designed to
+provide a scalable solution to allow Bitcoin micro-transactions.
+Bitcoin, a digital currency created in 2009, uses blockchain technology
+to track and verify transactions. The blockchain is a secure and transparent
+record of all transactions that have ever occurred on the network.
+
+However, Bitcoin has long suffered from scalability limitations, which have been
+addressed in various ways, including hard forks of the protocol.
+The Lightning Network was proposed as an off-chain solution to Bitcoin's
+scalability problems, enabling peers to exchange partially signed transactions
+without violating Bitcoin rules.
+
+However, despite the Lightning Network's potential, there is still a need
+to make the Bitcoin protocol more scalable to compete with modern payment systems.
+One approach to improving the Lightning protocol over time is through making changes
+to the protocol itself, and the underlying protocol such as Bitcoin. However,
+implementing these kinds of changes to a protocol such as the Lightning Network
+can take time and evaluation of different ideas.
+
+In addition, currently the {\LN} lacks public data to involve researchers
+where they can evaluate different kinds of protocol proposals and
+potential impact on the network. We introduce in Chapter \ref{sec:problem_and_state_of_the_art}
+two problems where having public data on real Lightning Network nodes can be valuable.
+
+Therefore, this lack of data restricts access to research topics for
+people who are not strictly involved in the Lightning Network protocol development.
+To address this need, this thesis aims to develop a collection of tools for
+running Lightning Network nodes with daily activity. The data collected by
+Lightning Network users will be analyzed by one or more centralized
+analysis systems.
+
+To perform this analysis, it is essential to involve the Lightning Network
+community, particularly those running real nodes with real Bitcoin involved,
+to obtain a realistic vision of the sub-network. To achieve this goal, we have
+developed a collection of tools designed to run a node with daily activity.
+
+Another objective of this thesis is to define and collect Lightning Network
+metrics to better understand how a node performs on a daily basis. An open-source
+framework is proposed for defining and collecting these metrics. The framework
+is implemented through a lnmetrics Request for Comments (RFC) where is it possible define
+in a formal way metric data and to iterate on the data format with the help of a community.
+The data is collected using a public server with a public API, with the possibility to
+self-host the server on hardware with at least Raspberry PI 2 capability.
+
+In contrast with the analysis of the Bitcoin blockchain that requires more than
+500 GB of space just to store the blockchain, as Figure \ref{fig:blockchain_size} shows,
+and the space required can increase over 1 TB if the blockchain is analyzed.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.6\columnwidth]{imgs/bitcoin-blockchain-size.png}
+  \end{center}
+  \caption{Bitcoin Blockchain size}
+  \label{fig:blockchain_size}
+\end{figure}
+
+However, our solution is heavily based on compression due to the storing of redundant JSON received
+by the Lightning Network nodes, which gives the possibility to run the software we provide on
+any kind of device, without any extra hardware such as an external HDD. We discuss the space
+consumed by our tools in production in Chapter \ref{chap:propsol}.
+
+Therefore, the lower resource consumption and the possibility to receive data from a
+centralized server also allow for a lower level of expertise required to conduct small
+research for the Lightning Network. This also enables bachelor students to conduct
+experiments, not just with a theoretical scope, in the near future.
+
+In addition, to incentivize node operators to provide and share their information, we allow our
+tools to run in an offline mode with the possibility to calculate the proposed metrics on the
+local machine without sharing information with the centralized analysis system. This incentive
+is a core concept to allow for contributions from big users of the Lightning Network who are
+seeking tools to increase their node's profit.
+
+In the following chapters, we provide a comprehensive exploration of the Bitcoin protocol
+(Chapter \ref{chap:bitcoin}), followed by an introduction to the Lightning Network
+(Chapter \ref{sec:lightning_network}), which offers a potential solution to scaling issues
+in Bitcoin. We then examine the specific problem we are addressing and review the current
+state of the art (Chapter \ref{sec:problem_and_state_of_the_art}). Subsequently, we propose
+a detailed solution (Chapter \ref{chap:propsol}), which utilizes specific technologies
+(Chapter \ref{chap:tech}), and discuss possible future developments in our concluding chapter
+(Chapter \ref{chap:conclusion}). Overall, our thesis presents a comprehensive analysis of the
+Bitcoin protocol, explores potential solutions to its scalability issues, and offers a novel
+solution that addresses a specific problem in the field.

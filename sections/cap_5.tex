@@ -82,7 +82,7 @@ process to propose a new metric consists of the following parts:
 
 \begin{itemize}
     \item \textbf{Metric Introduction}: An introduction of the area that the metrics target;
-    \item \textbf{Input Metric}: The definition of the data that researchers need. This is done through a JSON Schema schema.
+    \item \textbf{Input Metric}: The definition of the data that researchers need. This is done through a JSON Schema.
     \item \textbf{Output Metric}: The definition of the data that the research aims to return as a result.
 \end{itemize}
 
@@ -172,13 +172,25 @@ of space consumed by the database on our two test machines.
     \label{fig:lnmetrics_diskspace}
 \end{figure}
 
-\begin{itemize}
-\item {\bf Cloud machine}: The disk space consumed by the lnmetrics system 
-    on the cloud machine to store more than one year of metrics data.
-\item {\bf Raspberry PI 3}: The disk space consumed by the lnmetrics system 
-    on a Raspberry PI to store four months of metrics data.
-\end{itemize}
+In Figure \ref{fig:lnmetrics_diskspace}, a comparison is shown between our two production
+machines when we run the lnmetrics framework. We can see that on the {\bf Cloud machine}, the
+disk space consumed is around 800 MB to store more than 1 year of node metrics from 3 nodes,
+while on a {\bf Raspberry PI 3}, the disk space consumed by the lnmetrics system is less than 100 MB.
 
+There are several reasons for this difference in space between the two machines:
+
+\begin{enumerate}
+  \item The cloud machine runs the server with at least 3 nodes in testnet and mainnet for more
+        than one year, and these nodes have activities that can include opening and closing channels,
+        which require storing some extra bytes for the new channel.
+  \item The Raspberry node is newer and has only been running for 3 months, including just one node on
+        the Bitcoin network and 3 on the Testnet network.
+\end{enumerate}
+
+The point of the figure is to show that the space required to run the system is
+orders of magnitude lower than a system that aims to analyze the Bitcoin blockchain.
+For example, in \cite{Palazzo_Estrazione_di_Informazioni_2021}, a solution to analyze the Bitcoin blockchain
+required 250 GB to store the Bitcoin blockchain and convert it in a compressed JSON format in 2019.
 Section \ref{sec:demo} provides more information about the collected data.
 
 \section{Analysis of LNMetrics Data}
@@ -403,8 +415,7 @@ the results in the remaining sections.
 
 \subsubsection{Nodes Up time}
 \label{sec:node_uptime}
-
-This section presents the results of the analysis of metrics provided by the 
+This section presents the results of the analysis of metrics provided by the
 nodes available on the cloud server.
 
 \begin{figure}
@@ -423,14 +434,29 @@ nodes available on the cloud server.
     \label{fig:lnmetrics_uptime_testnet}
 \end{figure}
 
-Figure \ref{fig:lnmetrics_uptime_bitcoin} shows the uptime scores of the nodes that share data on 
-the server every 30 minutes. The node with 100\% uptime is always online. From this analysis, we can 
-observe certain patterns where some nodes are not always online, such as the node with the 
-alias \emph{SLICKERGOPHER}. This node is not a routing node, but it is run by a casual user.
+Figure \ref{fig:lnmetrics_uptime_bitcoin} shows the uptime scores
+of the nodes that share data on the server every 30 minutes.
+The node with 100\% uptime is always online. From this analysis,
+we can observe certain patterns where some nodes are not always
+online, such as the node with the alias \emph{SLICKERGOPHER}.
+This node is not a routing node, but it is run by a casual user.
+However, in most cases, the casual user uses the Tor Network \cite{tor}
+to expose the {\LN} node to the public without using a public IP
+that can leak private data on the user position. Therefore, a node
+that uses only tor can be flaky in availability due to some network
+problems caused by some Tor relay nodes being overloaded.
 
-In conclusion, Figure \ref{fig:lnmetrics_uptime_testnet} shows the uptime of the nodes 
-in the Testnet network, where we can also observe this difference between nodes that 
-are always online and casual users.
+A possible future work could be an analysis of the up-time of a node
+in two different zones of the world that use only the Tor network to
+be a routing node. In this case, we may see that the Tor network may
+impact the uptime performance if the node is located in an overloaded
+area, and if this impacts the network view of the node, such as the
+belief that a node is reachable because it is online, but it is
+not because the other nodes cannot connect to it through the Tor network.
+
+In conclusion, Figure \ref{fig:lnmetrics_uptime_testnet} shows the uptime of
+the nodes in the Testnet network, where we can also observe this
+difference between nodes that are always online and casual users.
 
 \subsubsection{Forwards Rating}
 \label{sec:forwards_rating}
@@ -440,7 +466,7 @@ and noted that there are at least two kinds of nodes:
 
 \begin{itemize}
     \item {\bf Routing Node}: Nodes that are always online;
-    \item {\bf Casual User Node} Nodes that are not always online.
+    \item {\bf Casual User Node}: Nodes that are not always online.
 \end{itemize}
 
 Therefore, just analyzing the uptime of a node is not enough to estimate if a node is a 
@@ -493,10 +519,11 @@ that are already destined to fail, with an increasing amount, just to determine 
 is able to forward it. The lightning node that receives this forward payment is not able to 
 detect that it is a fake payment due to the onion routing discussed in Section \ref{sec:onion_routing}.
 
-Therefore, it is not enough to solely rely on the global forward scoring of a node, 
-as the failure scoring will always be a significant part of this analysis due to these 
-probing techniques. However, this information is still useful in filtering out nodes 
-that only forward payments that are destined to fail, and are not subject to local failures.
+Therefore, relying solely on a node's global forward scoring is not enough, as the failure
+scoring will always be a significant aspect of this analysis due to the probing techniques
+used. However, this information can still be useful in filtering out nodes that only
+forward failed payments and are not subject to local failures. It is assumed that a node
+that sends many payments but none of them result in successful completion is not useful.
 
 \begin{figure}[H]
     \begin{center}
@@ -506,5 +533,4 @@ that only forward payments that are destined to fail, and are not subject to loc
     \label{fig:bitcoin_forwards_rating}
 \end{figure}
 
-% FIXME: we could add a small analysis of the forwards scoring for each channelle as
-
+% FIXME: we could add a small analysis of the forwards scoring for each channels has

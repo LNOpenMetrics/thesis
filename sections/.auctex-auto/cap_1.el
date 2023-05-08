@@ -1,9 +1,6 @@
 (TeX-add-style-hook
  "cap_1"
  (lambda ()
-   (TeX-add-symbols
-    '("noteOnCLNImpl" 0)
-    '("noteOnBitcoinNaming" 0))
    (LaTeX-add-labels
     "sec:lightning_network"
     "fig:ln-onchain"
@@ -12,6 +9,7 @@
     "sec:open_a_channels"
     "fig:channel-establishment"
     "sec:modify_channel_state"
+    "sec:lightning_forwarding"
     "fig:commitment_transaction_example"
     "fig:commitment_transaction_ln_messages"
     "sec:close_operation"
@@ -19,10 +17,6 @@
     "ex:onion_routing"
     "fig:routing_path"
     "ex:htl_onion_routing"
-    "fig:routing_path_htlc"
-    "sec:eltoo"
-    "fig:eltoo_diagram_tx")
-   (LaTeX-add-environments
-    '("example" LaTeX-env-args ["argument"] 0)))
+    "fig:routing_path_htlc"))
  :latex)
 
