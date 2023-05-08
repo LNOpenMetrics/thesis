@@ -17,8 +17,6 @@
     "sec:forwards_rating"
     "fig:bitcoin_vs_testnet_forwards"
     "fig:bitcoin_vs_testnet_channels_size"
-    "fig:bitcoin_forwards_rating")
-   (LaTeX-add-environments
-    '("chapquote" LaTeX-env-args ["argument"] 1)))
+    "fig:bitcoin_forwards_rating"))
  :latex)
 
