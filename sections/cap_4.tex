@@ -46,7 +46,22 @@ important for removing some of the pain points of the Go language,
 such as the reflection used during the encoding and decoding of JSON from and 
 to a Go struct. We measured the performance of our library against the well-known 
 glightning library \cite{glightning}, and the results are shown 
-in Figure X (please add a figure).
+in Figure \ref{fig:api-go-bench}.
+
+\begin{figure}[H]
+    \begin{center}
+      \includegraphics[scale=0.5]{imgs/api-go-bench.png}
+    \end{center}
+    \caption{Comparison between networks of the Lightning Node size.}
+    \label{fig:api-go-bench}
+\end{figure}
+
+In this figure, two Core Lightning Method calls are shown: listnodes and listchannels. listnodes
+returns all the nodes on the Lightning Network that the node can see from the
+gossip map, while listchannels returns the complete list of channels that are announced
+on the network, and the benchmarks shows that the library that we are proposing is faster
+than the popular library glightning.
+
 
 \section{lnmetrics.utils}
 
