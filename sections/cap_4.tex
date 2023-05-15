@@ -35,12 +35,12 @@ which version to support at the application level.
 
 We designed the API library in this way because the core lightning API is 
 evolving quickly, and sometimes the node is not using the most recent version. 
-Users may be one or two versions behind, hence our solution allows the author of 
+Users may be one or two versions behind; hence our solution allows the author of 
 the plugin to enforce any rules regarding the core lightning version without being 
 constrained by the developer of the core lightning plugin API.
 
 Additionally, the library allows the specification of the JSON encoder to use 
-at runtime, hence enabling the use of more performant libraries 
+at runtime, enabling the use of more performant libraries 
 such as \emph{go-json}\cite{gojson}. This feature is 
 important for removing some of the pain points of the Go language, 
 such as the reflection used during the encoding and decoding of JSON from and 
@@ -92,8 +92,8 @@ requests can improve performance.
 
 \subsection{GQLGen Library}
 
-In order to implement the GraphQL protocol \cite{graphql} in the analysis system we used the library
-gqlgen \cite{gqlgen}, that is a Go library for building GraphQL servers that follows the GraphQL specification. 
+In order to implement the GraphQL protocol \cite{graphql} in the analysis system, we used the library
+gqlgen \cite{gqlgen}, which is a Go library for building GraphQL servers that follow the GraphQL specification. 
 It generates Go code from a GraphQL schema and a set of resolver functions, which are written 
 by the developer to handle the queries and mutations defined in the schema. The generated code 
 provides a strongly typed API that can be used to interact with the GraphQL server.
@@ -111,4 +111,4 @@ they can expect to receive from the API and how it should be structured.
 A schema is defined using JSON itself, and consists of a set of keywords 
 that describe constraints on the  format and the structure of the data. 
 Overall, JSON Schema provides a powerful and flexible way to define the structure of 
-JSON data, and it is an important tool for building APIs that exchange data in JSON format.
+JSON data and it is an important tool for building APIs that exchange data in JSON format.

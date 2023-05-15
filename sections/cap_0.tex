@@ -7,7 +7,7 @@ Bitcoin, a digital currency created in 2009, uses blockchain technology
 to track and verify transactions. The blockchain is a secure and transparent
 record of all transactions that have ever occurred on the network.
 
-However, Bitcoin has long suffered from scalability limitations, which have been
+Bitcoin has long suffered from scalability limitations, which have been
 addressed in various ways, including hard forks of the protocol.
 The Lightning Network was proposed as an off-chain solution to Bitcoin's
 scalability problems, enabling peers to exchange partially signed transactions
@@ -20,13 +20,13 @@ to the protocol itself, and the underlying protocol such as Bitcoin. However,
 implementing these kinds of changes to a protocol such as the Lightning Network
 can take time and evaluation of different ideas.
 
-In addition, currently the {\LN} lacks public data to involve researchers
+In addition, currently, the {\LN} lacks public data to involve researchers
 where they can evaluate different kinds of protocol proposals and
 potential impact on the network. We introduce in Chapter \ref{sec:problem_and_state_of_the_art}
 two problems where having public data on real Lightning Network nodes can be valuable.
 
 Therefore, this lack of data restricts access to research topics for
-people who are not strictly involved in the Lightning Network protocol development.
+people not strictly involved in the Lightning Network protocol development.
 To address this need, this thesis aims to develop a collection of tools for
 running Lightning Network nodes with daily activity. The data collected by
 Lightning Network users will be analyzed by one or more centralized
@@ -38,16 +38,16 @@ to obtain a realistic vision of the sub-network. To achieve this goal, we have
 developed a collection of tools designed to run a node with daily activity.
 
 Another objective of this thesis is to define and collect Lightning Network
-metrics to better understand how a node performs on a daily basis. An open-source
+metrics to better understand how a node performs daily. An open-source
 framework is proposed for defining and collecting these metrics. The framework
-is implemented through a lnmetrics Request for Comments (RFC) where is it possible define
-in a formal way metric data and to iterate on the data format with the help of a community.
-The data is collected using a public server with a public API, with the possibility to
+is implemented through a lnmetrics Request for Comments (RFC), where is it possible to define
+in a formal way the metric data and to iterate on the data format with the help of a community.
+The data is collected by using a public server with a public API, with the possibility to
 self-host the server on hardware with at least Raspberry PI 2 capability.
 
-In contrast with the analysis of the Bitcoin blockchain that requires more than
+In contrast, the analysis of the Bitcoin blockchain requires more than
 500 GB of space just to store the blockchain, as Figure \ref{fig:blockchain_size} shows,
-and the space required can increase over 1 TB if the blockchain is analyzed.
+and the space required can increase by over 1 TB if the blockchain is analyzed.
 
 \begin{figure}[h]
   \begin{center}
@@ -59,10 +59,10 @@ and the space required can increase over 1 TB if the blockchain is analyzed.
 
 However, our solution is heavily based on compression due to the storing of redundant JSON received
 by the Lightning Network nodes, which gives the possibility to run the software we provide on
-any kind of device, without any extra hardware such as an external HDD. We discuss the space
+any kind of device, without any extra hardware, such as an external HDD. We discuss the space
 consumed by our tools in production in Chapter \ref{chap:propsol}.
 
-Therefore, the lower resource consumption and the possibility to receive data from a
+Therefore, the lower resource consumption and the possibility of receiving data from a
 centralized server also allow for a lower level of expertise required to conduct small
 research for the Lightning Network. This also enables bachelor students to conduct
 experiments, not just with a theoretical scope, in the near future.
