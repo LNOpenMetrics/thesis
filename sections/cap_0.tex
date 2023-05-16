@@ -34,12 +34,16 @@ analysis systems.
 
 To perform this analysis, it is essential to involve the Lightning Network
 community, particularly those running real nodes with real Bitcoin involved,
-to obtain a realistic vision of the sub-network. To achieve this goal, we have
-developed a collection of tools designed to run a node with daily activity.
+to obtain a realistic vision of the sub-network. 
+One of the goals of this thesis is to develop a collection of 
+tools are designed to run on nodes with daily activity to 
+collect real node data.
 
-Another objective of this thesis is to define and collect Lightning Network
-metrics to better understand how a node performs daily. An open-source
-framework is proposed for defining and collecting these metrics. The framework
+Another goal is to define and collect Lightning Network
+metrics to understand daily node performance better. 
+
+We propose an open-source framework
+for defining and collecting these metrics to meet these goals. The framework
 is implemented through a lnmetrics Request for Comments (RFC), where is it possible to define
 in a formal way the metric data and to iterate on the data format with the help of a community.
 The data is collected by using a public server with a public API, with the possibility to
@@ -57,11 +61,9 @@ and the space required can increase by over 1 TB if the blockchain is analyzed.
   \label{fig:blockchain_size}
 \end{figure}
 
-However, our solution is heavily based on compression due to the storing of redundant JSON received
-by the Lightning Network nodes, which gives the possibility to run the software we provide on
-any kind of device, without any extra hardware, such as an external HDD. We discuss the space
-consumed by our tools in production in Chapter \ref{chap:propsol}.
-
+Our solution is heavily based on compression due to storing redundant JSON received
+by the Lightning Network nodes. Due to the small space needed, we can run our solution on a
+wide range of common hardware. We discuss the space requirements in Chapter \ref{chap:propsol}.
 Therefore, the lower resource consumption and the possibility of receiving data from a
 centralized server also allow for a lower level of expertise required to conduct small
 research for the Lightning Network. This also enables bachelor students to conduct
@@ -81,6 +83,6 @@ state of the art (Chapter \ref{sec:problem_and_state_of_the_art}). Subsequently,
 a detailed solution (Chapter \ref{chap:propsol}), which utilizes specific technologies
 (Chapter \ref{chap:tech}), and discuss possible future developments in our concluding chapter
 (Chapter \ref{chap:conclusion}). Overall, our thesis presents a comprehensive analysis of the
-Bitcoin protocol, explores potential solutions to its scalability issues, and offers a novel
+Bitcoin protocol explores potential solutions to its scalability issues and offers a novel
 solution that addresses a specific problem to allow more accessible data to researchers of the
 field.

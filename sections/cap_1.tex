@@ -12,20 +12,21 @@ However, the protocol is evolving over the years through a process of standardiz
 
 \section{Off-Chain Protocol}
 
-The Bitcoin network has scalability problems compared with the modern payment system that people use daily.
+The Bitcoin network has scalability problems compared to the modern payment system people use daily.
 In particular, these problems are related to the space required by the blockchain to store each transaction,
-and the relatively long time required to consider a transaction confirmed in the blockchain.
+and the relatively long time required to consider a transaction confirmed.
 
-For instance, the Visa payment network achieved around 65,000 ~\cite{visa-sheet} transactions per second, while
-Bitcoin currently supports around seven transactions per second with a required space estimated of 1 MB per block. Considering
+For instance, the Visa payment network is capable of achieving around 65,000 ~\cite{visa-sheet} transactions per second. In contrast
+Bitcoin currently supports around seven transactions per second with a required space estimated at 1 megabyte per block. Considering
 an average of 300 bytes per bitcoin transaction and assuming unlimited block sizes, the space for storing the same number
-of transactions is estimated in the order of terabytes ~\cite{lightning-network-paper}. Therefore, in order to use the Bitcoin
+of transactions in the blockchain is estimated in the order of terabytes ~\cite{lightning-network-paper}. Therefore, in order to use the Bitcoin
 protocol as an alternative to the current payment systems for a subset of the problem, such as the accessibility to the modern world
 to people that live in not developed countries, there is a need to make the protocol more scalable.
 
-This kind of problem is almost considered a well-studied problem, and different solutions have been proposed, but most of them require a hard fork of the protocol itself.
+The Bitcoin scalability problem is understudied, and different solutions have been proposed, but most of them require 
+a hard fork of the protocol itself.
 One of the most popular hard fork examples is given by Bitcoin Cash, which 
-increases the block size to be able to insert inside a block more transactions.
+increases the block size to insert more transactions inside a block.
 However, in the Bitcoin ecosystem (based on the Bitcoin Core implementation) the idea of a hard fork is considered 
 as a last resort, and some of the ideas to solve the scalability of the protocol are proposed through 
 Bitcoin Script tricks by proposing a soft-fork of the Bitcoin protocol.
@@ -34,7 +35,8 @@ Bitcoin Script tricks by proposing a soft-fork of the Bitcoin protocol.
 
 The actual {\LN} is more complicated than the original proposal of  ~\cite{lightning-network-paper}, and it has deeply
 evolved from the first time the paper came out. However, the idea described in the paper was an evolution
-of some previous ideas regarding the possibility to have payment channels with Bitcoin, and in this section, we will describe the basics of the initial proposal.
+of some previous ideas regarding the possibility of having payment channels with Bitcoin. In this section, 
+we will describe the basics of the initial proposal.
 
 \subsection{Payment Channel}
 
@@ -45,13 +47,13 @@ can be made between the participants.\\
 In fact, the concept of replacing an old transaction with the new one is proposed from \emph{Satoshi Nakamoto}
 in the mailing list~~\cite{payment-channels-satoshi}, and
 the basic concept to implement this feature was presented in version 0.0.1 of Bitcoin core. However, this solution
-was not safe because, with this method, there is the possibility to steal funds from the other party or parties.\\
+was not safe because, with this method, there is the possibility of stealing funds from the other party or parties.\\
 
 Later, there was a new proposal to implement  \emph{Spillman-style payment channels}, and it is
 implemented inside  \emph{bitcoinj}~\cite{bitcoinj-impl}. Spillman payment channels are unidirectional, i.e., 
 there is a payer and a payee, in this kind of channel, it is not possible to transfer money back in the reverse direction, and the payment
 channels expire after a specific time.
-In addition, the receiver needs to close the channel before the expiration time.
+In addition, the receiver needs to close the channel before expiration.
 However, this proposal has malleability problems solved later by the \emph{BIP  65}~\cite{bip65} Bitcoin proposal that includes a new Bitcoin Script OP code,
 called \emph{OP\_CHECKLOCKTIMEVERIFY}, that unlocks a new version of payment channels called \emph{CLTV-style payment channels}.\\
 While the idea of payment channels started to be explored around the Bitcoin community, two new proposals came out:
@@ -78,7 +80,7 @@ On the other hand, the Decker-Wattenhofer duplex payment channel proposal came o
 it requires a new \emph{BIP 68}~\cite{bip68} feature that enforces a new semantics on \emph{nSequence}, where the propose is to
 establish two unidirectional Spillman payment channels in both
 directions and these channels refer to the nSequence instead of the nLockTime.
-However, instead of funding unidirectional payment channels directly from an on-chain funding transaction, there is 
+However, instead of funding unidirectional payment channels from an on-chain funding transaction, there is 
 an \quotes{invalidation tree} of off-chain transactions between the funding transaction and the payment channel finalization transactions.
 
 \section{{\LN} implementation}
@@ -142,9 +144,9 @@ The actual implementations that are compliant and contribute to the {\LN} specif
         to be an efficient solution for servers. In addition, it is focused on improving the {\LN} specification. Indeed, core lightning has several new extensions, such as the \emph{BOLT 12}\footnote{BOLT 12 is a new proposal to perform
         lightning payments and improve several problems that exist in the BOLT 11.} feature implemented and under discussion to be
         included in the standard protocol;
-    \item \emph{lnd}: a {\LN} implementation written in Go lang. It is one of the most used {\LN} implementations according to ~\cite{lngossip};
-  \item \emph{ldk}: a {\LN} implementation written in rust, that provides the lightning building blocks exposed as Library;
-  \item \emph{eclair}: a {\LN} implementation written in Scala, widely used on mobile wallets, but supporting server side execution too.
+    \item \emph{lnd}: a {\LN} implementation written in Go programming language. It is one of the most used {\LN} implementations according to ~\cite{lngossip};
+  \item \emph{ldk}: a {\LN} implementation written in Rust programming language, that provides the lightning building blocks exposed as Library;
+  \item \emph{eclair}: a {\LN} implementation written in Scala, widely used on mobile wallets, but supporting server-side execution too.
 \end{itemize}
 
 \section{{\LN} Channel Operation}
@@ -153,7 +155,7 @@ The actual implementations that are compliant and contribute to the {\LN} specif
 The channel state management defines the state machine of the channels, and it is described in the BOLT 2 specification. It is a very complex
 state machine where there are involved several steps in order to avoid bad
 situations where a node can steal funds or lock the funds involved in the blockchain for a long period.\\
-In this section we will provide a deep introduction to the primary operations to create and manage channels.
+This section will briefly introduce the primary operations to create and manage channels.
 
 \subsection{Channel Establishment}
 \label{sec:open_a_channels}
@@ -168,7 +170,7 @@ they are listening for incoming connections; when a peer wants to open
 a channel with a specific peer, the following information must be provided:
 
 \begin{itemize}
-  \item Node ID: It is the node's public key; differently from Bitcoin, in this case, it is public and it is one of the information included inside the gossip by the node;
+  \item Node ID: It is the node's public key; differently from Bitcoin, in this case, it is public, and it is one of the information included inside the gossip by the node;
   \item Node IP address and port: where the node is listening for an incoming connection.
 \end{itemize}
 
@@ -180,7 +182,7 @@ the following protocol messages are involved:
 
 \begin{itemize}
   \item {\bf open\_channel}: The node that wants to open a channel (sender) creates an open channel message where the information of the
-        Blockchain Network are defined (It is not required that this network is the Bitcoin network);
+        Blockchain Networks are defined (It is not required that this network is the Bitcoin network);
   \item {\bf accept\_channel}: The node that receives the open channel request (receiver) with the information of the Blockchain network to use,
         can accept the request to open a channel by sending an accept channel message that contains the Blockchain network information, and
         a \emph{temporary\_channel\_id} generated from the peer information.
@@ -202,21 +204,21 @@ the following protocol messages are involved:
 \end{figure}
 
 After the funding transaction is confirmed on the blockchain and the channel is ready to be used (this state of the channel is also known as \emph{normal state}),
-peers can perform lightning payments that can modify the state of the current channel; in Section \ref{sec:modify_channel_state} we describe how these operations are performed inside the protocol.
+peers can perform lightning payments that can modify the current channel's state; Section \ref{sec:modify_channel_state} describes how these operations are performed inside the protocol.
 
 \subsection{Modifying Lightning Channel State}\label{sec:modify_channel_state}
 
 The {\LN} protocol complexity with the current implementation (defined in ~\cite{lightning-bolts})
 is generated from the channel state management that needs to ensure that there are no situations that can
 cause  possibilities to lose funds from one participant.
-In fact, if one peer has an outdated channel state, and this state is shared with the network, the counterpart can
+In fact, if one peer has an outdated channel state that is shared with the network, the counterpart can
 detect this inconsistency between the real channel state and the one received. In this case, the peer can and must
 % FIXME: define the penalty mechanism, but how?
 perform  a \emph{penalty mechanism} defined in the BOLT2~\cite{bolt2}, where the channel between the two peers
-is closed and the receiver of the outdated channel state takes all the currency involved.\\
-However, this penalty operation may be performed on peers that have bugs in the software and publish an old state of the
-channel due to a corrupted database. In this case, proposals like \quotes{eltoo: A Simple Layer2 Protocol for Bitcoin} ~\cite{eltoo},
-that offers a better solution for channel state management.
+is closed, and the receiver of the outdated channel state takes all the currency involved.\\
+However, this penalty operation may be performed on peers with bugs in the software and publish an old channel state
+due to a corrupted database. In this case, proposals like \quotes{eltoo: A Simple Layer2 Protocol for Bitcoin} ~\cite{eltoo},
+offer a better solution for channel state management.
 
 \subsection{Forwarding Lightning Payments}
 \label{sec:lightning_forwarding}
@@ -225,16 +227,15 @@ The {\LN} protocol allows operations through the network by sending a partial si
 allows peers to perform a payment.
 Therefore, in order to perform a payment the state of the channel needs to be altered, and in some cases the payment can involve
 different peers along a \emph{route path}.\\
-In fact, it is possible to send a payment to a peer directly connected with a channel, and send a payment to a peer
-that is not directly connected. In the latter case, the peer needs to execute a routing algorithm
+In fact, it is possible to send a payment to a peer directly connected with a channel and send a payment to a not directly connected peer. In the latter case, the peer needs to execute a routing algorithm
 to find one of the best paths to reach the target peer.
 
-When the route has been found, the payment can be sent across the channel or channels found by the routing algorithm, and this procedure
-requires to redistribute the balance of the channels involved in the payment process.\\
+When the route has been found, the payment can be sent across the channel, or channels found by the routing algorithm, and this procedure
+requires to redistribute of the balance of the channels involved in the payment process.\\
 Therefore, when the channel is opened, as discussed in Section \ref{sec:open_a_channels}, the full channel balance
-is distributed to the opener side,\footnote{There is a proposal called \emph{dual funding channel} that allows the peers to open a channel with the balance distribute across both direction.}
-and payment is possible only from $Opener$ to $Receiver$, but not vice-versa. For this reason, to change the amount distribution
-of the channel the sender sends a partially signed transaction to the receiver with the new information about the balance.
+is distributed to the opener side,\footnote{There is a proposal called \emph{dual funding channel} that allows the peers to open a channel with the balance distributes across both direction.}
+and payment is possible only from $Opener$ to $Receiver$, but not vice-versa. For this reason, to change the channel's amount distribution,
+the sender sends a partially signed transaction to the receiver with the new information about the balance.
 This update transaction is also known as \emph{commitment transaction}\footnote{A commitment transaction is also known as Hash Time Lock Contract (HTLC).} and in Section \ref{sec:htlc_intro} we discuss how it is composed.
 Figure \ref{fig:commitment_transaction_example} shows a possible commitment transaction workflow.
 
@@ -254,14 +255,14 @@ To perform the commitment transaction operation a sequence of {\LN} message are 
   
   \item {\bf commitment\_signed}: The receiver of the update\_add\_htlc message confirms the operation by sending the signature for the new commitment transaction;
   
-  \item {\bf revoke\_and\_ack}: The sender that received the signature of the new commitment transaction as confirmation of the update received. This message contains the revocation key of the sender to release the old commitment transaction, and the new information to construct the new revocation key; at this point, the old commitment transaction is revoked.
+  \item {\bf revoke\_and\_ack}: The sender that received the signature of the new commitment transaction as confirmation of the update received. This message contains the revocation key of the sender to release the old commitment transaction and the new information to construct the new revocation key; at this point, the old commitment transaction is revoked.
   
   \item {\bf commitment\_signed} and {\bf revoke\_and\_ack}: The receiver if the revoke message, the operation of revocation is performed in the opposite direction where the receiver begins the sender and vice-versa.
   
   \item {\bf update\_fulfill\_htlc}: This message is sent back to the sender to confirm that the payment is received,
       % FIXME: define the payment preimage here!
       and to prove that the receiver send this message that contains the \emph{payment preimage} 
-        that is used to verify the payment hash. The payment preimage is used as proof or payment.
+        that is used to verify the payment hash. The payment preimage is used as proof of payment.
 \end{itemize}
 
 
@@ -284,38 +285,38 @@ At the current status of the implementation, the {\LN} protocol provides differe
         \emph{closing transaction} can be broadcast on the blockchain and the funds involved are released.
   \item Unilateral Closing: One of the channel parties starts to be unresponsive due to some problem, such as a technical problem, and the counterpart decides to force close the channel.
   
-  \item Closing operation caused by penalty: There are corner cases, briefly mentioned in Section \ref{sec:modify_channel_state}, where a peer can voluntarily or involuntarily try to cheat the other party by publishing an old commitment transaction. In this case, the protocol provides a penalty mechanism to identify the cheat tentative and protect the party by closing the channel and moving all the balance of it to the peer that was undergoing the attack.
+  \item Closing operation caused by penalty: There are corner cases, briefly mentioned in Section \ref{sec:modify_channel_state}, where a peer can voluntarily or involuntarily try to cheat the other party by publishing an old commitment transaction. In this case, the protocol provides a penalty mechanism to identify the cheat tentative and protect the party by closing the channel and moving all its balance to the peer undergoing the attack.
 \end{itemize}
 
 In Section \ref{sec:modify_channel_state} we describe how the state of the channel is modified, and it is described what kind of information is
-exchanged between the peers. In particular, the peers have all the necessary information to broadcast on the blockchain an old commitment transaction.
+exchanged between the peers. In particular, the peers have all the necessary information to broadcast an old commitment transaction on the blockchain.
 
 For this reason, the protocol contains a sequence of options with a penalty where the node that will publish the old commitment transaction
 will receive a punishment operation that involves losing funds. However, this is not the most common bad behaviour that can happen in
-the network, but it is possible that one of the peers begins unresponsive in the network for a period or forever, and the counterpart is forced to unilaterally close the channel. This operation
+the network, but it is possible that one of the peers begins unresponsive in the network for a period or forever, and the counterpart is forced to close the channel unilaterally. This operation
 requires that the funds are locked for an amount period, and it requires a much high on-chain fee cost for the peers involved.
 
 \section{Onion Routing}\label{sec:onion_routing}
 
 In the {\LN}, onion routing is used to forward payments through a specific path.
-In particular, a \emph{Source Base Rooting} policy is exploited, where the payment path is specified by the sender.
+In particular, a \emph{Source Base Rooting} policy is exploited, where the sender specifies the payment path.
 The goal of using the source base routing is to preserve privacy along the path. For this reason, a peer that
 is forwarding a payment is able to know only the previous hop and the next hop, but there is not any information
 about the sender or recipient of the payment.
 
-This section contains only a high-level introduction about how onion routing works, and how it is used in the {\LN} to forward HTLCs.
+This section only briefly introduces how onion routing works and how it is used in the {\LN} to forward HTLCs.
 
 \subsubsection{Onion Routing Basics}
 
-The base concept of onion routing is to build a packet in layers, where each peer can access only to the
-first onion-encrypted layer. The layer is encrypted with the node, so only the owner of the layer can access to it.
+The base concept of onion routing is to build a packet in layers, where each peer can access only the
+first onion-encrypted layer. The layer is encrypted with the node, so only the owner of the layer can access it.
 Example \ref{ex:onion_routing} describes how the onion routing works across a routing path.
 
 \begin{example}
   \label{ex:onion_routing}
   Assume that Alice wants to pay Dina with a Lightning Payment across a routing path generated, as shown in Figure \ref{fig:routing_path}.
   In particular, the routing packet built from Alice contains all the
-  information to reach the Destination, across a pre-calculated path.
+  information to reach the destination across a pre-calculated path.
   In addition, it also shows how each peer has access only to the first layer (envelope in the figure) where it is possible to extract the information to the next hop.
   The current peer is also unable to understand if the next hop is the destination or if the previous hop is the source of the payment.
 
@@ -334,9 +335,9 @@ Therefore, in Example \ref{ex:htl_onion_routing} we show how the HTLC forward wi
 
 \begin{example}
   \label{ex:htl_onion_routing}
-  Assume now that Alice wants to pay Dina with a Lightning Payment, and Alice had all the
-  information that needs inside the \emph{gossip map}\footnote{The gossip map is a data structure that contains all the information that is gossiped through the network for each node. It is also known as Graph of the Network.} to feel the
-  onion packet by including the fee that each peer is required to forward a payment
+  Assume now that Alice wants to pay Dina with a Lightning Payment, and Alice has all the
+  information that she needs inside the \emph{gossip map}\footnote{The gossip map is a data structure that contains all the information that is gossiped through the network for each node. It is also known as Graph of the Network.} to feel the
+  onion packet by including the fee for each peer to forward a payment
   along the pre-calculated path. Figure \ref{fig:routing_path_htlc} shows that each node receives the HTLC with
   amount $X$ and forwards the packet to the next hop with an amount $x - node_{fee}$
 
@@ -349,4 +350,4 @@ Therefore, in Example \ref{ex:htl_onion_routing} we show how the HTLC forward wi
 The onion routing with HTLCs works pretty well in theory, but the {\LN} specification restricts (in order to preserve privacy) the information regarding
 the channels balance for each node through the network, so the propagated value is the total amount of Bitcoin that is involved in opening a channel, as described in Section \ref{sec:open_a_channels}.
 
-Therefore, in Example \ref{ex:htl_onion_routing} Alice has no idea if the current balance of the channel can support the payment amount,\footnote{As described in the Section \ref{sec:open_a_channels} when a node opens a channel, the amount of Bitcoin is distributed all in one side.} and, in order to mitigate this limitation of information, there is an unofficial payment technique, called \emph{multi path payment}, that splits a single payment into chunks and shares each chunk across the different path.
+Therefore, in Example \ref{ex:htl_onion_routing} Alice has no idea if the current balance of the channel can support the payment amount,\footnote{As described in the Section \ref{sec:open_a_channels} when a node opens a channel, the amount of Bitcoin is distributed all in one side.} and, in order to mitigate this limitation of information, there is an unofficial payment technique, called \emph{multi path payment}, that splits a single payment into chunks and shares each chunk across the different paths.
