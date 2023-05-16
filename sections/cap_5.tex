@@ -219,7 +219,7 @@ design is done through the LNMetrics RFC.
 \end{figure}
 
 Our choice to provide the LNMetrics server as a method to analyse the data 
-is to give organizations and universities one tool to collect the data in 
+is to give organizations and universities one tool to collect data in 
 a centralized way and simplify the analysis step. However, our client
 implementation is able to compute the metric analysis in a local environment 
 and allows the owner of the node to inspect the results calculated without 
@@ -249,7 +249,7 @@ following sections.
 \label{sec:demo}
 
 This section describes our case study that uses the LNMetrics framework 
-to define a local reputation of the node to provide a solution to a
+to define local reputation of the node to provide a solution to the
 problem we encountered while building our lightning node on the
 Bitcoin network.
 
@@ -288,7 +288,7 @@ into two main parts, as follows:
         \item The number of payments that are forwarded in the last 30 minutes through this specific 
             channel;
         \item The channel direction, where for each lightning channel there will be two items: one of 
-            inbound connection, and another one for outbound connection. In this way it is possible to 
+            inbound connection, and another one for outbound connection. In this way, it is possible to 
             try to estimate the usable direction of the channel.
     \end{itemize}
 \end{enumerate}
@@ -311,7 +311,7 @@ due to the size of the  schema.
 
 \subsection{Reference Implementation}
 
-The client implementation of the local reputation described in Section \ref{sec:data_definition_datadef} 
+The client implementation of the local reputation is described in Section \ref{sec:data_definition_datadef} 
 is provided within our Go Lang reference implementation, already  discussed in Section \ref{sec:lnmetrics_client}. 
 This section includes a practical description of how to use it. Therefore, the client implementation is 
 a plugin for core lightning that can run as part of the daemon itself. To run the plugin, the core lightning 
@@ -443,7 +443,7 @@ This node is not a routing node, but it is run by a casual user.
 However, in most cases, the casual user uses the Tor Network \cite{tor}
 to expose the {\LN} node to the public without using a public IP
 that can leak private data on the user's position. Therefore, a node
-that uses only tor can be flaky in availability due to some network
+that uses only Tor can be flaky in availability due to some network
 problems caused by some Tor relay nodes being overloaded.
 
 A possible future work could be an analysis of the up-time of a node
@@ -515,10 +515,10 @@ in the last six months. One of the main reasons for this result could be the pro
 used by some nodes to estimate the exact capacity of the channel before performing the path-finding
 algorithm. In these probing techniques, the node that wants to make payments sends fake payments
 that are already destined to fail, with an increasing amount, just to determine if the channel 
-is able to forward it. The lightning node that receives this forward payment is not able to 
+is able to forward them. The lightning node that receives this forward payment is not able to 
 detect that it is a fake payment due to the onion routing discussed in Section \ref{sec:onion_routing}.
 
-Therefore, relying solely on a node's global forward scoring is not enough, as the failure
+Therefore, relying solely on a node's global forward scoring is not enough, as failure
 scoring will always be a significant aspect of this analysis due to the probing techniques
 used. However, this information can still be useful in filtering out nodes that only
 forward failed payments and are not subject to local failures. It is assumed that a node
