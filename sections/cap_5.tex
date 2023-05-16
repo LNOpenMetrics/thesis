@@ -6,8 +6,8 @@ If we have data, let’s look at data. If all we have are opinions, let’s go w
 
 \section{Introduction}
 
-The purpose of this thesis is to develop a collection of tools for running lightning network 
-nodes with daily activity. This requires a data-driven analysis, which involves defining 
+This thesis aims to develop a collection of tools for running lightning network 
+nodes with daily activity. This requires a data-driven analysis involving defining 
 and collecting lightning network metrics. In this section, we describe an open-source 
 framework for defining and collecting these metrics.
 
@@ -15,7 +15,7 @@ To implement this framework, we conducted an analysis of the state of the art,
 which is described in Section \ref{sec:problem_and_state_of_the_art}. This helped us 
 better understand which information is difficult to obtain from a researcher's point 
 of view. Our preliminary study revealed that information on how a node performs on a 
-daily basis is difficult to obtain due to two primary reasons. First, it requires a direct 
+daily basis is difficult to obtain due to two primary reasons. First, it requires direct 
 interaction with node operators, who may not be willing to share their data due to 
 privacy concerns. Second, data collection of this kind can leak private data, 
 and node operators do not want to be exposed to this risk.
@@ -182,7 +182,7 @@ There are several reasons for this difference in space between the two machines:
 \begin{enumerate}
   \item The cloud machine runs the server with at least 3 nodes in testnet and mainnet for more
         than one year, and these nodes have activities that can include opening and closing channels,
-        which require storing some extra bytes for the new channel.
+        which requires storing some extra bytes for the new channel.
   \item The Raspberry node is newer and has only been running for 3 months, including just one node on
         the Bitcoin network and 3 on the Testnet network.
 \end{enumerate}
@@ -380,7 +380,7 @@ mutation {
 The mutation query accepts the following input parameters:
 
 \begin{itemize}
-    \item {\bf node\_id}: The node public key used as the node identifier on the lightning network.
+    \item {\bf node\_id}: The node public key is used as the node identifier on the lightning network.
     \item {\bf payload}: The JSON payload of the metric that the node is publishing.
     \item {\bf signature}: The signature of the JSON payload sent as input to verify that the
         payload is sent by the node with the provided public key.
@@ -442,7 +442,7 @@ online, such as the node with the alias \emph{SLICKERGOPHER}.
 This node is not a routing node, but it is run by a casual user.
 However, in most cases, the casual user uses the Tor Network \cite{tor}
 to expose the {\LN} node to the public without using a public IP
-that can leak private data on the user position. Therefore, a node
+that can leak private data on the user's position. Therefore, a node
 that uses only tor can be flaky in availability due to some network
 problems caused by some Tor relay nodes being overloaded.
 
@@ -450,8 +450,7 @@ A possible future work could be an analysis of the up-time of a node
 in two different zones of the world that use only the Tor network to
 be a routing node. In this case, we may see that the Tor network may
 impact the uptime performance if the node is located in an overloaded
-area, and if this impacts the network view of the node, such as the
-belief that a node is reachable because it is online, but it is
+area, and if this impacts the network view of the node, such as the belief that a node is reachable because it is online, but it is
 not because the other nodes cannot connect to it through the Tor network.
 
 In conclusion, Figure \ref{fig:lnmetrics_uptime_testnet} shows the uptime of
@@ -471,7 +470,7 @@ and noted that there are at least two kinds of nodes:
 
 Therefore, just analyzing the uptime of a node is not enough to estimate if a node is a 
 good node for the public network because a routing node that is always online needs to 
-have some activity, and this activity should not be dangerous for the network.
+have some activity, which should not be dangerous for the network.
 For this reason, in this section, we use the forwards rating to measure the activity of 
 a node by analyzing how many payments are forwarded by the routing node under analysis. 
 For our analysis, we consider two nodes, one in the Bitcoin Network and the other 
@@ -489,7 +488,7 @@ shows an analysis of the size of the node during the period that includes the nu
 of channels that the node has.
 
 Therefore, from this comparison, we can see that the activity on the Bitcoin network is an order of magnitude
-bigger than the activity on the Testnet network, even if the size of the node is close to the same. This 
+bigger than the activity on the Testnet network, even if the node size is close to the same. This 
 shows that the activity on the Bitcoin network and the activity on the Testnet network are very different,
 and this may impact the proposal evaluation that is dependent on the network, such as the local scoring 
 proposed by the solution to solve the Jamming Attack discussed in Section \ref{sec:jamming}.
@@ -512,7 +511,7 @@ proposed by the solution to solve the Jamming Attack discussed in Section \ref{s
 
 However, as shown in Figure \ref{fig:bitcoin_forwards_rating}, we can see that the success
 forward scoring on the Bitcoin network is also close to 5\% of the total forwards performed 
-in the last 6 months. One of the main reasons for this result could be the probing techniques 
+in the last six months. One of the main reasons for this result could be the probing techniques 
 used by some nodes to estimate the exact capacity of the channel before performing the path-finding
 algorithm. In these probing techniques, the node that wants to make payments sends fake payments
 that are already destined to fail, with an increasing amount, just to determine if the channel 

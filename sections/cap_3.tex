@@ -24,8 +24,8 @@ where the data are collected from core lightning and archived.
 
 However, at the current state of the art, there is no example of how to perform
 a data-driven analysis of local data collected across implementations in order to 
-analyze the current daily behavior of a node in a real environment, but there are some research proposals,  such as ~\cite{DBLP:journals/corr/abs-2103-08576} and ~\cite{cryptoeprint:2022/1454}, that could receive more attention if described  in terms 
-of  a data analysis on real nodes.
+analyze the current daily behaviour of a node in a real environment, but there are some research proposals,  such as ~\cite{DBLP:journals/corr/abs-2103-08576} and ~\cite{cryptoeprint:2022/1454}, that could receive more attention if described  in terms 
+of  data analysis on real nodes.
 
 
 \subsection{Local Data-Driven Analysis}
@@ -34,14 +34,14 @@ Nowadays, performing a data-driven analysis on local data that are considered pr
 is difficult because there is no real data available on where to perform the simulation
 other than the one provided by research tools such as ~\cite{lngossip}.
 Therefore, this lack of data can slow down the research process or limit the 
-research scope because for collecting real data it is required to run a lightning node 
+research scope because to collect real data it is required to run a lightning node 
 with real bitcoins involved, or to perform the analysis on a 
 testnet network, but this kind of network are not reliable such as 
 the real one, as described in Chapter \ref{sec:demo}.
 
 In addition, another possible problem caused by this lack of data is the implementation
 quality of the solution proposed, because in these cases 
-the implementors are required to deep understanding of the problem 
+the implementors are required to have a deep understanding of the problem 
 to transform an assumption into implementation-specific values, 
 and this can require another data-driven analysis.
 
@@ -50,7 +50,7 @@ and this can require another data-driven analysis.
 \subsection{Probabilistic Path Finding}
 
 In the Section \ref{sec:modify_channel_state} is described how the payment are
-forwarded across the network, and also how it is difficult to perform an efficient 
+forwarded across the network, and also how difficult it is to perform an efficient 
 pathfinding without knowing the exact amount of a channel. 
 In order to improve the current Dijkstra algorithm the research \cite{DBLP:journals/corr/abs-2103-08576}
 propose a probabilistic approach.
@@ -71,8 +71,8 @@ equal to the max capacity $C$. More formally is that
 \end{center}
 
 Then, payment of an amount $a$ between two vertexes $(u, v)$ in the network is defined 
-as a path between $u$ and $v$ where each vertex has a different fee that needs to payed for a 
-single unit of flow ($perUnit(u, v)$), and also has a base fee that is paid anyway ($base(u, v)$).
+as a path between $u$ and $v$ where each vertex has a different fee that needs to be paid for a 
+a single unit of flow ($perUnit(u, v)$), and also has a base fee that is paid anyway ($base(u, v)$).
 
 \begin{definition}
     The cost of each edge $(u, v) \in E$ is defined as 
@@ -128,10 +128,10 @@ is not the only reason why payments on the lightning network are unreliable.
 Another well-known problem on the Lightning Network is the so-called \emph{jamming attack}. This attack represents a cheap 
 denial-of-service (DoS) attack, where the goal of this DoS attack 
 is to prevent payments, either routed through the victim or paying the victim. 
-The effectiveness of jamming attack could be characterized by the reduction of the
+The effectiveness of a jamming attack could be characterized by the reduction of the
 payment success rate, applied to the victim or the entire Lightning Network.
 
-The paper ~\cite{cryptoeprint:2022/1454} describe an solution to this problem 
+The paper ~\cite{cryptoeprint:2022/1454} describes a solution to this problem 
 based on a \emph{reputation system} and \emph{up-front fee} that allows for making
 the Jamming attack is expensive due to the up-front fee and difficult to do during the time 
 due to the reputation system.
@@ -140,9 +140,9 @@ In addition, the paper defines different kinds of Jamming attacks, divided in :
 \begin{itemize}
     \item {\bf Slow Jamming}: The attacker makes a payment with a very long timeout, 
         in this way all channels along the route have the balance locked;
-    \item {\bf Fast Jamming}: The attacker tries to mimic the honest payment, by sending
-        a failed payment; currently, in the Lightning Network there is a similar operation, called \emph{probing},
-        that it is used to steal information from a channel.
+    \item {\bf Fast Jamming}: The attacker tries to mimic the honest payment by sending
+        a failed payment; currently, in the Lightning Network there is a similar operation called \emph{probing},
+        that is used to steal informations from a channel.
 \end{itemize}
 
 To mitigate slow and fast jamming in ~\cite{cryptoeprint:2022/1454} the authors
@@ -151,12 +151,12 @@ propose a combination of two strategies, combined in the following way:
 \begin{itemize}
     \item {\bf Up-front fee} paid to the downstream peer addresses quick jamming 
         by imposing a small cost on every payment;
-    \item {\bf Local reputation} based on past behavior addresses slow jamming by 
+    \item {\bf Local reputation} based on past behaviour addresses slow jamming by 
         punishing peers who forward payments that take too long to resolve.
 \end{itemize}
 
-The solution proposed regarding the unconditional fee is relatively simple to implement 
-because it requires a node to pay for an attempt also if this fails (if succeeded, the up-front fee can 
+The solution proposed regarding the unconditional fee is relatively simple to implement, 
+because it requires a node to pay for an attempt also if this fails (if it succeeded, the up-front fee can 
 be returned), and the choice of the path is driven by the local reputation that 
 scores the channel based on the following information:
 
@@ -172,7 +172,7 @@ Calculating the Reputation Scores works by considering two possible values
 for reputation scores:  \emph{high}  and  \emph{low}. Initially, all peers 
 receive a low score. A payment is deemed  honest  if it resolves within  
 $\gamma$  seconds, otherwise, it is considered a jamming attack. 
-A peer’s behavior is defined as  good  if it only offers honest payments 
+A peer’s behaviour is defined as  good  if it only offers honest payments 
 for forwarding. Moreover, those payments must pay at least A satoshis 
 per second in fees to the routing node. The reputation of a peer grows if 
-demonstrates good behavior for a long enough period.
+demonstrates good behaviour for a long enough period.
