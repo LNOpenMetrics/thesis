@@ -38,12 +38,12 @@ of some previous ideas regarding the possibility to have payment channels with B
 
 \subsection{Payment Channel}
 
-A Payment Channel, also known as Micropayment Channel, is a class of techniques designed to allow users to make multiple
+A Payment Channel, also known as Micro-payment Channel, is a class of techniques designed to allow users to make multiple
 Bitcoin transactions without committing all of the transactions to the Bitcoin blockchain. In a typical payment channel,
 only two transactions are added to the blockchain, but an unlimited or nearly unlimited number of payments
 can be made between the participants.\\
 In fact, the concept of replacing an old transaction with the new one is proposed from \emph{Satoshi Nakamoto}
-in the mailinglist~~\cite{payment-channels-satoshi}, and
+in the mailing list~~\cite{payment-channels-satoshi}, and
 the basic concept to implement this feature was presented in version 0.0.1 of Bitcoin core. However, this solution
 was not safe because, with this method, there is the possibility to steal funds from the other party or parties.\\
 
@@ -179,7 +179,7 @@ of messages is exchanged (Figure \ref{fig:channel-establishment}). During this p
 the following protocol messages are involved:
 
 \begin{itemize}
-  \item {\bf open\_channel}: The node that wants to open a channel (sender) creates an open channel message where the informations of the
+  \item {\bf open\_channel}: The node that wants to open a channel (sender) creates an open channel message where the information of the
         Blockchain Network are defined (It is not required that this network is the Bitcoin network);
   \item {\bf accept\_channel}: The node that receives the open channel request (receiver) with the information of the Blockchain network to use,
         can accept the request to open a channel by sending an accept channel message that contains the Blockchain network information, and
@@ -261,7 +261,7 @@ To perform the commitment transaction operation a sequence of {\LN} message are 
   \item {\bf update\_fulfill\_htlc}: This message is sent back to the sender to confirm that the payment is received,
       % FIXME: define the payment preimage here!
       and to prove that the receiver send this message that contains the \emph{payment preimage} 
-        that is used to verify the payment hash. The payment preimage is used as proof or payment.\footnote{clarify the payment preimage workflow and where this payment is made.}
+        that is used to verify the payment hash. The payment preimage is used as proof or payment.
 \end{itemize}
 
 
@@ -281,7 +281,7 @@ At the current status of the implementation, the {\LN} protocol provides differe
 
 \begin{itemize}
   \item Co-operative Closing: The channel parties arrive at an agreement where the channel can be closed and the
-        \emph{closing transaction} (Section \ref{sec:htlc_intro}) can be broadcast on the blockchain and the funds involved are released.
+        \emph{closing transaction} can be broadcast on the blockchain and the funds involved are released.
   \item Unilateral Closing: One of the channel parties starts to be unresponsive due to some problem, such as a technical problem, and the counterpart decides to force close the channel.
   
   \item Closing operation caused by penalty: There are corner cases, briefly mentioned in Section \ref{sec:modify_channel_state}, where a peer can voluntarily or involuntarily try to cheat the other party by publishing an old commitment transaction. In this case, the protocol provides a penalty mechanism to identify the cheat tentative and protect the party by closing the channel and moving all the balance of it to the peer that was undergoing the attack.
