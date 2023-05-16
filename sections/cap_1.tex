@@ -327,7 +327,7 @@ Example \ref{ex:onion_routing} describes how the onion routing works across a ro
 
 \subsubsection{Onion Routing with HTLCs}
 
-{\LN} protocol implements a custom version of the Onion Routing based on Sphinx ~\cite{cryptoeprint:2008/475}. In this case, the onion routing goal is to forward HTLC from the Source to the Destination and pay the fee to
+{\LN} protocol implements a custom version of the Onion Routing based on Sphinx ~\cite{sphinx}. In this case, the onion routing goal is to forward HTLC from the Source to the Destination and pay the fee to
 every single hop by modifying the amount forwarded to the next hop.
 
 Therefore, in Example \ref{ex:htl_onion_routing} we show how the HTLC forward with onion routing works.

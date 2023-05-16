@@ -1,17 +1,18 @@
-@InProceedings{Decker2015fast,
+@misc{Decker2015fast,
 	author=	{Christian Decker and Roger Wattenhofer},
 	title=	{{A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment Channels}},
 	booktitle=	{{17th International Symposium on Stabilization, Safety,  and Security of Distributed Systems (SSS), Edmonton, Canada}},
 	month=	{August},
 	year=	{2015},
+  howpublished = {\url{https://ieeexplore.ieee.org/document/6688704}}
 }
 
-@InProceedings{lightning-network-paper,
+@misc{lightning-network-paper,
 	author=	{Joseph Poon and Thaddeus Dryja},
 	title=	{{The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments}},
-	booktitle=	{{}},
 	month=	{January},
 	year=	{2016},
+  howpublished = {\url{https://lightning.network/lightning-network-paper.pdf}}
 }
 
 @misc{hashcash,
@@ -19,86 +20,77 @@
 	title = {{Hashcash - A Denial of Service Counter-Measure}},
 	year = 2002,
 	month = {August},
-	note = {Available at: \url{http://www.hashcash.org/papers/hashcash.pdf}},
+	howpublished = {\url{http://www.hashcash.org/papers/hashcash.pdf}},
 }
 
 @misc{lightning-bolts,
-	author = {Rusty Russell, Christian Decker, ... },
+	author = {Lightning Community},
 	title = {{Lightning Network Specification}},
-	url = {{https://github.com/lightning/bolts}},
+	howpublished = {\url{https://github.com/lightning/bolts}},
 }
 
 @misc{visa-sheet,
 	author = {Visa},
 	title = {{Fact Sheet}},
-	url = {{https://www.visa.co.uk/dam/VCOM/download/corporate/media/visanet-technology/aboutvisafactsheet.pdf}},
+	howpublished = {\url{https://www.visa.co.uk/dam/VCOM/download/corporate/media/visanet-technology/aboutvisafactsheet.pdf}},
 }
 
 @misc{payment-channels-satoshi,
 	author = {Mike Hearn},
 	title = {{[Bitcoin-development] Anti DoS for tx replacement}},
-	url = {https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2013-April/002417.html},
+	howpublished = {\url{https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2013-April/002417.html}},
 }
 
 @misc{bitcoinj-impl,
 	author = {bitcoinj},
 	title = {{bitcoinj is a library for working with the Bitcoin protocol}},
-	url = {https://bitcoinj.org/},
+	howpublished = {\url{https://bitcoinj.org/}},
 }
 
 @misc{bip65,
-	author = {BIP 65},
+	author = {Peter Todd},
 	title = {{Bitcoin Improvement Proposals 65}},
-	url = {https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki},
+	howpublished = {\url{https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki}},
 }
 
 @misc{bip68,
-	author = {BIP 68},
+	author = {Mark Friedenbach, BtcDrak, Nicolas Dorier & kinoshitajona},
 	title = {{Bitcoin Improvement Proposals 68}},
-	url = {https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki},
+	howpublished = {\url{https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki}},
 }
 
 @misc{bip118,
-	author = {BIP 118},
+	author = {Christian Decker, Anthony Towns},
 	title = {{Bitcoin Improvement Proposals 119}},
-	url = {https://github.com/bitcoin/bips/blob/master/bip-0118.mediawiki},
+	howpublished = {\url{https://github.com/bitcoin/bips/blob/master/bip-0118.mediawiki}},
 }
 
 @misc{bip141,
-	author = {BIP 151},
+	author = {Eric Lombrozo, Johnson Lau, Pieter Wuille},
 	title = {{Bitcoin Improvement Proposals 141}},
-	url = {https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki},
+	howpublished = {\url{https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki}},
 }
 
 @misc{bolt2,
-	author = {BOLT 2},
-	title = {{Bolt 2}},
-	url = {https://github.com/lightning/bolts/blob/master/02-peer-protocol.md},
+  author = {Lightning Network Community},
+  title = {{Bolt 2}},
+  howpublished = {\url{https://github.com/lightning/bolts/blob/master/02-peer-protocol.md}},
 }
 
-
-@misc{sphinx,
-	author = {George Danezis and Ian Goldberg},
-	title = {{Sphinx: A Compact and Provably Secure Mix Format}},
-	url = {https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki},
-}
 
 @misc{eltoo,
-	author = {Christian Decker, Rusty Russell and Olaoluwa Osuntokun},
-	title = {{eltoo: A Simple Layer2 Protocol for Bitcoin}},
-	url = {https://blockstream.com/eltoo.pdf},
+  author = {Christian Decker, Rusty Russell and Olaoluwa Osuntokun},
+  title = {{eltoo: A Simple Layer2 Protocol for Bitcoin}},
+  howpublished = {\url{https://blockstream.com/eltoo.pdf}},
 }
 
-@misc{cryptoeprint:2008/475,
+@misc{sphinx,
       author = {George Danezis and Ian Goldberg},
       title = {Sphinx: A Compact and Provably Secure Mix Format},
-      howpublished = {Cryptology ePrint Archive, Paper 2008/475},
-      year = {2008},
-      note = {\url{https://eprint.iacr.org/2008/475}},
-      url = {https://eprint.iacr.org/2008/475}
+      howpublished = {\url{https://eprint.iacr.org/2008/475}},
 }
 
-@article{nakamoto2009bitcoin,
+@misc{nakamoto2009bitcoin,
   abstract = {A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution. Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending. We propose a solution to the double-spending problem using a peer-to-peer network. The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work. The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power. As long as a majority of CPU power is controlled by nodes that are not cooperating to attack the network, they'll generate the longest chain and outpace attackers. The network itself requires minimal structure. Messages are broadcast on a best effort basis, and nodes can leave and rejoin the network at will, accepting the longest proof-of-work chain as proof of what happened while they were gone.},
   added-at = {2022-06-15T13:43:05.000+0200},
   author = {Nakamoto, Satoshi},
@@ -109,7 +101,7 @@
   month = may,
   timestamp = {2022-06-15T13:43:05.000+0200},
   title = {Bitcoin: A Peer-to-Peer Electronic Cash System},
-  url = {http://www.bitcoin.org/bitcoin.pdf},
+  howpublished = {\url{http://www.bitcoin.org/bitcoin.pdf}},
   year = 2009
 }
 
@@ -118,10 +110,10 @@
   title = {Hashcash-a denial of service counter-measure},
   year = {2002},
   note = {Accessed: 2016-03-09},
-  url = {http://www.hashcash.org/papers/hashcash.pdf},
+  howpublished = {\url{http://www.hashcash.org/papers/hashcash.pdf}},
 }
 
-@article{Palazzo_Estrazione_di_Informazioni_2021,
+@misc{Palazzo_Estrazione_di_Informazioni_2021,
   author = {Palazzo Vincenzo and Carlo Sartiani},
   doi = {10.0000/00000},
   journal = {University of Basilicata thesis},
@@ -130,13 +122,14 @@
   pages = {1--60},
   title = {{Estrazione di Informazioni dalla Blockchain di Bitcoin}},
   volume = {1},
-  year = {2019}
+  year = {2019},
+  howpublished = {\url{https://github.com/vincenzopalazzo/SpyCBlockThesis/releases/download/v0.2.5/VincenzoPalazzo_Tesi.pdf}}
 }
 
 @misc{learnmeabitcoin:p2ms,
 	author = "Greg Walker",
 	title = "{Pay To Multisig}",
-	url = "https://learnmeabitcoin.com/glossary/p2ms",
+	howpublished = {\url{https://learnmeabitcoin.com/glossary/p2ms}},
 }
 
 @misc{lngossip,
@@ -165,7 +158,7 @@
   howpublished = {\url{https://github.com/LNOpenMetrics/lnmetrics.rfc/blob/main/metrics/metric_1.md}},
 }
 
-@article{DBLP:journals/corr/abs-2103-08576,
+@misc{DBLP:journals/corr/abs-2103-08576,
   author    = {Rene Pickhardt and
                Sergei Tikhomirov and
                Alex Biryukov and
@@ -175,7 +168,7 @@
   journal   = {CoRR},
   volume    = {abs/2103.08576},
   year      = {2021},
-  url       = {https://arxiv.org/abs/2103.08576},
+  howpublished = {\url{https://arxiv.org/abs/2103.08576}},
   eprinttype = {arXiv},
   eprint    = {2103.08576},
   timestamp = {Tue, 23 Mar 2021 16:29:47 +0100},
