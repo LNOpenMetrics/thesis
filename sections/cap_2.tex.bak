@@ -83,7 +83,7 @@ validate them, and build a new block that will be proposed to be stored inside
 the blockchain. During this process, the miners perform the proof of work as 
 described in \cite{Palazzo_Estrazione_di_Informazioni_2021}.
 Another interesting aspect of Bitcoin transactions is the concept of 
-Unspent Transactions Output (UTXOs), as described in \cite{nakamoto2009bitcoin},
+Unspend Transactions Output (UTXOs), as described in \cite{nakamoto2009bitcoin},
 and the mechanism to spend a transaction.
 A transaction is a data structure (as shown in Table \ref{tab:rawtxbitcoinc}) that contains the core information
 of Bitcoin transaction: 

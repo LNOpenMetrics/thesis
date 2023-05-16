@@ -17,6 +17,8 @@
     "ex:onion_routing"
     "fig:routing_path"
     "ex:htl_onion_routing"
-    "fig:routing_path_htlc"))
+    "fig:routing_path_htlc")
+   (LaTeX-add-environments
+    '("chapquote" LaTeX-env-args ["argument"] 1)))
  :latex)
 

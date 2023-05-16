@@ -8,22 +8,6 @@ Json-rpc 2.0 specification.
 Tor network.
 \newblock \url{https://2019.www.torproject.org/about/overview.html.en}.
 
-\bibitem{bip141}
-B.~151.
-\newblock {Bitcoin Improvement Proposals 141}.
-
-\bibitem{bolt2}
-B.~2.
-\newblock {Bolt 2}.
-
-\bibitem{bip65}
-B.~65.
-\newblock {Bitcoin Improvement Proposals 65}.
-
-\bibitem{bip68}
-B.~68.
-\newblock {Bitcoin Improvement Proposals 68}.
-
 \bibitem{gqlgen}
 99designs.
 \newblock gqlgen is a go library for building graphql servers without any fuss.
@@ -36,25 +20,33 @@ R.~P. Andreas M.~Antonopoulos, Olaoluwa~Osuntokun.
 
 \bibitem{hashcash}
 A.~Back.
-\newblock {Hashcash - A Denial of Service Counter-Measure}, August 2002.
-\newblock Available at: \url{http://www.hashcash.org/papers/hashcash.pdf}.
+\newblock {Hashcash - A Denial of Service Counter-Measure}.
+\newblock \url{http://www.hashcash.org/papers/hashcash.pdf}, August 2002.
 
 \bibitem{bitcoinj-impl}
 bitcoinj.
 \newblock {bitcoinj is a library for working with the Bitcoin protocol}.
+\newblock \url{https://bitcoinj.org/}.
 
 \bibitem{eltoo}
 R.~R. Christian~Decker and O.~Osuntokun.
 \newblock {eltoo: A Simple Layer2 Protocol for Bitcoin}.
+\newblock \url{https://blockstream.com/eltoo.pdf}.
+
+\bibitem{lightning-bolts}
+L.~Community.
+\newblock {Lightning Network Specification}.
+\newblock \url{https://github.com/lightning/bolts}.
+
+\bibitem{bolt2}
+L.~N. Community.
+\newblock {Bolt 2}.
+\newblock
+  \url{https://github.com/lightning/bolts/blob/master/02-peer-protocol.md}.
 
 \bibitem{sphinx}
 G.~Danezis and I.~Goldberg.
-\newblock {Sphinx: A Compact and Provably Secure Mix Format}.
-
-\bibitem{cryptoeprint:2008/475}
-G.~Danezis and I.~Goldberg.
 \newblock Sphinx: A compact and provably secure mix format.
-\newblock Cryptology ePrint Archive, Paper 2008/475, 2008.
 \newblock \url{https://eprint.iacr.org/2008/475}.
 
 \bibitem{lngossip}
@@ -67,8 +59,12 @@ C.~Decker.
 C.~Decker and R.~Wattenhofer.
 \newblock {A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment
   Channels}.
-\newblock In {\em {17th International Symposium on Stabilization, Safety, and
-  Security of Distributed Systems (SSS), Edmonton, Canada}}, August 2015.
+\newblock \url{https://ieeexplore.ieee.org/document/6688704}, August 2015.
+
+\bibitem{bip141}
+P.~W. Eric~Lombrozo, Johnson~Lau.
+\newblock {Bitcoin Improvement Proposals 141}.
+\newblock \url{https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki}.
 
 \bibitem{graphql}
 Facebook/Meta.
@@ -83,11 +79,18 @@ M.~Goshima.
 \bibitem{payment-channels-satoshi}
 M.~Hearn.
 \newblock {[Bitcoin-development] Anti DoS for tx replacement}.
+\newblock
+  \url{https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2013-April/002417.html}.
+
+\bibitem{bip68}
+N.~D. .~k. Mark~Friedenbach, BtcDrak.
+\newblock {Bitcoin Improvement Proposals 68}.
+\newblock \url{https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki}.
 
 \bibitem{nakamoto2009bitcoin}
 S.~Nakamoto.
 \newblock Bitcoin: A peer-to-peer electronic cash system.
-\newblock May 2009.
+\newblock \url{http://www.bitcoin.org/bitcoin.pdf}, May 2009.
 
 \bibitem{lnmetrics_localreputation}
 V.~Palazzo.
@@ -99,16 +102,13 @@ V.~Palazzo.
 R.~Pickhardt, S.~Tikhomirov, A.~Biryukov, and M.~Nowostawski.
 \newblock Security and privacy of lightning network payments with uncertain
   channel balances.
-\newblock {\em CoRR}, abs/2103.08576, 2021.
+\newblock \url{https://arxiv.org/abs/2103.08576}, 2021.
 
 \bibitem{lightning-network-paper}
 J.~Poon and T.~Dryja.
 \newblock {The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments}.
-\newblock In {\em {}}, January 2016.
-
-\bibitem{lightning-bolts}
-.~Rusty~Russell, Christian~Decker.
-\newblock {Lightning Network Specification}.
+\newblock \url{https://lightning.network/lightning-network-paper.pdf}, January
+  2016.
 
 \bibitem{glightning}
 N.~Saitug.
@@ -122,18 +122,28 @@ C.~Shikhelman and S.~Tikhomirov.
 \newblock Cryptology ePrint Archive, Paper 2022/1454, 2022.
 \newblock \url{https://eprint.iacr.org/2022/1454}.
 
+\bibitem{bip65}
+P.~Todd.
+\newblock {Bitcoin Improvement Proposals 65}.
+\newblock \url{https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki}.
+
 \bibitem{Palazzo_Estrazione_di_Informazioni_2021}
 P.~Vincenzo and C.~Sartiani.
 \newblock {Estrazione di Informazioni dalla Blockchain di Bitcoin}.
-\newblock {\em University of Basilicata thesis}, 1(1):1--60, 12 2019.
+\newblock
+  \url{https://github.com/vincenzopalazzo/SpyCBlockThesis/releases/download/v0.2.5/VincenzoPalazzo_Tesi.pdf},
+  12 2019.
 
 \bibitem{visa-sheet}
 Visa.
 \newblock {Fact Sheet}.
+\newblock
+  \url{https://www.visa.co.uk/dam/VCOM/download/corporate/media/visanet-technology/aboutvisafactsheet.pdf}.
 
 \bibitem{learnmeabitcoin:p2ms}
 G.~Walker.
 \newblock {Pay To Multisig}.
+\newblock \url{https://learnmeabitcoin.com/glossary/p2ms}.
 
 \bibitem{clboss}
 ZmnSCPxj.

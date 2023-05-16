@@ -31,7 +31,7 @@ of the public servers available, we developed a tool that collects information o
 the lightning node with the possibility to run in offline mode. Node operators can 
 choose whether or not to share their data with one or more of the servers. The ability 
 to run the tool in offline mode is a good incentive for node operators to participate 
-in the research since they are seeking a tool to analyze the node performance to 
+in the research since they are seeking a tool to analyse the node performance to 
 increase their node profit.
 
 Figure \ref{fig:lnmetrics_process} illustrates the general process of how 
@@ -188,8 +188,8 @@ There are several reasons for this difference in space between the two machines:
 \end{enumerate}
 
 The point of the figure is to show that the space required to run the system is
-orders of magnitude lower than a system that aims to analyze the Bitcoin blockchain.
-For example, in \cite{Palazzo_Estrazione_di_Informazioni_2021}, a solution to analyze the Bitcoin blockchain
+orders of magnitude lower than a system that aims to analyse the Bitcoin blockchain.
+For example, in \cite{Palazzo_Estrazione_di_Informazioni_2021}, a solution to analyse the Bitcoin blockchain
 required 250 GB to store the Bitcoin blockchain and convert it in a compressed JSON format in 2019.
 Section \ref{sec:demo} provides more information about the collected data.
 
@@ -218,7 +218,7 @@ design is done through the LNMetrics RFC.
     \label{fig:lnmetrics_architecture}
 \end{figure}
 
-Our choice to provide the LNMetrics server as a method to analyze the data 
+Our choice to provide the LNMetrics server as a method to analyse the data 
 is to give organizations and universities one tool to collect the data in 
 a centralized way and simplify the analysis step. However, our client
 implementation is able to compute the metric analysis in a local environment 
@@ -390,7 +390,7 @@ The algorithm used to sign the payload is a custom one provided by the major
 lightning implementation, and we provide our own Go implementation, which is available
 at \url{https://github.com/LNOpenMetrics/lnmetrics.utils}.
 
-Once the server accepts and verifies the metrics, it will analyze the provided data and calculate the
+Once the server accepts and verifies the metrics, it will analyse the provided data and calculate the
 metrics output described in section \ref{sec:data_definition_datadef}. The metrics will then be available
 through the server endpoint. Additionally, our Python client provides an easy API to access any server instances.
 Listing \ref{code:lnmetrics_python_api} provides a runnable example.

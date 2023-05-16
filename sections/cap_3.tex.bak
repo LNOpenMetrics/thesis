@@ -3,7 +3,7 @@
 \section{Problem}
 
 The Lightning Network protocol, as described in Section \ref{sec:lightning_network}, is 
-driven by a consensus between a group of implementers to standardize
+driven by a consensus between a group of implementors to standardize
 features. In some cases to address a problem such as 
 improving the path-finding algorithm~\cite{DBLP:journals/corr/abs-2103-08576} or 
 proposing a solution for the \emph{Jamming Attack}~\cite{cryptoeprint:2022/1454}, 
@@ -24,7 +24,7 @@ where the data are collected from core lightning and archived.
 
 However, at the current state of the art, there is no example of how to perform
 a data-driven analysis of local data collected across implementations in order to 
-analyse the current daily behaviour of a node in a real environment, but there are some research proposals,  such as ~\cite{DBLP:journals/corr/abs-2103-08576} and ~\cite{cryptoeprint:2022/1454}, that could receive more attention if described  in terms 
+analyze the current daily behaviour of a node in a real environment, but there are some research proposals,  such as ~\cite{DBLP:journals/corr/abs-2103-08576} and ~\cite{cryptoeprint:2022/1454}, that could receive more attention if described  in terms 
 of  data analysis on real nodes.
 
 
@@ -41,7 +41,7 @@ the real one, as described in Chapter \ref{sec:demo}.
 
 In addition, another possible problem caused by this lack of data is the implementation
 quality of the solution proposed, because in these cases 
-the implementers are required to have a deep understanding of the problem 
+the implementors are required to have a deep understanding of the problem 
 to transform an assumption into implementation-specific values, 
 and this can require another data-driven analysis.
 
@@ -51,7 +51,7 @@ and this can require another data-driven analysis.
 
 In the Section \ref{sec:modify_channel_state} is described how the payment are
 forwarded across the network, and also how difficult it is to perform an efficient 
-path finding without knowing the exact amount of a channel. 
+pathfinding without knowing the exact amount of a channel. 
 In order to improve the current Dijkstra algorithm the research \cite{DBLP:journals/corr/abs-2103-08576}
 propose a probabilistic approach.
 The paper \cite{DBLP:journals/corr/abs-2103-08576} uses probability theory to 
@@ -142,7 +142,7 @@ In addition, the paper defines different kinds of Jamming attacks, divided in :
         in this way all channels along the route have the balance locked;
     \item {\bf Fast Jamming}: The attacker tries to mimic the honest payment by sending
         a failed payment; currently, in the Lightning Network there is a similar operation called \emph{probing},
-        that is used to steal information from a channel.
+        that is used to steal informations from a channel.
 \end{itemize}
 
 To mitigate slow and fast jamming in ~\cite{cryptoeprint:2022/1454} the authors
