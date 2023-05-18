@@ -1,7 +1,7 @@
 \begin{thebibliography}{10}
 
 \bibitem{jsonrpc}
-Json-rpc 2.0 specification.
+{JSON-RPC 2.0 Specification}.
 \newblock \url{https://www.jsonrpc.org/specification}.
 
 \bibitem{tor}
@@ -40,14 +40,16 @@ L.~Community.
 
 \bibitem{bolt2}
 L.~N. Community.
-\newblock {Bolt 2}.
+\newblock {Basis of Lightning Technology 2}.
 \newblock
   \url{https://github.com/lightning/bolts/blob/master/02-peer-protocol.md}.
 
 \bibitem{sphinx}
 G.~Danezis and I.~Goldberg.
-\newblock Sphinx: A compact and provably secure mix format.
-\newblock \url{https://eprint.iacr.org/2008/475}.
+\newblock Sphinx: {A} compact and provably secure mix format.
+\newblock In {\em 30th {IEEE} Symposium on Security and Privacy (S{\&}P 2009),
+  17-20 May 2009, Oakland, California, {USA}}, pages 269--282. {IEEE} Computer
+  Society, 2009.
 
 \bibitem{lngossip}
 C.~Decker.
@@ -57,9 +59,12 @@ C.~Decker.
 
 \bibitem{Decker2015fast}
 C.~Decker and R.~Wattenhofer.
-\newblock {A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment
-  Channels}.
-\newblock \url{https://ieeexplore.ieee.org/document/6688704}, August 2015.
+\newblock A fast and scalable payment network with bitcoin duplex micropayment
+  channels.
+\newblock In A.~Pelc and A.~A. Schwarzmann, editors, {\em Stabilization,
+  Safety, and Security of Distributed Systems - 17th International Symposium,
+  {SSS} 2015, Edmonton, AB, Canada, August 18-21, 2015, Proceedings}, volume
+  9212 of {\em Lecture Notes in Computer Science}, pages 3--18. Springer, 2015.
 
 \bibitem{bip141}
 P.~W. Eric~Lombrozo, Johnson~Lau.
@@ -82,6 +87,12 @@ M.~Hearn.
 \newblock
   \url{https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2013-April/002417.html}.
 
+\bibitem{DBLP:journals/corr/abs-2002-02819}
+J.~Lin, K.~Primicerio, T.~Squartini, C.~Decker, and C.~J. Tessone.
+\newblock Lightning network: a second path towards centralisation of the
+  bitcoin economy.
+\newblock {\em CoRR}, abs/2002.02819, 2020.
+
 \bibitem{bip68}
 N.~D. .~k. Mark~Friedenbach, BtcDrak.
 \newblock {Bitcoin Improvement Proposals 68}.
@@ -90,7 +101,24 @@ N.~D. .~k. Mark~Friedenbach, BtcDrak.
 \bibitem{nakamoto2009bitcoin}
 S.~Nakamoto.
 \newblock Bitcoin: A peer-to-peer electronic cash system.
-\newblock \url{http://www.bitcoin.org/bitcoin.pdf}, May 2009.
+\newblock {\em Decentralized business review}, page 21260, 2008.
+
+\bibitem{lnmetrics-server}
+V.~Palazzo.
+\newblock A graph ql server that is used to report the metrics of each
+  lightning node.
+\newblock \url{https://github.com/LNOpenMetrics/lnmetrics.server}.
+
+\bibitem{lnmetrics-jupyter}
+V.~Palazzo.
+\newblock An initial analysis was conducted for the proposed rfc on the local
+  reputation for peer/channel scoring metric.
+\newblock \url{https://github.com/LNOpenMetrics/local-reputation-analysis}.
+
+\bibitem{lnmetrics-rfc}
+V.~Palazzo.
+\newblock Lightning network open metrics specification.
+\newblock \url{https://github.com/LNOpenMetrics/lnmetrics.rfc}.
 
 \bibitem{lnmetrics_localreputation}
 V.~Palazzo.
@@ -98,11 +126,32 @@ V.~Palazzo.
 \newblock
   \url{https://github.com/LNOpenMetrics/lnmetrics.rfc/blob/main/metrics/metric_1.md}.
 
+\bibitem{lnmetrics-client}
+V.~Palazzo.
+\newblock Reference implementation written in go to collect and report of the
+  lightning node metrics.
+\newblock \url{https://github.com/LNOpenMetrics/go-lnmetrics.reporter}.
+
+\bibitem{Palazzo_Estrazione_di_Informazioni_2021}
+V.~Palazzo and C.~Sartiani.
+\newblock {Estrazione di Informazioni dalla Blockchain di Bitcoin}.
+\newblock
+  \url{https://github.com/vincenzopalazzo/SpyCBlockThesis/releases/download/v0.2.5/VincenzoPalazzo_Tesi.pdf},
+  12 2019.
+
 \bibitem{DBLP:journals/corr/abs-2103-08576}
 R.~Pickhardt, S.~Tikhomirov, A.~Biryukov, and M.~Nowostawski.
 \newblock Security and privacy of lightning network payments with uncertain
   channel balances.
-\newblock \url{https://arxiv.org/abs/2103.08576}, 2021.
+\newblock {\em CoRR}, abs/2103.08576, 2021.
+
+\bibitem{DBLP:conf/networking/PietrzakS0Y21}
+K.~Pietrzak, I.~Salem, S.~Schmid, and M.~Yeo.
+\newblock Lightpir: Privacy-preserving route discovery for payment channel
+  networks.
+\newblock In Z.~Yan, G.~Tyson, and D.~Koutsonikolas, editors, {\em {IFIP}
+  Networking Conference, {IFIP} Networking 2021, Espoo and Helsinki, Finland,
+  June 21-24, 2021}, pages 1--9. {IEEE}, 2021.
 
 \bibitem{lightning-network-paper}
 J.~Poon and T.~Dryja.
@@ -118,21 +167,19 @@ N.~Saitug.
 
 \bibitem{cryptoeprint:2022/1454}
 C.~Shikhelman and S.~Tikhomirov.
-\newblock Unjamming lightning: A systematic approach.
-\newblock Cryptology ePrint Archive, Paper 2022/1454, 2022.
-\newblock \url{https://eprint.iacr.org/2022/1454}.
+\newblock Unjamming lightning: {A} systematic approach.
+\newblock {\em {IACR} Cryptol. ePrint Arch.}, page 1454, 2022.
 
 \bibitem{bip65}
 P.~Todd.
 \newblock {Bitcoin Improvement Proposals 65}.
 \newblock \url{https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki}.
 
-\bibitem{Palazzo_Estrazione_di_Informazioni_2021}
-P.~Vincenzo and C.~Sartiani.
-\newblock {Estrazione di Informazioni dalla Blockchain di Bitcoin}.
+\bibitem{lightning-network-ml-post-on-jamming}
+C.~K.-C. Vincenzo~Palazzo.
+\newblock Htlc endorsement for jamming mitigation.
 \newblock
-  \url{https://github.com/vincenzopalazzo/SpyCBlockThesis/releases/download/v0.2.5/VincenzoPalazzo_Tesi.pdf},
-  12 2019.
+  \url{https://lists.linuxfoundation.org/pipermail/lightning-dev/2023-May/003959.html}.
 
 \bibitem{visa-sheet}
 Visa.
@@ -144,6 +191,14 @@ Visa.
 G.~Walker.
 \newblock {Pay To Multisig}.
 \newblock \url{https://learnmeabitcoin.com/glossary/p2ms}.
+
+\bibitem{DBLP:conf/icdcn/ZabkaF0D21}
+P.~Zabka, K.~F{\"{o}}rster, S.~Schmid, and C.~Decker.
+\newblock Node classification and geographical analysis of the lightning
+  cryptocurrency network.
+\newblock In {\em {ICDCN} '21: International Conference on Distributed
+  Computing and Networking, Virtual Event, Nara, Japan, January 5-8, 2021},
+  pages 126--135. {ACM}, 2021.
 
 \bibitem{clboss}
 ZmnSCPxj.

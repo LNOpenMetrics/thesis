@@ -1,10 +1,23 @@
-@misc{Decker2015fast,
-	author=	{Christian Decker and Roger Wattenhofer},
-	title=	{{A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment Channels}},
-	booktitle=	{{17th International Symposium on Stabilization, Safety,  and Security of Distributed Systems (SSS), Edmonton, Canada}},
-	month=	{August},
-	year=	{2015},
-  howpublished = {\url{https://ieeexplore.ieee.org/document/6688704}}
+@inproceedings{Decker2015fast,
+  author       = {Christian Decker and
+                  Roger Wattenhofer},
+  editor       = {Andrzej Pelc and
+                  Alexander A. Schwarzmann},
+  title        = {A Fast and Scalable Payment Network with Bitcoin Duplex Micropayment
+                  Channels},
+  booktitle    = {Stabilization, Safety, and Security of Distributed Systems - 17th
+                  International Symposium, {SSS} 2015, Edmonton, AB, Canada, August
+                  18-21, 2015, Proceedings},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {9212},
+  pages        = {3--18},
+  publisher    = {Springer},
+  year         = {2015},
+  howpublished = {\url{https://doi.org/10.1007/978-3-319-21741-3\_1}},
+  doi          = {10.1007/978-3-319-21741-3\_1},
+  timestamp    = {Tue, 16 Aug 2022 23:04:25 +0200},
+  biburl       = {https://dblp.org/rec/conf/sss/DeckerW15.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 
 @misc{lightning-network-paper,
@@ -73,10 +86,9 @@
 
 @misc{bolt2,
   author = {Lightning Network Community},
-  title = {{Bolt 2}},
+  title = {{Basis of Lightning Technology 2}},
   howpublished = {\url{https://github.com/lightning/bolts/blob/master/02-peer-protocol.md}},
 }
-
 
 @misc{eltoo,
   author = {Christian Decker, Rusty Russell and Olaoluwa Osuntokun},
@@ -84,25 +96,28 @@
   howpublished = {\url{https://blockstream.com/eltoo.pdf}},
 }
 
-@misc{sphinx,
-      author = {George Danezis and Ian Goldberg},
-      title = {Sphinx: A Compact and Provably Secure Mix Format},
-      howpublished = {\url{https://eprint.iacr.org/2008/475}},
+@inproceedings{sphinx,
+  author       = {George Danezis and
+                  Ian Goldberg},
+  title        = {Sphinx: {A} Compact and Provably Secure Mix Format},
+  booktitle    = {30th {IEEE} Symposium on Security and Privacy (S{\&}P 2009), 17-20
+                  May 2009, Oakland, California, {USA}},
+  pages        = {269--282},
+  publisher    = {{IEEE} Computer Society},
+  year         = {2009},
+  url          = {https://doi.org/10.1109/SP.2009.15},
+  doi          = {10.1109/SP.2009.15},
+  timestamp    = {Fri, 24 Mar 2023 00:03:10 +0100},
+  biburl       = {https://dblp.org/rec/conf/sp/DanezisG09.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 
-@misc{nakamoto2009bitcoin,
-  abstract = {A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution. Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending. We propose a solution to the double-spending problem using a peer-to-peer network. The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work. The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power. As long as a majority of CPU power is controlled by nodes that are not cooperating to attack the network, they'll generate the longest chain and outpace attackers. The network itself requires minimal structure. Messages are broadcast on a best effort basis, and nodes can leave and rejoin the network at will, accepting the longest proof-of-work chain as proof of what happened while they were gone.},
-  added-at = {2022-06-15T13:43:05.000+0200},
-  author = {Nakamoto, Satoshi},
-  biburl = {https://www.bibsonomy.org/bibtex/2974d35fdb27dea57296ed2245556aa18/daniel_grm9},
-  interhash = {423c2cdff70ba0cd0bca55ebb164d770},
-  intrahash = {974d35fdb27dea57296ed2245556aa18},
-  keywords = {itsecseminar},
-  month = may,
-  timestamp = {2022-06-15T13:43:05.000+0200},
-  title = {Bitcoin: A Peer-to-Peer Electronic Cash System},
-  howpublished = {\url{http://www.bitcoin.org/bitcoin.pdf}},
-  year = 2009
+@article{nakamoto2009bitcoin,
+  title={Bitcoin: A peer-to-peer electronic cash system},
+  author={Nakamoto, Satoshi},
+  journal={Decentralized business review},
+  pages={21260},
+  year={2008}
 }
 
 @misc{back2002hashcash,
@@ -114,14 +129,11 @@
 }
 
 @misc{Palazzo_Estrazione_di_Informazioni_2021,
-  author = {Palazzo Vincenzo and Carlo Sartiani},
+  author = {Vincenzo Palazzo and Carlo Sartiani},
   doi = {10.0000/00000},
   journal = {University of Basilicata thesis},
   month = {12},
-  number = {1},
-  pages = {1--60},
   title = {{Estrazione di Informazioni dalla Blockchain di Bitcoin}},
-  volume = {1},
   year = {2019},
   howpublished = {\url{https://github.com/vincenzopalazzo/SpyCBlockThesis/releases/download/v0.2.5/VincenzoPalazzo_Tesi.pdf}}
 }
@@ -138,6 +150,65 @@
   howpublished = {\url{https://github.com/lnresearch/topology}},
   note = {Accessed: 2020-10-01},
   doi = {10.5281/zenodo.4088530}
+}
+
+@article{DBLP:journals/corr/abs-2002-02819,
+  author       = {Jian{-}Hong Lin and
+                  Kevin Primicerio and
+                  Tiziano Squartini and
+                  Christian Decker and
+                  Claudio J. Tessone},
+  title        = {Lightning Network: a second path towards centralisation of the Bitcoin
+                  economy},
+  journal      = {CoRR},
+  volume       = {abs/2002.02819},
+  year         = {2020},
+  url          = {https://arxiv.org/abs/2002.02819},
+  eprinttype    = {arXiv},
+  eprint       = {2002.02819},
+  timestamp    = {Mon, 10 Feb 2020 15:12:57 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2002-02819.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{DBLP:conf/icdcn/ZabkaF0D21,
+  author       = {Philipp Zabka and
+                  Klaus{-}Tycho F{\"{o}}rster and
+                  Stefan Schmid and
+                  Christian Decker},
+  title        = {Node Classification and Geographical Analysis of the Lightning Cryptocurrency
+                  Network},
+  booktitle    = {{ICDCN} '21: International Conference on Distributed Computing and
+                  Networking, Virtual Event, Nara, Japan, January 5-8, 2021},
+  pages        = {126--135},
+  publisher    = {{ACM}},
+  year         = {2021},
+  url          = {https://doi.org/10.1145/3427796.3427837},
+  doi          = {10.1145/3427796.3427837},
+  timestamp    = {Fri, 05 Feb 2021 10:38:29 +0100},
+  biburl       = {https://dblp.org/rec/conf/icdcn/ZabkaF0D21.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{DBLP:conf/networking/PietrzakS0Y21,
+  author       = {Krzysztof Pietrzak and
+                  Iosif Salem and
+                  Stefan Schmid and
+                  Michelle Yeo},
+  editor       = {Zheng Yan and
+                  Gareth Tyson and
+                  Dimitrios Koutsonikolas},
+  title        = {LightPIR: Privacy-Preserving Route Discovery for Payment Channel Networks},
+  booktitle    = {{IFIP} Networking Conference, {IFIP} Networking 2021, Espoo and Helsinki,
+                  Finland, June 21-24, 2021},
+  pages        = {1--9},
+  publisher    = {{IEEE}},
+  year         = {2021},
+  url          = {https://doi.org/10.23919/IFIPNetworking52078.2021.9472205},
+  doi          = {10.23919/IFIPNetworking52078.2021.9472205},
+  timestamp    = {Sat, 09 Apr 2022 12:39:41 +0200},
+  biburl       = {https://dblp.org/rec/conf/networking/PietrzakS0Y21.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 
 @misc{lnbook,
@@ -158,35 +229,39 @@
   howpublished = {\url{https://github.com/LNOpenMetrics/lnmetrics.rfc/blob/main/metrics/metric_1.md}},
 }
 
-@misc{DBLP:journals/corr/abs-2103-08576,
-  author    = {Rene Pickhardt and
-               Sergei Tikhomirov and
-               Alex Biryukov and
-               Mariusz Nowostawski},
-  title     = {Security and Privacy of Lightning Network Payments with Uncertain
-               Channel Balances},
-  journal   = {CoRR},
-  volume    = {abs/2103.08576},
-  year      = {2021},
-  howpublished = {\url{https://arxiv.org/abs/2103.08576}},
-  eprinttype = {arXiv},
-  eprint    = {2103.08576},
-  timestamp = {Tue, 23 Mar 2021 16:29:47 +0100},
-  biburl    = {https://dblp.org/rec/journals/corr/abs-2103-08576.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+@article{DBLP:journals/corr/abs-2103-08576,
+  author       = {Rene Pickhardt and
+                  Sergei Tikhomirov and
+                  Alex Biryukov and
+                  Mariusz Nowostawski},
+  title        = {Security and Privacy of Lightning Network Payments with Uncertain
+                  Channel Balances},
+  journal      = {CoRR},
+  volume       = {abs/2103.08576},
+  year         = {2021},
+  url          = {https://arxiv.org/abs/2103.08576},
+  eprinttype    = {arXiv},
+  eprint       = {2103.08576},
+  timestamp    = {Tue, 23 Mar 2021 16:29:47 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2103-08576.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 
-@misc{cryptoeprint:2022/1454,
-      author = {Clara Shikhelman and Sergei Tikhomirov},
-      title = {Unjamming Lightning: A Systematic Approach},
-      howpublished = {Cryptology ePrint Archive, Paper 2022/1454},
-      year = {2022},
-      note = {\url{https://eprint.iacr.org/2022/1454}},
-      url = {https://eprint.iacr.org/2022/1454}
+@article{cryptoeprint:2022/1454,
+  author       = {Clara Shikhelman and
+                  Sergei Tikhomirov},
+  title        = {Unjamming Lightning: {A} Systematic Approach},
+  journal      = {{IACR} Cryptol. ePrint Arch.},
+  pages        = {1454},
+  year         = {2022},
+  url          = {https://eprint.iacr.org/2022/1454},
+  timestamp    = {Wed, 23 Nov 2022 17:31:07 +0100},
+  biburl       = {https://dblp.org/rec/journals/iacr/ShikhelmanT22.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
 
 @misc{jsonrpc,
-  title = {JSON-RPC 2.0 Specification},
+  title = {{JSON-RPC 2.0 Specification}},
   howpublished = {\url{https://www.jsonrpc.org/specification}},
 }
 
@@ -217,4 +292,34 @@
 @misc{tor,
   title = {Tor Network},
   howpublished = {\url{https://2019.www.torproject.org/about/overview.html.en}},
+}
+
+@misc{lnmetrics-client,
+  title = {Reference implementation written in Go to collect and report of the lightning node metrics},
+  author = {Vincenzo Palazzo},
+  howpublished = {\url{https://github.com/LNOpenMetrics/go-lnmetrics.reporter}},
+}
+
+@misc{lnmetrics-server,
+  title = {A Graph QL server that is used to report the metrics of each lightning node},
+  author = {Vincenzo Palazzo},
+  howpublished = {\url{https://github.com/LNOpenMetrics/lnmetrics.server}},
+}
+
+@misc{lnmetrics-rfc,
+  title = {Lightning Network Open Metrics Specification},
+  author = {Vincenzo Palazzo},
+  howpublished = {\url{https://github.com/LNOpenMetrics/lnmetrics.rfc}},
+}
+
+@misc{lnmetrics-jupyter,
+  title = {An initial analysis was conducted for the proposed RFC on the Local Reputation for Peer/Channel scoring metric.},
+  author = {Vincenzo Palazzo},
+  howpublished = {\url{https://github.com/LNOpenMetrics/local-reputation-analysis}},
+}
+
+@misc{lightning-network-ml-post-on-jamming,
+  title = {HTLC Endorsement for Jamming Mitigation},
+  author = {Vincenzo Palazzo, Carla Kirk-Cohen},
+  howpublished = {\url{https://lists.linuxfoundation.org/pipermail/lightning-dev/2023-May/003959.html}},
 }
