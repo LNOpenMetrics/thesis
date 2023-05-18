@@ -20,13 +20,13 @@ to the protocol itself, and the underlying protocol such as Bitcoin. However,
 implementing these kinds of changes to a protocol such as the Lightning Network
 can take time and evaluation of different ideas.
 
-In addition, currently, the {\LN} lacks public data to involve researchers
-where they can evaluate different kinds of protocol proposals and
+In addition, currently, the {\LN} lacks public data to be used by researchers
+to evaluate different kinds of protocol proposals and the
 potential impact on the network. We introduce in Chapter \ref{sec:problem_and_state_of_the_art}
 two problems where having public data on real Lightning Network nodes can be valuable.
 
-Therefore, this lack of data restricts access to research topics for
-people not strictly involved in the Lightning Network protocol development.
+Therefore, this lack of data restricts the possibility of proposing new research
+improvements for people not strictly involved in the Lightning Network protocol development.
 To address this need, this thesis aims to develop a collection of tools for
 running Lightning Network nodes with daily activity. The data collected by
 Lightning Network users will be analyzed by one or more centralized
@@ -45,7 +45,8 @@ metrics to understand daily node performance better.
 We propose an open-source framework
 for defining and collecting these metrics to meet these goals. The framework
 is implemented through a lnmetrics Request for Comments (RFC), where is it possible to define
-in a formal way the metric data and to iterate on the data format with the help of a community.
+in a formal way the metrics and to iterate on the definition of the data format with the
+help of a community.
 The data is collected by using a public server with a public API, with the possibility to
 self-host the server on hardware with at least Raspberry PI 2 capability.
 
@@ -65,8 +66,8 @@ Our solution is heavily based on compression due to storing redundant JSON recei
 by the Lightning Network nodes. Due to the small space needed, we can run our solution on a
 wide range of common hardware. We discuss the space requirements in Chapter \ref{chap:propsol}.
 Therefore, the lower resource consumption and the possibility of receiving data from a
-centralized server also allow for a lower level of expertise required to conduct small
-research for the Lightning Network. This also enables bachelor students to conduct
+centralized server also allow for a lower level of expertise required to conduct
+research for the Lightning Network. This also enables students to conduct
 experiments, not just with a theoretical scope, in the near future.
 
 In addition, to incentivize node operators to provide and share their information, we allow our
@@ -83,11 +84,13 @@ state of the art (Chapter \ref{sec:problem_and_state_of_the_art}). Subsequently,
 a detailed solution (Chapter \ref{chap:propsol}), which utilizes specific technologies
 (Chapter \ref{chap:tech}), and discuss possible future developments in our concluding chapter
 (Chapter \ref{chap:conclusion}). Overall, our thesis presents a comprehensive analysis of the
-Bitcoin protocol explores potential solutions to its scalability issues and offers a novel
+Bitcoin protocol, explores potential solutions to its scalability issues and offers a novel
 solution that addresses a specific problem to allow more accessible data to researchers of the
 field.
 
 \section*{Our Contribution}
+
+In this section, we summarize the main contributions of the thesis.
 
 \begin{itemize}
   \item We introduce a general framework for \textbf{defining, collecting, and analyzing Lightning Network Metrics}.
