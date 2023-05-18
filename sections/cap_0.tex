@@ -86,3 +86,24 @@ a detailed solution (Chapter \ref{chap:propsol}), which utilizes specific techno
 Bitcoin protocol explores potential solutions to its scalability issues and offers a novel
 solution that addresses a specific problem to allow more accessible data to researchers of the
 field.
+
+\section*{Our Contribution}
+
+\begin{itemize}
+  \item We introduce a general framework for \textbf{defining, collecting, and analyzing Lightning Network Metrics}.
+        This framework drives data analyses on the Lightning Network and establishes a general process for proposing metrics
+        to achieve consensus across different implementations.
+  \item We contribute to \textbf{developing basic tools for Lightning Network research}. We develop the client that runs
+        on a Lightning Network node \cite{lnmetrics-client}, implement a server \cite{lnmetrics-server} to aggregate and
+        analyze metrics, and initiate the Request for Comment (RFC) initiative \cite{lnmetrics-rfc}.
+  \item We contribute to the research community by \textbf{providing access to real-node Lightning Network data},
+        which is typically rare to obtain due to the need for Lightning nodes with real Bitcoin involvement.
+  \item We collaborate with the Lightning Network community \cite{lightning-network-ml-post-on-jamming} by \textbf{proposing
+        lnmetrics as a framework to analyze the different metrics} proposed to mitigate the Channel Jamming Problem \cite{cryptoeprint:2022/1454}.
+  \item We contribute to the core lightning ecosystem by \textbf{developing a new modular Go language API} \ref{sec:go-api}
+        that improves performance when interacting with core lightning.
+  \item We provide an \textbf{initial Lightning Network Metric called \emph{Local Reputation} \cite{lnmetrics_localreputation}
+        to support Lightning Network users} in managing their Lightning Node.
+  \item Finally, we provide an \textbf{initial analysis of data collected from a real Lightning Network Node}, making it available
+        through a Jupyter Notebook \cite{lnmetrics-jupyter} and an interactive website at \url{https://lnmetrics.info}.
+\end{itemize}

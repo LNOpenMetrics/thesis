@@ -3,6 +3,7 @@
  (lambda ()
    (LaTeX-add-labels
     "chap:tech"
+    "sec:go-api"
     "fig:api-go-bench")
    (LaTeX-add-environments
     '("chapquote" LaTeX-env-args ["argument"] 1)))

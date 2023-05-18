@@ -21,6 +21,9 @@
     "Palazzo_Estrazione_di_Informazioni_2021"
     "learnmeabitcoin:p2ms"
     "lngossip"
+    "DBLP:journals/corr/abs-2002-02819"
+    "DBLP:conf/icdcn/ZabkaF0D21"
+    "DBLP:conf/networking/PietrzakS0Y21"
     "lnbook"
     "clboss"
     "lnmetrics_localreputation"
@@ -31,7 +34,12 @@
     "gqlgen"
     "graphql"
     "glightning"
-    "tor")
+    "tor"
+    "lnmetrics-client"
+    "lnmetrics-server"
+    "lnmetrics-rfc"
+    "lnmetrics-jupyter"
+    "lightning-network-ml-post-on-jamming")
    (LaTeX-add-environments
     '("chapquote" LaTeX-env-args ["argument"] 1)))
  '(or :bibtex :latex))

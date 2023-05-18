@@ -14,6 +14,8 @@
     "ex:p2ms_example"
     "fig:stackmultsing01"
     "fig:stackmultsing02"
-    "fig:stackmultsing03"))
+    "fig:stackmultsing03")
+   (LaTeX-add-environments
+    '("chapquote" LaTeX-env-args ["argument"] 1)))
  :latex)
 
